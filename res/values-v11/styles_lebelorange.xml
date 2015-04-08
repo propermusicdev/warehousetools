@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <style name="AutoCompleteTextViewlebelOrange" parent="android:Widget.Holo.Light.AutoCompleteTextView">
+      <item name="android:dropDownSelector">@drawable/lebelorange_list_selector_holo_light</item>
+	    <item name="android:background">@drawable/lebelorange_edit_text_holo_light</item>
+  </style>
+
+  <style name="ButtonlebelOrange" parent="android:Widget.Holo.Light.Button">
+	  <item name="android:background">@drawable/lebelorange_btn_default_holo_light</item>
+  </style>
+
+  <style name="ImageButtonlebelOrange" parent="android:Widget.Holo.Light.ImageButton">
+	  <item name="android:background">@drawable/lebelorange_btn_default_holo_light</item>
+  </style>
+
+  <style name="SpinnerlebelOrange" parent="android:Widget.Holo.Light.Spinner">
+      <item name="android:background">@drawable/lebelorange_spinner_background_holo_light</item>
+      <item name="android:dropDownSelector">@drawable/lebelorange_list_selector_holo_light</item>
+  </style>
+
+  <style name="ProgressBarlebelOrange" parent="android:Widget.Holo.Light.ProgressBar.Horizontal">
+      <item name="android:progressDrawable">@drawable/lebelorange_progress_horizontal_holo_light</item>
+      <item name="android:indeterminateDrawable">@drawable/lebelorange_progress_indeterminate_horizontal_holo_light</item>
+  </style>
+
+  <style name="SeekBarlebelOrange" parent="android:Widget.Holo.Light.SeekBar">
+      <item name="android:progressDrawable">@drawable/lebelorange_scrubber_progress_horizontal_holo_light</item>
+      <item name="android:indeterminateDrawable">@drawable/lebelorange_scrubber_progress_horizontal_holo_light</item>
+      <item name="android:thumb">@drawable/lebelorange_scrubber_control_selector_holo_light</item>
+  </style>
+
+  <style name="RatingBarlebelOrange" parent="android:Widget.Holo.Light.RatingBar">
+      <item name="android:progressDrawable">@drawable/lebelorange_ratingbar_full_holo_light</item>
+      <item name="android:indeterminateDrawable">@drawable/lebelorange_ratingbar_full_holo_light</item>
+  </style>
+
+  <style name="RatingBarBiglebelOrange" parent="android:Widget.Holo.Light.RatingBar.Indicator">
+      <item name="android:progressDrawable">@drawable/lebelorange_ratingbar_holo_light</item>
+      <item name="android:indeterminateDrawable">@drawable/lebelorange_ratingbar_holo_light</item>
+  </style>
+
+  <style name="RatingBarSmalllebelOrange" parent="android:Widget.Holo.Light.RatingBar.Small">
+      <item name="android:progressDrawable">@drawable/lebelorange_ratingbar_small_holo_light</item>
+      <item name="android:indeterminateDrawable">@drawable/lebelorange_ratingbar_small_holo_light</item>
+  </style>
+
+  <style name="TogglelebelOrange" parent="android:Widget.Holo.Light.Button.Toggle">
+      <item name="android:background">@drawable/lebelorange_btn_toggle_holo_light</item>
+  </style>
+
+</resources>

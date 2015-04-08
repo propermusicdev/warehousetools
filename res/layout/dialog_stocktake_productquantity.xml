@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="#222222">
+    <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <ImageView android:id="@+id/imgSTDImage"
+                   android:layout_width="50dp"
+                   android:layout_height="50dp"
+                   android:layout_gravity="left"
+                   android:src="@drawable/dialod64info"
+                   android:contentDescription="title logo"/>
+        <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Confirm Quantity"
+                android:gravity="center_horizontal"
+                android:textColor="#ffffff"
+                android:id="@+id/txtvSTDTitle"/>
+    </LinearLayout>
+    <View android:layout_width="fill_parent" android:layout_height="1dp"
+          android:layout_marginBottom="10dp" android:background="@android:color/darker_gray"/>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lytSTDHolder">
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:padding="1dp"
+                android:id="@+id/lytSTDHolderQty">
+            <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="3dp"
+                    android:hint="1"
+                    android:textColorHint="#ffffff"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:inputType="number"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"
+                    android:selectAllOnFocus="true"
+                    android:id="@+id/etxtSTDQty"/>
+        </LinearLayout>
+        <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginRight="4dp"
+                android:layout_gravity="center"
+                android:layout_weight="3"
+                android:background="@drawable/button_green"
+                android:src="@drawable/appbaradd"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:id="@+id/bnSTDPlus"/>
+        <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_weight="3"
+                android:layout_marginRight="3dp"
+                android:background="@drawable/button_red"
+                android:src="@drawable/appbarminus"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:id="@+id/bnSTDMinus"/>
+    </LinearLayout>
+    <View android:layout_width="fill_parent" android:layout_height="1dp"
+          android:layout_marginBottom="10dp" android:background="@android:color/darker_gray"/>       <!-- Line Separator -->
+    <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <LinearLayout android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="horizontal"
+                      android:layout_marginTop="2dp"
+                      android:id="@+id/lytSTDCmdbutons">
+            <Button android:text="Enter"
+                    android:background="@drawable/button_yellow"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="6"
+                    style="@style/ButtonTextTiny"
+                    android:drawableLeft="@drawable/appbarcursorhand"
+                    android:id="@+id/bnSTDByHand"/>
+            <Button android:text="DONE"
+                    android:background="@drawable/button_blue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="6"
+                    style="@style/ButtonTextTiny"
+                    android:drawableLeft="@drawable/appbarthumbsup"
+                    android:id="@+id/bnSTDFinish"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

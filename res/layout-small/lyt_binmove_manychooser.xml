@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#fcfced">
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="18dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/intro_movechooser"
+            android:textColor="#6c6c6c"
+            android:id="@+id/txtvIntro"/>
+    <Button android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:text="@string/action_wholebin"
+            android:id="@+id/bnMoveChooserWholeBin"
+            android:background="@drawable/button_purpple"
+            android:width="190dp"
+            android:height="40dp"
+            android:layout_gravity="center"
+            style="@style/ButtonTextTiny"
+            android:drawableLeft="@drawable/appbarlayoutcollapseright"/>
+    <Button android:layout_margin="10dp"
+            android:text="@string/action_bin"
+            android:id="@+id/bnMoveChooserMany"
+            android:background="@drawable/button_green"
+            android:width="190dp"
+            android:height="40dp"
+            android:layout_gravity="center"
+            style="@style/ButtonTextTiny"
+            android:drawableLeft="@drawable/appbarsocialstackoverflow"/>
+    <Button android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:text="@string/action_exit"
+            android:id="@+id/bnExitActMoveChooser"
+            android:background="@drawable/button_red"
+            android:width="190dp"
+            android:height="40dp"
+            android:layout_gravity="center"
+            style="@style/ButtonTextTiny"
+            android:drawableLeft="@drawable/appbarpower"/>
+</LinearLayout>

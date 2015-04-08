@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+      android:orientation="vertical"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="@drawable/button_beige">
+    <TextView android:id="@+id/txtvRPChooserIntro"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginBottom="60dp"
+            android:textColor="#444444"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:text="Beta version"
+            android:gravity="center"/>
+    <Button android:layout_width="fill_parent"
+            android:layout_margin="10dp"
+            android:text="New Work Session"
+            android:id="@+id/bnRPChooserNew"
+            android:background="@drawable/button_blue"
+            android:layout_gravity="center"
+            style="@style/ButtonTextSmall"
+            android:drawableLeft="@drawable/appbar_new"/>
+    <Button android:layout_width="fill_parent"
+            android:layout_margin="10dp"
+            android:text="Find Work and Continue"
+            android:id="@+id/bnRPChooserContinue"
+            android:background="@drawable/button_green"
+            android:layout_gravity="center"
+            style="@style/ButtonTextSmall"
+            android:drawableLeft="@drawable/appbar_navigate_next"/>
+    <Button android:layout_width="fill_parent"
+            android:layout_margin="10dp"
+            android:text="@string/action_exit"
+            android:id="@+id/bnExitActReplenChooser"
+            android:background="@drawable/button_red"
+            android:layout_gravity="center"
+            style="@style/ButtonText"
+            android:drawableLeft="@drawable/appbarpower"/>
+</LinearLayout>

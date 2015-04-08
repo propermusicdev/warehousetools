@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:padding="40dp"
+              android:background="@drawable/flat_button_sandrift">
+    <LinearLayout android:layout_width="fill_parent" android:layout_weight="0.7" android:layout_height="0dp"
+                    android:orientation="vertical" android:background="@drawable/flat_button_beige"
+                    android:layout_marginTop="40dp" android:layout_marginBottom="20dp" android:padding="10dp">
+        <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Header Title"
+                android:textColor="#ffffff"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:id="@+id/txtvStockHeaderProductTitle"/>
+        <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/txtvStockHeaderProductResponse"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_vertical_margin"
+                android:layout_marginRight="@dimen/activity_vertical_margin"/>
+    </LinearLayout>
+<!--    ******************************        Separator       *************************************     -->
+    <LinearLayout android:layout_width="fill_parent" android:layout_weight="0.3"
+                  android:layout_height="0dp" android:orientation="vertical" android:padding="30dp"
+                  android:background="@drawable/border_tranparent_grey">
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal" android:layout_marginBottom="30dp">
+            <TextView android:layout_width="0dp" android:layout_weight="0.4" android:layout_height="wrap_content"
+                      android:gravity="center" android:textAppearance="?android:attr/textAppearanceLarge"
+                      android:textStyle="bold" android:textColor="#ffffff" android:text="Barcode:"
+                      android:id="@+id/lblStockHeaderProductBarcode"/>
+            <EditText android:layout_width="0dp" android:layout_weight="0.3" android:layout_height="wrap_content"
+                      android:gravity="center" android:textAppearance="?android:attr/textAppearanceLarge"
+                      android:textStyle="bold" android:textColor="#ffffff" android:inputType="number"
+                      android:id="@+id/txtStockHeaderBarcode"/>
+            <Button android:layout_width="0dp" android:layout_weight="0.3" android:layout_height="wrap_content"
+                    android:text="By Hand" android:id="@+id/bnStockHeaderByHand"
+                    android:background="@drawable/button_blue" style="@style/ButtonText"
+                    android:drawableLeft="@drawable/appbarcursorhand" />
+        </LinearLayout>
+        <Button android:layout_width="fill_parent" android:layout_height="wrap_content"
+                android:layout_margin="10dp" android:text="Scan" android:id="@+id/bnStockHeaderProductScan"
+                android:background="@drawable/button_blue" style="@style/ButtonText"
+                android:drawableLeft="@drawable/appbarbarcode" android:drawableRight="@drawable/appbarbarcode"/>
+        <Button android:layout_width="fill_parent" android:layout_height="wrap_content"
+                android:layout_margin="10dp" android:text="Proceed" android:id="@+id/bnStockHeaderProceed"
+                android:background="@drawable/button_green" style="@style/ButtonText"
+                android:drawableLeft="@drawable/appbarbarcode" android:drawableRight="@drawable/appbarbarcode"/>
+    </LinearLayout>
+</LinearLayout>

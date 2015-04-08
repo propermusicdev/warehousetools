@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:padding="20dp"
+              android:background="@drawable/flat_button_sandrift">
+    <LinearLayout android:orientation="vertical"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:padding="@dimen/activity_horizontal_margin"
+                  android:background="@drawable/button_beige"
+                  android:id="@+id/lytReplenScanProduct">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/intro_Description"
+                android:id="@+id/txtvReplenScanProductIntro"
+                android:textColor="#ffffff"/>
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:layout_marginBottom="10dp">
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="0.5" android:text="Current Palate:"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#ffffff"/>
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                      android:layout_weight="0.5" android:textAppearance="?android:attr/textAppearanceLarge"
+                      android:textColor="#ffffff" android:text="TAAA1" android:gravity="center"
+                      android:textStyle="bold" android:id="@+id/txtvReplenScanProductPalate"/>
+        </LinearLayout>
+        <Button android:layout_width="fill_parent"
+                android:layout_marginBottom="20dp"
+                android:text="@string/but_start"
+                android:id="@+id/bnReplenScanProductPerformScan"
+                android:background="@drawable/button_blue"
+                android:layout_gravity="center"
+                style="@style/ButtonText"
+                android:drawableLeft="@drawable/appbarbarcode"/>
+
+        <Button android:layout_width="fill_parent"
+                android:layout_marginTop="20dp"
+                android:text="@string/action_exit"
+                android:id="@+id/bnExitActReplenScanProduct"
+                android:background="@drawable/button_red"
+                android:layout_gravity="center"
+                style="@style/ButtonText"
+                android:drawableLeft="@drawable/appbarpower"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:textColor="#ffffff"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/label_Barcode"
+                android:id="@+id/txtvReplenScanProduct"/>
+        <LinearLayout android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="horizontal">
+            <EditText
+                    android:layout_width="0dp"
+                    android:layout_weight="0.6"
+                    android:layout_height="fill_parent"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:hint="@string/hint_barcode"
+                    android:textColorHint="#c6c6c6"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:inputType="phone"
+                    android:capitalize="characters"
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"
+                    android:background="@null"
+                    android:id="@+id/etxtReplenScanProductBarcode"/>
+            <Button android:text="ByHand"
+                    android:background="@drawable/button_blue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    style="@style/ButtonTextTiny"
+                    android:drawableLeft="@drawable/appbarcursorhand"
+                    android:id="@+id/bnEnterBinReplenSelectProduct"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

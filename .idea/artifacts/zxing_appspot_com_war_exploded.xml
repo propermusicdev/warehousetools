@@ -1,0 +1,24 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="zxing.appspot.com:war exploded">
+    <output-path>$PROJECT_DIR$/../AndroidSupportLibrary/zxing-master/zxing.appspot.com/target/zxing.appspot.com-3.1.1-SNAPSHOT</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="zxing.appspot.com" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: com.google.gwt:gwt-servlet:2.6.1" />
+          <element id="library" level="project" name="Maven: com.google.gwt:gwt-user:2.6.1" />
+          <element id="library" level="project" name="Maven: javax.validation:validation-api:1.0.0.GA" />
+          <element id="library" level="project" name="Maven: javax.validation:validation-api:sources:1.0.0.GA" />
+          <element id="library" level="project" name="Maven: org.json:json:20090211" />
+        </element>
+      </element>
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="C:\Users\Lebel\IdeaProjects\AndroidSupportLibrary\zxing-master\zxing.appspot.com\target/MANIFEST.MF" />
+      </element>
+      <element id="javaee-facet-resources" facet="zxing.appspot.com/web/Web" />
+      <element id="gwt-compiler-output" facet="zxing.appspot.com/gwt/GWT" />
+    </root>
+  </artifact>
+</component>

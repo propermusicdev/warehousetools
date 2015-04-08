@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+    <LinearLayout
+            android:id="@+id/lytOutterProductMoveDialog"
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+        <LinearLayout
+                android:id="@+id/lytHeaderProductMoveDialog"
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/button_black">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/title_descision"
+                    android:id="@+id/txtvHeaderTitleProductMoveDialog"
+                    android:layout_gravity="center"
+                    android:textColor="#ffffff"/>
+        </LinearLayout>
+        <LinearLayout
+                android:id="@+id/lytBodyProductMoveDialog"
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:background="#c6c6c6">
+
+
+            <TextView
+                    android:id="@+id/lblIntroProductMoveDialog"
+                    android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000000"
+                    android:text="@string/LoreIpsum"/>
+
+            <Button android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                    android:text="@string/but_yes"
+                    android:id="@+id/bnContinueProductMoveDialog"
+                    android:background="@drawable/button_green"
+                    style="@style/ButtonText"
+                    android:drawableLeft="@drawable/appbarcheckmarkthick"/>
+
+            <Button android:text="@string/but_no"
+                    android:id="@+id/bnCloseProductMoveDialog"
+                    android:background="@drawable/button_red"
+                    style="@style/ButtonText"
+                    android:drawableLeft="@drawable/appbarnoentry"/>
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

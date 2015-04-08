@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/flat_button_sandrift">
+    <RadioGroup android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:orientation="vertical" android:id="@+id/rgBCKScanMode" android:layout_gravity="center_horizontal">
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="30dp"
+                android:orientation="horizontal">
+            <!--<View android:layout_width="4dp" android:layout_height="1dp" />-->
+            <RadioButton android:layout_width="wrap_content" android:layout_height="fill_parent"
+                         android:id="@+id/rdBCKBarcode" android:text="Product" android:textColor="#ffffff" android:textAppearance="?android:attr/textAppearanceSmall"/>
+            <View android:layout_width="4dp" android:layout_height="1dp" />
+            <View android:layout_width="2dp" android:layout_height="fill_parent"
+                  android:layout_marginBottom="4dp" android:background="@android:color/darker_gray"/>
+            <View android:layout_width="4dp" android:layout_height="1dp" />
+            <RadioButton android:layout_width="wrap_content" android:layout_height="fill_parent"
+                         android:id="@+id/rdBCKSrcBin"  android:text="Src Bin" android:textColor="#ffffff" android:textAppearance="?android:attr/textAppearanceSmall"/>
+            <View android:layout_width="4dp" android:layout_height="1dp" />
+            <View android:layout_width="2dp" android:layout_height="fill_parent"
+                  android:layout_marginBottom="4dp" android:background="@android:color/darker_gray"/>
+            <View android:layout_width="4dp" android:layout_height="1dp" />
+            <RadioButton android:layout_width="wrap_content" android:layout_height="fill_parent"
+                         android:id="@+id/rdBCKDstBin" android:text="Dst Bin" android:textColor="#ffffff" android:textAppearance="?android:attr/textAppearanceSmall"/>
+        </LinearLayout>
+        <!--<LinearLayout android:layout_width="fill_parent" android:layout_height="30dp"-->
+                      <!--android:orientation="horizontal" android:layout_margin="2dp">-->
+            <!--<View android:layout_width="20dp" android:layout_height="1dp" />-->
+            <!--<RadioButton android:layout_width="wrap_content" android:layout_height="fill_parent"-->
+                         <!--android:id="@+id/rdBCKBarcode" android:text="Product" android:textColor="#ffffff" android:textAppearance="?android:attr/textAppearanceSmall"/>-->
+            <!--<View android:layout_width="20dp" android:layout_height="1dp" />-->
+            <!--<View android:layout_width="2dp" android:layout_height="fill_parent"-->
+                  <!--android:layout_marginBottom="10dp" android:background="@android:color/darker_gray"/>-->
+            <!--<View android:layout_width="20dp" android:layout_height="1dp" />-->
+            <!--<RadioButton android:layout_width="wrap_content" android:layout_height="fill_parent"-->
+                         <!--android:id="@+id/rdBCKBin"  android:text="B" android:textColor="#ffffff" android:textAppearance="?android:attr/textAppearanceSmall"/>-->
+        <!--</LinearLayout>-->
+    </RadioGroup>
+    <LinearLayout
+            android:id="@+id/lytOuterMain"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:background="@drawable/button_beige"
+            android:padding="20dp">
+        <Button android:layout_width="fill_parent"
+                android:layout_marginBottom="20dp"
+                android:text="New Move"
+                android:id="@+id/bnBCKScan"
+                android:background="@drawable/button_green"
+                android:layout_gravity="center"
+                style="@style/ButtonTextSmall"
+                android:drawableLeft="@drawable/appbarbarcode"/>
+        <Button android:layout_width="fill_parent"
+                android:layout_marginBottom="20dp"
+                android:text="Submit"
+                android:id="@+id/bnBCKContinue"
+                android:background="@drawable/button_palebrown"
+                android:layout_gravity="center"
+                style="@style/ButtonTextSmall"
+                android:drawableLeft="@drawable/appbar_navigate_next"/>
+        <Button android:layout_width="fill_parent"
+                android:layout_marginTop="20dp"
+                android:text="@string/action_exit"
+                android:id="@+id/bnExitActCheckBin"
+                android:background="@drawable/button_red"
+                android:layout_gravity="center"
+                style="@style/ButtonTextSmall"
+                android:drawableLeft="@drawable/appbarpower"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Bin / Product"
+                android:id="@+id/lblBCKBin"/>
+        <LinearLayout android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="horizontal">
+            <EditText
+                    android:layout_width="0dp"
+                    android:layout_weight="0.6"
+                    android:layout_height="fill_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:hint="@string/hint_bincode"
+                    android:textColorHint="#6c6c6c"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:inputType="textCapCharacters"
+                    android:capitalize="characters"
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"
+                    android:background="@null"
+                    android:id="@+id/etxtBCKScan"/>
+            <Button android:text="ByHand"
+                    android:background="@drawable/button_green"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    style="@style/ButtonTextTiny"
+                    android:drawableLeft="@drawable/appbarcursorhand"
+                    android:id="@+id/bnBCKEnterBin"/>
+        </LinearLayout>
+        <ListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/listView" android:layout_gravity="center_horizontal"/>
+    </LinearLayout>
+</LinearLayout>

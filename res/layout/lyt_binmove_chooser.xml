@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:background="@drawable/flat_button_sandrift">
+    <LinearLayout
+            android:id="@+id/lytOuterMain"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:background="@drawable/button_beige"
+            android:padding="20dp">
+        <LinearLayout
+                android:id="@+id/lytChooseMain"
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="40dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/intro_move"
+                    android:textColor="#ffffff"
+                    android:id="@+id/txtvIntro"/>
+            <Button android:layout_marginLeft="20dp"
+                    android:layout_width="fill_parent"
+                    android:text="@string/action_single"
+                    android:id="@+id/bnSingleMove"
+                    android:background="@drawable/button_blue"
+                    android:layout_gravity="center"
+                    style="@style/ButtonTextSmall"
+                    android:drawableLeft="@drawable/appbararrowright"/>
+            <Button android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_width="match_parent"
+                    android:text="@string/action_bin"
+                    android:id="@+id/bnBinMove"
+                    android:background="@drawable/button_green"
+                    android:layout_gravity="center"
+                    style="@style/ButtonTextSmall"
+                    android:drawableLeft="@drawable/appbarlayoutcollapseright"/>
+            <Button android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_width="match_parent"
+                    android:text="@string/queries_text"
+                    android:id="@+id/bnQueries"
+                    android:background="@drawable/button_yellow"
+                    android:layout_gravity="center"
+                    style="@style/ButtonTextSmall"
+                    android:drawableLeft="@drawable/appbarpagesearch"/>
+            <Button android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_width="match_parent"
+                    android:text="@string/action_exit"
+                    android:id="@+id/bnExitActChooser"
+                    android:background="@drawable/button_red"
+                    android:layout_gravity="center"
+                    style="@style/ButtonTextSmall"
+                    android:drawableLeft="@drawable/appbarpower"/>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

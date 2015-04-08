@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Warehouse Tools</string>
+    <string name="app_error">App Error</string>
+    <string name="app_error_message">I am very sorry, application error, the exit \n Please submit a bug report, we will fix the problem as soon as possible</string>
+    <string name="title_chooseDest">Choose Destination Bin</string>
+    <string name="title_descision">Confirm Decision</string>
+    <string name="tittle_footer">My Footer</string>
+    <string name="LoreIpsum">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only</string>
+    <string name="intro_move">Would you like to move a Single (one) product or Many?</string>
+    <string name="intro_movechooser">Would you like to move Many products or a Whole (entire) bin?</string>
+    <string name="intro_single">Please scan the single product to be relocated</string>
+    <string name="intro_partial">Would you like to move a whole bin or just some (partial) </string>
+    <string name="intro_Description">If you cannot scan code then manually enter it by hand</string>
+    <string name="intro_qryChooserDescription">Here you can find out information about a product or bin before deciding to make a bin move</string>
+    <string name="action_single">Move Single Product</string>
+    <string name="action_bin">Move Many Products</string>
+    <string name="action_wholebin">Move Whole Bin</string>
+    <string name="action_qryBarcode">Search Barcode</string>
+    <string name="action_qryBin">Search Bin</string>
+    <string name="action_qryBarcodeBin">Search Barcode &amp; Bin</string>
+    <string name="action_exit">Exit</string>
+    <string name="action_scansingle">Scan Product</string>
+    <string name="action_dest">Scan Destination Bin</string>
+    <string name="action_src">Scan Source Bin</string>
+    <string name="action_srcBin">Scan Src Bin</string>
+    <string name="action_destBin">Scan Dst Bin</string>
+    <string name="loggeduser">[User Authenticated]</string>
+    <string name="action_login">LogIn</string>
+    <string name="action_logout">LogOut</string>
+    <string name="hint_barcode">eg: 79753511692</string>
+    <string name="hint_bincode">eg: 1HCH5</string>
+    <string name="sampletext">SampleText</string>
+    <string name="defaultLabelText">Empty TextView</string>
+    <string name="but_start">Start Scan</string>
+    <string name="but_stop">Stop Scan</string>
+    <string name="but_startbarcode">Scan Barcode</string>
+    <string name="but_startbin">Scan Bin</string>
+    <string name="but_yes">YES</string>
+    <string name="but_no">NO</string>
+    <string name="but_ok">OK</string>
+    <string name="but_cancel">Cancel</string>
+    <string name="but_close">Close</string>
+    <string name="details_header">Details</string>
+    <string name="info_text">info</string>
+    <string name="queries_text">Search</string>
+    <string name="label_Barcode">Barcode:</string>
+    <string name="label_BinCode">BinCode:</string>
+    <string name="image_description">shows image of the barcode</string>
+    <string name="img_detail_center">logo</string>
+    <string name="empty_data_template">No DATA is Present</string>
+    <string name="label_initials">Enter Initials:</string>
+    <string name="initials_template">eg: XP</string>
+    <string name="preference_credentials">Proper_Credentials</string>
+    <string name="preference_replenmovelist">Replen_Movelist</string>
+
+    <string name="DEV_EAN_ERR">Failed: Barcode scanned is not valid！Software will ignore it！</string>
+    <string name="DEV_BIN_ERR">Failed: BinCode scanned is not valid！Software will ignore it！</string>
+    <string name="DEV_NAV_ERR">Device Navigation failed！Software will quit！</string>
+    <string name="DEV_OPEN_ERR">Device open failed！Software will quit！</string>
+    <string name="DIA_ALERT">Warning！</string>
+    <string name="DIA_CHECK">Confirm</string>
+    <string name="currentUser">Current User [Unknown]</string>
+    <string name="action_continue">Continue</string>
+    <string name="SOUND_SCAN">/system/media/audio/ui/VideoRecord.ogg</string>
+    <string name="SOUND_ERROR">/system/media/audio/ui/Undock.ogg</string>
+
+    <integer name="ACTION_BARCODE_BINQUERY">11</integer>
+    <integer name="ACTION_BINQUERY">12</integer>
+    <integer name="ACTION_BINMOVE">13</integer>
+    <integer name="ACTION_SINGLEMOVE">14</integer>
+    <integer name="ACTION_BARCODEQUERY">15</integer>
+    <integer name="ACTION_PARTIALMOVE">13</integer>
+    <integer name="ACTION_PHOTO_SENT">-17</integer>
+    <integer name="TURN_BIN">22</integer>
+    <integer name="TURN_BARCODE">33</integer>
+    <integer name="TURN_SOURCE">44</integer>
+    <integer name="TURN_DESTINATION">55</integer>
+    <integer name="TURN_END">0</integer>
+    <integer name="MSG_TYPE_ACTION">888</integer>
+    <integer name="MSG_TYPE_NOTIFICATION">777</integer>
+    <integer name="MSG_SEVERITY_FAILURE">-1</integer>
+    <integer name="MSG_SEVERITY_WARNING">0</integer>
+    <integer name="MSG_SEVERITY_POSITIVE">1</integer>
+    <integer name="MSG_OK">2</integer>
+    <integer name="MSG_YES">3</integer>
+    <integer name="MSG_NO">4</integer>
+    <integer name="MSG_CANCEL">5</integer>
+
+    <!--<style name="CustomDialog" parent="@android:style/Theme.Holo.Light" >-->
+    <style name="CustomDialog" parent="lebelBlue" >
+        <item name="android:windowBackground">@null</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
+    <style name="ButtonTextNormal">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_margin">2dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">2</item>
+    </style>
+    <style name="ButtonTextTiny">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_margin">3dp</item>
+        <item name="android:textSize">12dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">2</item>
+    </style>
+    <style name="ButtonTextSmall">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_margin">3dp</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">2</item>
+    </style>
+    <style name="ButtonText">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_margin">3dp</item>
+        <item name="android:textSize">30dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">2</item>
+    </style>
+    <style name="btnStyleSandrift" parent="@android:style/Widget.Button">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:gravity">center</item>
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">0.6</item>
+        <item name="android:background">@drawable/button_sandrift</item>
+        <item name="android:padding">10dip</item>
+    </style>
+    <style name="btnStyleBeige" parent="@android:style/Widget.Button">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#5d6153</item>
+        <item name="android:gravity">center</item>
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">0.6</item>
+        <item name="android:background">@drawable/button_beige</item>
+        <item name="android:padding">10dip</item>
+    </style>
+
+    <!-- Connection Configuration -->
+    <integer name="CONFIG_TESTSERVER">66</integer>
+    <integer name="CONFIG_LIVESERVER">65</integer>
+    <integer name="CONFIG_LIVESERVER_EXTERNAL">67</integer>
+    <integer name="CONFIG_TESTSERVER_EXTERNAL">68</integer>
+    <string name="FTP_HOST">192.168.10.247</string>
+    <string name="FTP_HOST_EXTERNAL">properuk.net</string>
+    <string name="FTP_DEFAULTUSER">TelfordHand</string>
+    <string name="FTP_PASSWORD">H4ndH3lds%r</string>
+
+    <!--    Security    -->
+    <string name="ssid">\"Mercury\"</string>
+    <string name="password">\"God0fC0mm5\"</string>
+
+    <!--   Purchased Devices  -->
+    <string name="SmallDevice">Geofanci</string>
+    <string name="LargeDevice">Alps</string>
+
+    <!--    Authorized Endpoints  -->
+    <string name="ENDPOINT_THE2S">08:bd:43:bb:26:00</string>
+    <string name="ENDPOINT_AMAZONDISPATCH">20:4e:7f:87:61:60</string>
+    <string name="ENDPOINT_BACKSTOCK8">20:4e:7f:87:4d:e0</string>
+    <string name="ENDPOINT_EXPORT">08:bd:43:bb:22:00</string>
+    <string name="ENDPOINT_THE6s">04:a1:51:97:6d:40</string>
+    <string name="ENDPOINT_Ones1P">20:4e:7f:87:8f:a0</string>
+    <!--<string name="ENDPOINT_THE4S">20:4e:7f:87:58:00</string>-->
+</resources>

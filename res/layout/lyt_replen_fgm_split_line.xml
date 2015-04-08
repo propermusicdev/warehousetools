@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:id="@+id/lyt_ReplenSLOutterWrapper">
+    <!--************* Header android:background="@drawable/border" ***************-->
+    <LinearLayout android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal"
+                  android:background="@drawable/flat_button_black"
+                  android:id="@+id/lyt_ReplenSLHeader">
+        <Button android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:text="Add"
+                android:background="@drawable/button_green"
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                android:layout_gravity="center"
+                style="@style/ButtonTextTiny"
+                android:drawableLeft="@drawable/appbar_new"
+                android:id="@+id/bnReplenSLAdd"/>
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="vertical">
+            <TextView android:layout_width="fill_parent" android:layout_height="0dp" android:layout_weight="0.5"
+                      android:layout_gravity="center_horizontal" android:layout_marginBottom="4dp"  android:gravity="center" android:text="Some Artist"
+                      android:textColor="#CC9900" android:id="@+id/txtvReplenSLArtist"/>
+            <TextView android:layout_width="fill_parent" android:layout_height="0dp" android:layout_weight="0.5"
+                      android:layout_gravity="center_horizontal"  android:gravity="center" android:text="Some Title"
+                      android:textColor="#6699FF" android:textStyle="italic|bold" android:id="@+id/txtvReplenSLTitle"/>
+        </LinearLayout>
+
+    </LinearLayout>
+    <!--******************   Body    *********************-->
+    <LinearLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+            android:orientation="vertical">
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="0dp"
+                      android:layout_weight="0.5" android:orientation="vertical" android:background="@drawable/border">
+            <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                          android:orientation="horizontal">
+                <TextView android:layout_width="0dp" android:layout_height="38dp" android:layout_weight="5"
+                          android:layout_gravity="center_horizontal"  android:gravity="center" android:text="Line ID:"
+                          android:textColor="#ffffff" android:id="@+id/lblReplenSLID"/>
+                <TextView android:layout_width="0dp" android:layout_height="38dp" android:layout_weight="5"
+                          android:layout_gravity="center_horizontal" android:gravity="center" android:text="Some LineID"
+                          android:textStyle="bold" android:ems="14" android:textColor="#ffffff" android:id="@+id/txtvReplenSLID"/>
+            </LinearLayout>
+            <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray"/>       <!-- Line Separator -->
+            <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                          android:orientation="horizontal">
+                <TextView android:layout_width="0dp" android:layout_height="38dp" android:layout_weight="5"
+                          android:layout_gravity="center_horizontal"  android:gravity="center" android:text="Catalog:"
+                          android:textColor="#ffffff" android:id="@+id/lblReplenSLCatalog"/>
+                <TextView android:layout_width="0dp" android:layout_height="38dp" android:layout_weight="5"
+                          android:layout_gravity="center_horizontal" android:gravity="center" android:text="Some Catalog"
+                          android:textStyle="bold" android:ems="14" android:textColor="#ffffff" android:id="@+id/txtvReplenSLCatalog"/>
+            </LinearLayout>
+            <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray"/>       <!-- Line Separator -->
+            <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                          android:orientation="horizontal">
+                <TextView android:layout_width="0dp" android:layout_height="38dp" android:layout_weight="5"
+                          android:layout_gravity="center_horizontal"  android:gravity="center" android:text="Src Bin:"
+                          android:textColor="#ffffff" android:id="@+id/lblReplenSLSrcBin"/>
+                <TextView android:layout_width="0dp" android:layout_height="38dp" android:layout_weight="5"
+                          android:layout_gravity="center_horizontal" android:gravity="center" android:text="Some Bin"
+                          android:textStyle="bold" android:ems="14" android:textColor="#ffffff" android:id="@+id/txtvReplenSLSrcBin"/>
+            </LinearLayout>
+            <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray"/>       <!-- Line Separator -->
+            <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                          android:orientation="horizontal">
+                <TextView android:layout_width="0dp" android:layout_height="38dp" android:layout_weight="5"
+                          android:layout_gravity="center_horizontal"  android:gravity="center" android:text="Dst Bin:"
+                          android:textColor="#ffffff" android:id="@+id/lblReplenSLDstBin"/>
+                <TextView android:layout_width="0dp" android:layout_height="38dp" android:layout_weight="5"
+                          android:layout_gravity="center_horizontal" android:gravity="center" android:text="Some Bin"
+                          android:textStyle="bold" android:ems="14" android:textColor="#ffffff" android:id="@+id/txtvReplenSLDstBin"/>
+            </LinearLayout>
+            <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray"/>       <!-- Line Separator -->
+            <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                          android:orientation="horizontal">
+                <TextView android:layout_width="0dp" android:layout_height="38dp" android:layout_weight="3"
+                          android:layout_gravity="center_horizontal"  android:gravity="center" android:text="Quantity:"
+                          android:textColor="#ffffff" android:id="@+id/lblReplenSLQty"/>
+
+                <TextView android:layout_width="0dp" android:layout_height="38dp" android:layout_weight="3"
+                          android:layout_gravity="center_horizontal"  android:gravity="center" android:text="1000"
+                          android:textColor="#ffffff" android:id="@+id/txtvReplenSLQty"/>
+                <Button android:text="split"
+                        android:background="@drawable/button_black"
+                        android:layout_width="0dp"
+                        android:layout_height="38dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="3"
+                        style="@style/ButtonTextTiny"
+                        android:drawableLeft="@drawable/appbar_page_copy"
+                        android:id="@+id/bnReplenSLSplit"/>
+            </LinearLayout>
+            <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray"/>       <!-- Line Separator -->
+            <TextView android:layout_width="fill_parent" android:layout_height="match_parent" android:layout_gravity="center"
+                      android:layout_marginTop="14dp" android:gravity="center" android:text="NEW ENTRIES"
+                      android:textStyle="bold" android:textColor="#ffffff" android:background="@drawable/flat_button_sandrift"/>
+        </LinearLayout>
+        <!--    Add new line or split -->
+        <ListView
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:id="@+id/lvReplenSLLines" />
+
+    </LinearLayout>
+
+</LinearLayout>

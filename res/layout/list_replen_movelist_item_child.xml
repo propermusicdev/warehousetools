@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/lebeltelerik_list_selector_holo_light">
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/lebel_newlist_selector"
+            android:id="@+id/lytReplenMLStatus">
+        <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Status:"
+                android:id="@+id/lblReplenMLStatus"/>
+        <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Entered"
+                android:id="@+id/txtvReplenMLStatus"/>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/lebel_newlist_selector"
+            android:id="@+id/lytReplenMLTotalLines">
+        <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Total Lines:"
+                android:id="@+id/lblReplenMLTotalLines"/>
+        <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="11"
+                android:id="@+id/txtvReplenMLTotalLines"/>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/lebel_newlist_selector"
+            android:id="@+id/lytReplenMLTimeStamp">
+        <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Created At:"
+                android:id="@+id/lblReplenMLTimeStamp"/>
+        <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="20/11/2014 15:25"
+                android:id="@+id/txtvReplenMLTimeStamp"/>
+    </LinearLayout>
+</LinearLayout>

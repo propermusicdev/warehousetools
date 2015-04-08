@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false">
+    <file url="file://$PROJECT_DIR$/../AndroidSupportLibrary/zxing-master" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../AndroidSupportLibrary/zxing-master/android" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../AndroidSupportLibrary/zxing-master/android-core" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../AndroidSupportLibrary/zxing-master/android-integration" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../AndroidSupportLibrary/zxing-master/androidtest" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../AndroidSupportLibrary/zxing-master/core" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../AndroidSupportLibrary/zxing-master/glass" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../AndroidSupportLibrary/zxing-master/javase" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../AndroidSupportLibrary/zxing-master/zxing.appspot.com" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../AndroidSupportLibrary/zxing-master/zxingorg" charset="UTF-8" />
+  </component>
+</project>
+

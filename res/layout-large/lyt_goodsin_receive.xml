@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                             android:orientation="vertical"
+                             android:layout_width="match_parent"
+                             android:layout_height="match_parent"
+                             android:paddingTop="20dp" android:paddingBottom="30dp"
+                             android:paddingLeft="50dp" android:paddingRight="50dp"
+                             android:background="@drawable/jellybeans_nexus7_2560x16001">
+<LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:layout_gravity="center"
+              android:orientation="vertical" android:background="@drawable/flat_button_beige" android:padding="20dp">
+    <Button android:layout_width="540dp" android:layout_height="wrap_content" android:gravity="center_horizontal"
+            style="@style/ButtonText" android:background="@drawable/button_blue" android:layout_gravity="center_horizontal"
+            android:text="Take Photo" android:drawableLeft="@drawable/appbar_navigate_next"
+            android:drawableRight="@drawable/appbar_navigate_next"
+            android:id="@+id/bnGoodsinReceiveTakePhoto"/>
+    <!-- ******************************     Image, Separator, Side Columns  ************************************* -->
+    <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+            android:orientation="vertical" android:background="@drawable/border_tranparent_blue" android:padding="2dp">
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal">
+            <!-- ***********************   Image  ****************************** -->
+            <ImageView android:layout_width="0dp" android:layout_weight="0.495" android:layout_height="wrap_content"
+                    android:id="@+id/imgGoodsinReceived"/>
+            <View android:layout_width="0dp" android:layout_weight="0.01" android:background="#5882FA"
+                  android:layout_height="match_parent"/>
+            <!-- ***********************   Separator  ****************************** -->
+            <LinearLayout android:layout_width="0dp" android:layout_weight="0.495" android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                <!-- ***********************   Goods-In ID  ****************************** -->
+                <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                              android:orientation="horizontal" >
+                    <TextView android:layout_width="0dp" android:layout_weight="0.5" android:layout_height="wrap_content"
+                              android:textAppearance="?android:attr/textAppearanceLarge"
+                              android:textStyle="bold" android:textColor="#ffffff" android:text="Goods-In ID:"
+                              android:id="@+id/lblGoodsinReceiveGoodsInID"/>
+                    <TextView android:layout_width="0dp" android:layout_weight="0.5" android:layout_height="wrap_content"
+                              android:gravity="center" android:textAppearance="?android:attr/textAppearanceLarge"
+                              android:textStyle="bold" android:textColor="#ffffff"
+                              android:hint="1001" android:id="@+id/txtGoodsinReceiveGoodsInID"/>
+                </LinearLayout>
+                <!-- ***********************   Number Of Pallet  ****************************** -->
+                <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                              android:orientation="horizontal" >
+                    <TextView android:layout_width="0dp" android:layout_weight="0.5" android:layout_height="wrap_content"
+                              android:textAppearance="?android:attr/textAppearanceLarge"
+                              android:textStyle="bold" android:textColor="#ffffff" android:text="NumOfPallet:"
+                              android:id="@+id/lblGoodsinReceiveNumOfPallet"/>
+                    <TextView android:layout_width="0dp" android:layout_weight="0.5" android:layout_height="wrap_content"
+                              android:gravity="center" android:textAppearance="?android:attr/textAppearanceLarge"
+                              android:textStyle="bold" android:textColor="#ffffff"
+                              android:hint="1001" android:id="@+id/txtGoodsinReceiveNumOfPallet"/>
+                </LinearLayout>
+                <!-- ***********************   Number Of Boxes  ****************************** -->
+                <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                              android:orientation="horizontal" >
+                    <TextView android:layout_width="0dp" android:layout_weight="0.5" android:layout_height="wrap_content"
+                              android:textAppearance="?android:attr/textAppearanceLarge"
+                              android:textStyle="bold" android:textColor="#ffffff" android:text="NumbOfBoxes:"
+                              android:id="@+id/lblGoodsinReceiveNumOfBoxes"/>
+                    <TextView android:layout_width="0dp" android:layout_weight="0.5" android:layout_height="wrap_content"
+                              android:gravity="center" android:textAppearance="?android:attr/textAppearanceLarge"
+                              android:textStyle="bold" android:textColor="#ffffff"
+                              android:hint="100" android:id="@+id/txtGoodsinReceiveNumOfBoxes"/>
+                </LinearLayout>
+                <!-- ***********************   Stock Header ID  ****************************** -->
+                <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                              android:orientation="horizontal" >
+                    <TextView android:layout_width="0dp" android:layout_weight="0.5" android:layout_height="wrap_content"
+                              android:textAppearance="?android:attr/textAppearanceLarge"
+                              android:textStyle="bold" android:textColor="#ffffff" android:text="StockHeaderID:"
+                              android:id="@+id/lblGoodsinReceiveStockHeaderID"/>
+                    <TextView android:layout_width="0dp" android:layout_weight="0.5" android:layout_height="wrap_content"
+                              android:gravity="center" android:textAppearance="?android:attr/textAppearanceLarge"
+                              android:textStyle="bold" android:textColor="#ffffff"
+                              android:hint="1001" android:id="@+id/txtGoodsinReceiveStockHeaderID"/>
+                </LinearLayout>
+                <!-- ***********************   Order Number  ****************************** -->
+                <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                              android:orientation="horizontal" >
+                    <TextView android:layout_width="0dp" android:layout_weight="0.5" android:layout_height="wrap_content"
+                              android:textAppearance="?android:attr/textAppearanceLarge"
+                              android:textStyle="bold" android:textColor="#ffffff" android:text="OrderNumber:"
+                              android:id="@+id/lblGoodsinReceiveOrderNumber"/>
+                    <TextView android:layout_width="0dp" android:layout_weight="0.5" android:layout_height="wrap_content"
+                              android:gravity="center" android:textAppearance="?android:attr/textAppearanceLarge"
+                              android:textStyle="bold" android:textColor="#ffffff"
+                              android:hint="100" android:id="@+id/txtGoodsinReceiveOrderNumber"/>
+                </LinearLayout>
+                <!-- ***********************   Status  ****************************** -->
+                <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                              android:orientation="horizontal" >
+                    <TextView android:layout_width="0dp" android:layout_weight="0.5" android:layout_height="wrap_content"
+                              android:textAppearance="?android:attr/textAppearanceLarge"
+                              android:textStyle="bold" android:textColor="#ffffff" android:text="Status:"
+                              android:id="@+id/lblGoodsinReceiveStatus"/>
+                    <TextView android:layout_width="0dp" android:layout_weight="0.5" android:layout_height="wrap_content"
+                              android:gravity="center" android:textAppearance="?android:attr/textAppearanceLarge"
+                              android:textStyle="bold" android:textColor="#ffffff"
+                              android:hint="100" android:id="@+id/txtGoodsinReceiveStatus"/>
+                </LinearLayout>
+                <!-- ***********************   Units Ordered  ****************************** -->
+                <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                              android:orientation="horizontal" >
+                    <TextView android:layout_width="0dp" android:layout_weight="0.5" android:layout_height="wrap_content"
+                              android:textAppearance="?android:attr/textAppearanceLarge"
+                              android:textStyle="bold" android:textColor="#ffffff" android:text="UnitsOrdered:"
+                              android:id="@+id/lblGoodsinReceiveUnitsOrdered"/>
+                    <TextView android:layout_width="0dp" android:layout_weight="0.5" android:layout_height="wrap_content"
+                              android:gravity="center" android:textAppearance="?android:attr/textAppearanceLarge"
+                              android:textStyle="bold" android:textColor="#ffffff" android:inputType="number"
+                              android:hint="100" android:id="@+id/txtGoodsinReceiveUnitsOrdered"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <!-- ******************************     Middle Columns  ************************************* -->
+    <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+            android:orientation="vertical" android:layout_marginTop="10dp">
+        <!-- ******************************     Assigned User  ************************************* -->
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal" >
+            <TextView android:layout_width="0dp" android:layout_weight="0.5" android:layout_height="wrap_content"
+                      android:gravity="center" android:textAppearance="?android:attr/textAppearanceLarge"
+                      android:textStyle="bold" android:textColor="#ffffff" android:text="Quantity:"
+                      android:id="@+id/lblGoodsinReceiveAssignedUser"/>
+            <TextView android:layout_width="0dp" android:layout_weight="0.5" android:layout_height="wrap_content"
+                      android:gravity="center" android:textAppearance="?android:attr/textAppearanceLarge"
+                      android:textStyle="bold" android:textColor="#ffffff" android:inputType="number"
+                      android:text="100" android:id="@+id/txtGoodsinReceiveAssignedUser"/>
+        </LinearLayout>
+        <!-- ******************************     Number Of Lines  ************************************* -->
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal" >
+            <TextView android:layout_width="0dp" android:layout_weight="0.5" android:layout_height="wrap_content"
+                      android:gravity="center" android:textAppearance="?android:attr/textAppearanceLarge"
+                      android:textStyle="bold" android:textColor="#ffffff" android:text="Quantity:"
+                      android:id="@+id/lblGoodsinReceiveNumOfLines"/>
+            <TextView android:layout_width="0dp" android:layout_weight="0.5" android:layout_height="wrap_content"
+                      android:gravity="center" android:textAppearance="?android:attr/textAppearanceLarge"
+                      android:textStyle="bold" android:textColor="#ffffff" android:inputType="number"
+                      android:text="100" android:id="@+id/txtGoodsinReceiveNumOfLines"/>
+        </LinearLayout>
+        <!-- ******************************     Courier  ************************************* -->
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal" >
+            <TextView android:layout_width="0dp" android:layout_weight="0.5" android:layout_height="wrap_content"
+                      android:gravity="center" android:textAppearance="?android:attr/textAppearanceLarge"
+                      android:textStyle="bold" android:textColor="#ffffff" android:text="Quantity:"
+                      android:id="@+id/lblGoodsinReceiveCourier"/>
+            <TextView android:layout_width="0dp" android:layout_weight="0.5" android:layout_height="wrap_content"
+                      android:gravity="center" android:textAppearance="?android:attr/textAppearanceLarge"
+                      android:textStyle="bold" android:textColor="#ffffff" android:inputType="number"
+                      android:text="100" android:id="@+id/txtGoodsinReceiveCourier"/>
+        </LinearLayout>
+        <!-- ******************************     Supplier  ************************************* -->
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal" >
+            <TextView android:layout_width="0dp" android:layout_weight="0.5" android:layout_height="wrap_content"
+                      android:gravity="center" android:textAppearance="?android:attr/textAppearanceLarge"
+                      android:textStyle="bold" android:textColor="#ffffff" android:text="Quantity:"
+                      android:id="@+id/lblGoodsinReceiveSupplier"/>
+            <TextView android:layout_width="0dp" android:layout_weight="0.5" android:layout_height="wrap_content"
+                      android:gravity="center" android:textAppearance="?android:attr/textAppearanceLarge"
+                      android:textStyle="bold" android:textColor="#ffffff" android:inputType="number"
+                      android:text="100" android:id="@+id/txtGoodsinReceiveSupplier"/>
+        </LinearLayout>
+    </LinearLayout>
+    <Button android:layout_width="540dp" android:layout_height="wrap_content" android:gravity="center_horizontal"
+            style="@style/ButtonText" android:background="@drawable/button_green" android:layout_gravity="center_horizontal"
+            android:text="Send" android:drawableLeft="@drawable/appbar_navigate_next"
+            android:drawableRight="@drawable/appbar_navigate_next" android:layout_marginTop="20dp"
+            android:id="@+id/bnGoodsinReceiveSend"/>
+    <Button android:layout_width="540dp" android:layout_height="wrap_content" android:gravity="center_horizontal"
+            style="@style/ButtonText" android:background="@drawable/button_red" android:layout_gravity="center_horizontal"
+            android:text="Exit" android:drawableLeft="@drawable/appbarpower"
+            android:drawableRight="@drawable/appbarpower" android:layout_marginTop="20dp"
+            android:id="@+id/bnExitActGoodsinReceive"/>
+</LinearLayout>
+
+</LinearLayout>

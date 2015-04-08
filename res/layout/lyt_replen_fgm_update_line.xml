@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#222222"
+        android:id="@+id/lyt_ReplenULOutterWrapper">
+    <!--************* Header ***************-->
+    <LinearLayout android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal"
+                  android:background="@drawable/flat_button_black"
+                  android:id="@+id/lyt_ReplenULHeader">
+        <!--    Change this to a button <UpdateButton> to commit form details   -->
+        <!--<ImageView android:id="@+id/imgDialogTitle"-->
+                   <!--android:layout_width="50dp"-->
+                   <!--android:layout_height="50dp"-->
+                   <!--android:layout_gravity="left"-->
+                   <!--android:src="@drawable/dialod64info"-->
+                   <!--android:contentDescription="title logo"/>-->
+        <Button android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:text="Update"
+                android:background="@drawable/button_green"
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                android:layout_gravity="center"
+                style="@style/ButtonTextTiny"
+                android:drawableLeft="@drawable/appbar_update"
+                android:id="@+id/bnReplenULUpdate"/>
+        <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Update Move Line"
+                android:gravity="center_horizontal"
+                android:textColor="#ffffff"
+                android:id="@+id/txtvReplenULHeaderTitle"/>
+
+    </LinearLayout>
+    <!--************* Body ***************-->
+    <LinearLayout android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  android:padding="5dp"
+                  android:background="@drawable/border"
+                  android:id="@+id/lyt_ReplenULBody">
+        <!--************* Quantity ***************-->
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal">
+            <TextView android:layout_width="0dp" android:layout_height="38dp" android:layout_weight="5"
+                      android:layout_gravity="center_horizontal"  android:gravity="center" android:text="Qty Reported:"
+                      android:textColor="#ffffff" android:id="@+id/lblReplenULQuantity"/>
+            <TextView android:layout_width="0dp" android:layout_height="38dp" android:layout_weight="5"
+                      android:layout_gravity="center_horizontal" android:gravity="center" android:text="Some Quantity"
+                      android:textStyle="bold" android:ems="14" android:textColor="#ffffff" android:id="@+id/txtvReplenULQuantity"/>
+        </LinearLayout>
+        <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>       <!-- Line Separator -->
+        <!--*************  Quantity Confirmed ***************-->
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal">
+            <TextView android:layout_width="0dp" android:layout_height="38dp" android:layout_weight="3"
+                      android:layout_gravity="center_horizontal"  android:gravity="center" android:text="Qty Confirmed:"
+                      android:textColor="#ffffff" android:id="@+id/lblReplenULQtyConfirmed"/>
+            <!--<TextView android:layout_width="0dp" android:layout_height="38dp" android:layout_weight="4"-->
+            <!--android:layout_gravity="center_horizontal" android:gravity="center" android:text="Some Quantity"-->
+            <!--android:textColor="#ff0000" android:id="@+id/txtvReplenULQtyConfirmed"/>-->
+            <EditText android:layout_width="0dp" android:layout_height="38dp" android:layout_weight="4" android:layout_gravity="center_horizontal"
+                      android:gravity="center" android:inputType="phone" android:singleLine="true"
+                      android:maxLines="1" android:ems="14" android:textStyle="bold" android:textColor="#00ffff" android:hint="Like: 34"
+                      android:textColorHint="#ff0000" android:background="@null" android:imeOptions="actionDone" android:id="@+id/txtvReplenULQtyConfirmed"/>
+            <Button android:text="edit"
+                    android:background="@drawable/button_black"
+                    android:layout_width="0dp"
+                    android:layout_height="38dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="3"
+                    style="@style/ButtonTextTiny"
+                    android:drawableLeft="@drawable/appbar_edit_box"
+                    android:id="@+id/bnReplenULEditQtyConfirmed"/>
+        </LinearLayout>
+        <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>       <!-- Line Separator -->
+        <!--*************  Source Bin ***************-->
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal">
+            <TextView android:layout_width="0dp" android:layout_height="38dp" android:layout_weight="3"
+                      android:layout_gravity="center_horizontal"  android:gravity="center" android:text="Source Bin:"
+                      android:textColor="#ffffff" android:id="@+id/lblReplenULSrcBin"/>
+            <!--<TextView android:layout_width="0dp" android:layout_height="38dp" android:layout_weight="4"-->
+            <!--android:layout_gravity="center_horizontal" android:gravity="center" android:text="Some Bin"-->
+            <!--android:textColor="#00ffff" android:id="@+id/txtvReplenULSrcBin"/>-->
+            <EditText android:layout_width="0dp" android:layout_height="38dp" android:layout_weight="4" android:layout_gravity="center_horizontal"
+                      android:inputType="textCapCharacters" android:gravity="center" android:ems="12" android:textStyle="bold"
+                      android:textColor="#00ffff" android:hint="Like: 2KBL2" android:singleLine="true" android:maxLines="1"
+                      android:textColorHint="#00ffff" android:background="@null" android:imeOptions="actionDone" android:id="@+id/txtvReplenULSrcBin"/>
+            <Button android:text="edit"
+                    android:background="@drawable/button_black"
+                    android:layout_width="0dp"
+                    android:layout_height="38dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="3"
+                    style="@style/ButtonTextTiny"
+                    android:drawableLeft="@drawable/appbar_edit_box"
+                    android:id="@+id/bnReplenULEditSrcBin"/>
+        </LinearLayout>
+        <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>       <!-- Line Separator -->
+        <!--*************  Destination Bin ***************-->
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal">
+            <TextView android:layout_width="0dp" android:layout_height="38dp" android:layout_weight="3"
+                      android:layout_gravity="center_horizontal"  android:gravity="center" android:text="Destination Bin:"
+                      android:textColor="#ffffff" android:id="@+id/lblReplenULDstBin"/>
+            <!--<TextView android:layout_width="0dp" android:layout_height="38dp" android:layout_weight="4"-->
+            <!--android:layout_gravity="center_horizontal" android:gravity="center" android:text="Some Bin"-->
+            <!--android:textColor="#00ffff"  android:id="@+id/txtvReplenULDstBin"/>-->
+            <EditText android:layout_width="0dp" android:layout_height="38dp" android:layout_weight="4"
+                      android:layout_gravity="center_horizontal" android:inputType="textCapCharacters" android:gravity="center"
+                      android:ems="12" android:textStyle="bold" android:textColor="#00ffff" android:hint="Like: 2KBL3"
+                      android:textColorHint="#00ffff" android:background="@null" android:imeOptions="actionDone" android:id="@+id/txtvReplenULDstBin"/>
+            <Button android:text="edit"
+                    android:background="@drawable/button_black"
+                    android:layout_width="0dp"
+                    android:layout_height="38dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="3"
+                    style="@style/ButtonTextTiny"
+                    android:drawableLeft="@drawable/appbar_edit_box"
+                    android:id="@+id/bnReplenULEditDstBin"/>
+        </LinearLayout>
+        <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>       <!-- Line Separator -->
+        <!--************* Artist ***************-->
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal">
+            <TextView android:layout_width="0dp" android:layout_height="38dp" android:layout_weight="3"
+                      android:layout_gravity="center_horizontal"  android:gravity="center" android:text="Artist:"
+                      android:textColor="#ffffff" android:id="@+id/lblReplenULArtist"/>
+            <TextView android:layout_width="0dp" android:layout_height="38dp" android:layout_weight="7"
+                      android:layout_gravity="center_horizontal" android:gravity="center" android:text="Some Artist"
+                      android:textColor="#ffffff" android:id="@+id/txtvReplenULArtist"/>
+        </LinearLayout>
+        <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>       <!-- Line Separator -->
+        <!--************* Title ***************-->
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal">
+            <TextView android:layout_width="0dp" android:layout_height="38dp" android:layout_weight="3"
+                      android:layout_gravity="center_horizontal"  android:gravity="center" android:text="Title:"
+                      android:textColor="#ffffff" android:id="@+id/lblReplenULTitle"/>
+            <TextView android:layout_width="0dp" android:layout_height="38dp" android:layout_weight="7"
+                      android:layout_gravity="center_horizontal" android:gravity="center" android:text="Some Title"
+                      android:textColor="#ffffff" android:id="@+id/txtvReplenULTitle"/>
+        </LinearLayout>
+        <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>       <!-- Line Separator -->
+        <!--************* InsertTimeStamp ***************-->
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal">
+            <TextView android:layout_width="0dp" android:layout_height="38dp" android:layout_weight="5"
+                      android:layout_gravity="center_horizontal"  android:gravity="center" android:text="Date Created:"
+                      android:textColor="#ffffff" android:id="@+id/lblReplenULInsertTimeStamp"/>
+            <TextView android:layout_width="0dp" android:layout_height="38dp" android:layout_weight="5"
+                      android:layout_gravity="center_horizontal" android:gravity="center" android:text="25/12/2055"
+                      android:textColor="#ffffff" android:id="@+id/txtvReplenULInsertTimeStamp"/>
+        </LinearLayout>
+        <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>       <!-- Line Separator -->
+        <!--************* Catalog ***************-->
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal">
+            <TextView android:layout_width="0dp" android:layout_height="38dp" android:layout_weight="5"
+                      android:layout_gravity="center_horizontal"  android:gravity="center" android:text="Catalog:"
+                      android:textColor="#ffffff" android:id="@+id/lblReplenULCatalog"/>
+            <TextView android:layout_width="0dp" android:layout_height="38dp" android:layout_weight="5"
+                      android:layout_gravity="center_horizontal" android:gravity="center" android:text="Some Catalog"
+                      android:textColor="#ffffff" android:id="@+id/txtvReplenULCatalog"/>
+        </LinearLayout>
+        <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>       <!-- Line Separator -->
+        <!--************* EAN ***************-->
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal">
+            <TextView android:layout_width="0dp" android:layout_height="38dp" android:layout_weight="5"
+                      android:layout_gravity="center_horizontal"  android:gravity="center" android:text="EAN:"
+                      android:textColor="#ffffff" android:id="@+id/lblReplenULEAN"/>
+            <TextView android:layout_width="0dp" android:layout_height="38dp" android:layout_weight="5"
+                      android:layout_gravity="center_horizontal" android:gravity="center" android:text="Some EAN"
+                      android:textColor="#ffffff" android:id="@+id/txtvReplenULEAN"/>
+        </LinearLayout>
+        <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>       <!-- Line Separator -->
+        <!--************* Complete ***************-->
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal">
+            <TextView android:layout_width="0dp" android:layout_height="38dp" android:layout_weight="4"
+                      android:layout_gravity="center_horizontal"  android:gravity="center" android:text="Completed:"
+                      android:textColor="#ffffff" android:id="@+id/lblReplenULComplete"/>
+            <CheckBox
+                    android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"  android:textColor="#ffffff"
+                    android:id="@+id/chkReplenULComplete" android:layout_weight="2"/>
+            <TextView android:layout_width="0dp" android:layout_height="38dp" android:layout_weight="4"
+                      android:layout_gravity="center_horizontal" android:gravity="center" android:text="Some EAN"
+                      android:textColor="#ffffff" android:id="@+id/txtvReplenULComplete"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

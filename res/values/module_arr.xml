@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="defaultname">
+        <item>in Move</item>
+        <item>oods-In</item>
+        <item>icking</item>
+        <item>eplenishment</item>
+        <item>tock Take</item>
+        <item>in Checker</item>
+    </string-array>
+
+    <string-array name="defaulticon">
+        <item>b</item>
+        <item>g</item>
+        <item>p</item>
+        <item>r</item>
+        <item>s</item>
+        <item>b3</item>
+    </string-array>
+</resources>

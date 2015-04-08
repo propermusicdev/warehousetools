@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:padding="12dp"
+              android:background="@drawable/flat_button_sandrift"
+        android:id="@+id/lytReplenManager">
+    <LinearLayout android:layout_width="fill_parent"  android:layout_height="fill_parent"
+            android:orientation="vertical" android:background="@drawable/flat_button_beige">
+        <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
+                  android:textAppearance="?android:attr/textAppearanceSmall"
+                  android:textColor="#ffffff" android:textStyle="bold" android:text="The Ravonettes Well, Well"
+                  android:gravity="center" android:id="@+id/txtvReplenManagerProductTitle"/>
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal" android:layout_marginTop="5dp"
+                      android:padding="5dp">
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                      android:layout_weight="0.5" android:textAppearance="?android:attr/textAppearanceSmall"
+                      android:textColor="#ffffff" android:text="Current Pallet:"/>
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                      android:layout_weight="0.5" android:textAppearance="?android:attr/textAppearanceMedium"
+                      android:textColor="#ffffff" android:textStyle="bold" android:text="TAAA1"
+                    android:gravity="center" android:id="@+id/txtvReplenManagerPalate"/>
+        </LinearLayout>
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal" android:layout_marginTop="5dp"
+                      android:padding="5dp">
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                      android:layout_weight="0.5" android:textAppearance="?android:attr/textAppearanceSmall"
+                      android:textColor="#ffffff" android:text="Quantity In Pallet:"/>
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                      android:layout_weight="0.5" android:textAppearance="?android:attr/textAppearanceMedium"
+                      android:textColor="#ffffff" android:textStyle="bold" android:text="200"
+                      android:gravity="center" android:id="@+id/txtvReplenManagerTotalQuantity"/>
+        </LinearLayout>
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:background="@drawable/flat_button_palebrown">
+            <Button android:layout_width="fill_parent"
+                    android:layout_marginBottom="20dp"
+                    android:text="New mini-Move"
+                    android:id="@+id/bnReplenNewMove"
+                    android:background="@drawable/button_blue"
+                    android:layout_gravity="center"
+                    style="@style/ButtonTextSmall"
+                    android:drawableLeft="@drawable/appbarsocialstackoverflow"/>
+
+            <Button android:layout_width="fill_parent"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/action_exit"
+                    android:id="@+id/bnExitActReplenManager"
+                    android:background="@drawable/button_red"
+                    android:layout_gravity="center"
+                    style="@style/ButtonTextSmall"
+                    android:drawableLeft="@drawable/appbarpower"/>
+
+            <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
+                      android:textAppearance="?android:attr/textAppearanceSmall" android:id="@+id/txtvReplenManListTitle"
+                      android:gravity="center" android:textStyle="bold" android:layout_marginTop="10dp"
+                      android:textColor="#ffffff" android:text="Recent Moves"/>
+        </LinearLayout>
+        <ListView android:layout_width="fill_parent" android:layout_height="fill_parent"
+                android:layout_marginTop="10dp" android:id="@+id/lvReplenManagerMoves">
+
+        </ListView>
+    </LinearLayout>
+</LinearLayout>

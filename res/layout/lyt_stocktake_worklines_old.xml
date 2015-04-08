@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/flat_button_black">
+    <LinearLayout android:layout_width="fill_parent" android:layout_height="0dp" android:layout_weight="0.3"
+                  android:orientation="vertical">
+        <Button android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:text="Update Bin"
+                android:id="@+id/bnSTWUpdateBin"
+                android:background="@drawable/button_green"
+                android:layout_gravity="center"
+                style="@style/ButtonTextSmall"
+                android:drawableLeft="@drawable/appbarbarcode"/>
+        <Button android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:text="@string/but_startbarcode"
+                android:id="@+id/bnSTWScan"
+                android:background="@drawable/button_purpple"
+                android:layout_gravity="center"
+                style="@style/ButtonTextSmall"
+                android:drawableLeft="@drawable/appbarbarcode"/>
+        <LinearLayout android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="horizontal">
+            <EditText
+                    android:layout_width="0dp"
+                    android:layout_weight="0.6"
+                    android:layout_height="48dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="0dp"
+                    android:hint="@string/hint_barcode"
+                    android:textColorHint="#6c6c6c"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:imeOptions="actionDone"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:inputType="phone"
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"
+                    android:background="@null"
+                    android:id="@+id/etxtSTWBarcode"/>
+            <Button android:text="ByHand"
+                    android:background="@drawable/button_palebrown"
+                    android:layout_width="0dp"
+                    android:layout_weight="0.4"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    style="@style/ButtonTextTiny"
+                    android:drawableLeft="@drawable/appbarcursorhand"
+                    android:id="@+id/bnSTWEnterBarcode"/>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout android:layout_width="fill_parent" android:layout_height="0dp" android:layout_weight="0.1"
+                  android:orientation="horizontal" android:background="@drawable/flat_button_sandrift">
+        <Button android:text="@string/action_exit"
+                android:background="@drawable/button_red"
+                android:layout_width="0dp"
+                android:layout_weight="0.4"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                style="@style/ButtonTextTiny"
+                android:drawableLeft="@drawable/appbarpower"
+                android:id="@+id/bnSTWExitActStockTakeLines"/>
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="0.6"
+                  android:text="Bin: [TAAA1]" android:textColor="#ffffff" android:gravity="center" android:id="@+id/txtvSTWBinTitle"
+                  android:textAppearance="?android:attr/textAppearanceMedium" android:layout_gravity="center_vertical"/>
+    </LinearLayout>
+    <!--<ListView-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_weight="0.7"-->
+    <!--android:id="@+id/lvSTWLines"/>-->
+    <ExpandableListView
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.6"
+            android:id="@+id/lvSTWLines"/>
+
+</LinearLayout>

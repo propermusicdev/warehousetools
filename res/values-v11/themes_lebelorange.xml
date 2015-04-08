@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <style name="lebelOrange" parent="@style/_lebelOrange"/>
+
+  <style name="_lebelOrange" parent="Theme.AppCompat.Light">
+
+    <item name="android:editTextBackground">@drawable/lebelorange_edit_text_holo_light</item>
+
+    <item name="android:textColorHighlight">#99ff8800</item>
+    <item name="android:textSelectHandleLeft">@drawable/lebelorange_text_select_handle_left</item>
+    <item name="android:textSelectHandleRight">@drawable/lebelorange_text_select_handle_right</item>
+    <item name="android:textSelectHandle">@drawable/lebelorange_text_select_handle_middle</item>
+
+    <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewlebelOrange</item>
+
+    <item name="android:listChoiceIndicatorMultiple">@drawable/lebelorange_btn_check_holo_light</item>
+
+    <item name="android:listChoiceIndicatorSingle">@drawable/lebelorange_btn_radio_holo_light</item>
+
+    <item name="android:buttonStyle">@style/ButtonlebelOrange</item>
+
+    <item name="android:imageButtonStyle">@style/ImageButtonlebelOrange</item>
+
+    <item name="android:dropDownSpinnerStyle">@style/SpinnerlebelOrange</item>
+
+    <item name="android:progressBarStyleHorizontal">@style/ProgressBarlebelOrange</item>
+
+    <item name="android:seekBarStyle">@style/SeekBarlebelOrange</item>
+
+    <item name="android:ratingBarStyle">@style/RatingBarlebelOrange</item>
+
+    <item name="android:ratingBarStyleIndicator">@style/RatingBarBiglebelOrange</item>
+
+    <item name="android:ratingBarStyleSmall">@style/RatingBarSmalllebelOrange</item>
+
+    <item name="android:buttonStyleToggle">@style/TogglelebelOrange</item>
+
+    <item name="android:listChoiceBackgroundIndicator">@drawable/lebelorange_list_selector_holo_light</item>
+
+    <item name="android:activatedBackgroundIndicator">@drawable/lebelorange_activated_background_holo_light</item>
+
+    <item name="android:fastScrollThumbDrawable">@drawable/lebelorange_fastscroll_thumb_holo</item>
+
+  </style>
+
+</resources>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:warehouseTools="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--<item android:id="@+id/action_search"-->
+          <!--android:icon="@drawable/abc_ic_search_api_holo_light"-->
+          <!--android:title="Search"/>-->
+          <!--warehouseTools:actionViewClass="android.support.v7.widget.SearchView"-->
+          <!--warehouseTools:showAsAction="ifRoom|withText" />-->
+    <!--<item-->
+            <!--android:id="@+id/menu_message"-->
+            <!--android:title="Message1"-->
+            <!--android:icon="@drawable/appbarsocialstackoverflow"-->
+            <!--warehouseTools:showAsAction="ifRoom|withText"/>-->
+    <!--<item-->
+            <!--android:id="@+id/menu_message2"-->
+            <!--android:title="Message2"-->
+            <!--android:icon="@drawable/appbaradd"-->
+            <!--warehouseTools:showAsAction="ifRoom|withText"/>-->
+    <!--<item-->
+            <!--android:id="@+id/menu_share"-->
+            <!--android:title="Share"-->
+            <!--warehouseTools:actionProviderClass="android.support.v7.widget.ShareActionProvider"-->
+            <!--warehouseTools:showAsAction="ifRoom|withText"/>-->
+    <item
+            android:id="@+id/menu_logout"
+            android:title="Logout"
+            android:icon="@drawable/appbar_reply_people"
+            warehouseTools:showAsAction="always|withText"/>
+    <item
+            android:id="@+id/menu_settings"
+            android:title="Settings"
+            android:icon="@drawable/appbaradd"
+            warehouseTools:showAsAction="ifRoom|withText"/>
+</menu>

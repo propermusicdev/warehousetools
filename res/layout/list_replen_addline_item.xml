@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                  android:orientation="horizontal">
+        <TextView android:layout_width="0dp" android:layout_height="38dp" android:layout_weight="5"
+                  android:layout_gravity="center_horizontal"  android:gravity="center" android:text="Quantity:"
+                  android:textColor="#000000" android:textStyle="bold" android:id="@+id/lblReplenALIQty"/>
+        <TextView android:layout_width="0dp" android:layout_height="38dp" android:layout_weight="5"
+                  android:layout_gravity="center_horizontal" android:gravity="center" android:text="2542"
+                  android:textSize="18sp" android:textStyle="bold" android:textColor="#663300" android:id="@+id/txtvReplenALIQty"/>
+    </LinearLayout>
+    <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                  android:orientation="horizontal">
+        <TextView android:layout_width="0dp" android:layout_height="38dp" android:layout_weight="3"
+                  android:layout_gravity="center_horizontal"  android:gravity="center" android:text="Src Bin:"
+                  android:textColor="#000000" android:textStyle="bold" android:id="@+id/lblReplenALISrcBin"/>
+        <EditText android:layout_width="0dp" android:layout_height="38dp" android:layout_weight="4" android:layout_gravity="center_horizontal"
+                  android:inputType="textCapCharacters" android:gravity="center" android:ems="12" android:textStyle="bold"
+                  android:textColor="#663300" android:hint="Like: 2KBL2" android:singleLine="true" android:maxLines="1"
+                  android:textColorHint="#663300" android:background="@null" android:imeOptions="actionDone" android:id="@+id/txtvReplenALISrcBin"/>
+        <Button android:text="edit"
+                android:background="@drawable/button_palebrown"
+                android:layout_width="0dp"
+                android:layout_height="38dp"
+                android:layout_gravity="center"
+                android:layout_weight="3"
+                style="@style/ButtonTextTiny"
+                android:drawableLeft="@drawable/appbar_edit_box"
+                android:id="@+id/bnReplenALIEditSrcBin"/>
+    </LinearLayout>
+    <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                  android:orientation="horizontal">
+        <TextView android:layout_width="0dp" android:layout_height="38dp" android:layout_weight="3"
+                  android:layout_gravity="center_horizontal"  android:gravity="center" android:text="Dst  Bin:"
+                  android:textColor="#000000" android:textStyle="bold" android:id="@+id/lblReplenALIDstBin"/>
+        <EditText android:layout_width="0dp" android:layout_height="38dp" android:layout_weight="4" android:layout_gravity="center_horizontal"
+                  android:inputType="textCapCharacters" android:gravity="center" android:ems="12" android:textStyle="bold"
+                  android:textColor="#663300" android:hint="Like: 2KBL2" android:singleLine="true" android:maxLines="1"
+                  android:textColorHint="#663300" android:background="@null" android:imeOptions="actionDone" android:id="@+id/txtvReplenALIDstBin"/>
+        <Button android:text="edit"
+                android:background="@drawable/button_palebrown"
+                android:layout_width="0dp"
+                android:layout_height="38dp"
+                android:layout_gravity="center"
+                android:layout_weight="3"
+                style="@style/ButtonTextTiny"
+                android:drawableLeft="@drawable/appbar_edit_box"
+                android:id="@+id/bnReplenALIEditDstBin"/>
+    </LinearLayout>
+</LinearLayout>

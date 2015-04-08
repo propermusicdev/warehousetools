@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main_title_bg"
+    android:clickable="false"
+    android:layout_margin="5dp"
+    android:focusable="false"
+    android:focusableInTouchMode="false"
+    android:gravity="center|left"
+    android:orientation="horizontal" >
+
+    <ImageView
+        android:id="@+id/ivModIcon"
+        android:layout_width="67dp"
+        android:layout_height="67dp"
+        android:src="@drawable/p"
+        android:scaleType="fitXY"/>
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+
+    <TextView
+        android:id="@+id/tvModTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:singleLine="true"
+        android:text="Picking"
+        android:textColor="#666666"
+        android:textSize="32sp" />
+
+</LinearLayout>

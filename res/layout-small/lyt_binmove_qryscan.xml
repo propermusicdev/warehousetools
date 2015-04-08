@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/button_black">
+    <LinearLayout android:orientation="vertical"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:background="@drawable/button_beige"
+                  android:id="@+id/lytQryScanMain">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                android:textSize="14sp"
+                android:text="@string/intro_Description"
+                android:id="@+id/txtvQryScanSingleIntro"
+                android:textColor="#ffffff"/>
+
+        <Button android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:text="@string/but_start"
+                android:id="@+id/bnQryScanPerformScan"
+                android:background="@drawable/button_palebrown"
+                android:width="190dp"
+                android:height="40dp"
+                android:layout_gravity="center"
+                style="@style/ButtonTextTiny"
+                android:drawableLeft="@drawable/appbarbarcode"/>
+
+        <Button android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:text="@string/action_exit"
+                android:id="@+id/bnExitActQryScan"
+                android:background="@drawable/button_red"
+                android:width="190dp"
+                android:height="40dp"
+                android:layout_gravity="center"
+                style="@style/ButtonTextTiny"
+                android:drawableLeft="@drawable/appbarpower"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginLeft="10dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/label_Barcode"
+                android:id="@+id/txtvQryScanBarcode"/>
+        <!--<EditText-->
+                <!--android:id="@+id/etxtQryScanBarcode"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:hint="@string/sampletext"-->
+                <!--android:ellipsize="end"-->
+                <!--android:ems="12"-->
+                <!--android:inputType="text"-->
+                <!--android:singleLine="true"-->
+                <!--android:maxLines="1"-->
+                <!--android:textColor="#ffffff"-->
+                <!--android:background="@null"-->
+                <!--android:cursorVisible="false">-->
+        <!--</EditText>-->
+        <LinearLayout android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="horizontal">
+            <EditText
+                    android:layout_width="0dp"
+                    android:layout_weight="0.6"
+                    android:layout_height="fill_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="2dp"
+                    android:hint="@string/hint_barcode"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:inputType="phone"
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"
+                    android:background="@null"
+                    android:id="@+id/etxtQryScanBarcode"/>
+            <Button android:text="ByHand"
+                    android:background="@drawable/button_blue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center"
+                    style="@style/ButtonTextTiny"
+                    android:drawableLeft="@drawable/appbarcursorhand"
+                    android:id="@+id/bnEnterBarcodeQryScan"/>
+        </LinearLayout>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/label_BinCode"
+                android:id="@+id/txtvQryScanBinCode"/>
+        <!--<EditText-->
+                <!--android:id="@+id/etxtQryScanBin"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:ellipsize="end"-->
+                <!--android:hint="@string/sampletext"-->
+                <!--android:ems="12"-->
+                <!--android:inputType="text"-->
+                <!--android:singleLine="true"-->
+                <!--android:maxLines="1"-->
+                <!--android:textColor="#ffffff"-->
+                <!--android:background="@null"-->
+                <!--android:cursorVisible="false">-->
+        <!--</EditText>-->
+        <LinearLayout android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                android:orientation="horizontal">
+            <EditText
+                    android:layout_width="0dp"
+                    android:layout_weight="0.6"
+                    android:layout_height="fill_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:hint="@string/hint_bincode"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:inputType="textCapCharacters"
+                    android:capitalize="characters"
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"
+                    android:background="@null"
+                    android:id="@+id/etxtQryScanBin"/>
+            <Button android:text="ByHand"
+                    android:background="@drawable/button_yellow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center"
+                    style="@style/ButtonTextTiny"
+                    android:drawableLeft="@drawable/appbarcursorhand"
+                    android:id="@+id/bnEnterBincodeQryScan"/>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

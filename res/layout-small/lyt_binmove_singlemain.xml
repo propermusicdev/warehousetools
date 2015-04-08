@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/button_lemonchiffon"
+              android:paddingTop="@dimen/activity_horizontal_margin">
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/intro_single"
+            android:id="@+id/txtvSingleIntro"
+            android:textColor="#000000"/>
+
+    <Button android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:text="@string/action_scansingle"
+            android:id="@+id/bnScanProduct"
+            android:background="@drawable/button_palebrown"
+            android:width="190dp"
+            android:height="40dp"
+            android:layout_gravity="center"
+            style="@style/ButtonTextTiny"
+            android:drawableLeft="@drawable/appbarbarcode"/>
+
+    <Button android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:text="@string/action_exit"
+            android:id="@+id/bnExitActSingleMain"
+            android:background="@drawable/button_red"
+            android:width="190dp"
+            android:height="40dp"
+            android:layout_gravity="center"
+            style="@style/ButtonTextTiny"
+            android:drawableLeft="@drawable/appbarpower"/>
+    <LinearLayout android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal">
+        <!--<EditText-->
+        <!--android:id="@+id/etxtScanInput"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_weight="0.6"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:layout_marginLeft="10dp"-->
+        <!--android:layout_marginRight="10dp"-->
+        <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
+        <!--android:ellipsize="end"-->
+        <!--android:inputType="number"-->
+        <!--android:singleLine="true"-->
+        <!--android:maxLines="1"-->
+        <!--android:background="@null"-->
+        <!--android:cursorVisible="false">-->
+        <!--</EditText>-->
+        <EditText
+                android:layout_width="0dp"
+                android:layout_weight="0.6"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="2dp"
+                android:hint="@string/hint_barcode"
+                android:gravity="center"
+                android:singleLine="true"
+                android:textSize="20sp"
+                android:inputType="phone"
+                android:textStyle="bold"
+                android:background="@null"
+                android:id="@+id/etxtScanInput"/>
+        <Button android:text="ByHand"
+                android:background="@drawable/button_palebrown"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                style="@style/ButtonTextTiny"
+                android:drawableLeft="@drawable/appbarcursorhand"
+                android:id="@+id/bnEnterBarcodeSingleMain"/>
+    </LinearLayout>
+</LinearLayout>

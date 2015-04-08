@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../AndroidSupportLibrary/v7/appcompat/appcompat.iml" filepath="$PROJECT_DIR$/../AndroidSupportLibrary/v7/appcompat/appcompat.iml" />
+      <module fileurl="file://$PROJECT_DIR$/warehousetools.iml" filepath="$PROJECT_DIR$/warehousetools.iml" />
+    </modules>
+  </component>
+</project>

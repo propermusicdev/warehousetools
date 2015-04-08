@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+        android:paddingTop="100dp" android:paddingBottom="100dp"
+        android:paddingLeft="50dp" android:paddingRight="50dp"
+        android:background="@drawable/jellybeans_nexus7_2560x16001">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+            android:orientation="vertical" android:background="@drawable/flat_button_beige" android:paddingTop="280dp">
+
+
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+            <TextView android:layout_width="0dp" android:layout_weight="0.5" android:layout_height="wrap_content"
+                    android:gravity="center" android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textStyle="bold" android:textColor="#ffffff" android:text="Goods-in ID:"
+                    android:id="@+id/lblGoodsinProvideID"/>
+            <EditText android:layout_width="0dp" android:layout_weight="0.5" android:layout_height="wrap_content"
+                      android:gravity="center" android:textAppearance="?android:attr/textAppearanceLarge"
+                      android:textStyle="bold" android:textColor="#ffffff" android:inputType="number"
+                      android:text="1001" android:id="@+id/txtGoodsinProvideID"/>
+        </LinearLayout>
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal" >
+            <TextView android:layout_width="0dp" android:layout_weight="0.5" android:layout_height="wrap_content"
+                      android:gravity="center" android:textAppearance="?android:attr/textAppearanceLarge"
+                      android:textStyle="bold" android:textColor="#ffffff" android:text="ProductID:"
+                      android:id="@+id/lblGoodsinProvideProductID"/>
+            <EditText android:layout_width="0dp" android:layout_weight="0.5" android:layout_height="wrap_content"
+                      android:gravity="center" android:textAppearance="?android:attr/textAppearanceLarge"
+                      android:textStyle="bold" android:textColor="#ffffff" android:inputType="number"
+                      android:text="123654" android:id="@+id/txtGoodsinProvideProductID"/>
+        </LinearLayout>
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                                     android:orientation="horizontal" >
+            <TextView android:layout_width="0dp" android:layout_weight="0.5" android:layout_height="wrap_content"
+                      android:gravity="center" android:textAppearance="?android:attr/textAppearanceLarge"
+                      android:textStyle="bold" android:textColor="#ffffff" android:text="Order Number:"
+                      android:id="@+id/lblGoodsinProvideOrderNumber"/>
+            <TextView android:layout_width="0dp" android:layout_weight="0.5" android:layout_height="wrap_content"
+                      android:gravity="center" android:textAppearance="?android:attr/textAppearanceLarge"
+                      android:textStyle="bold" android:textColor="#ffffff" android:inputType="number"
+                      android:text="321" android:id="@+id/txtGoodsinProvideOrderNumber"/>
+        </LinearLayout>
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal" >
+            <TextView android:layout_width="0dp" android:layout_weight="0.5" android:layout_height="wrap_content"
+                      android:gravity="center" android:textAppearance="?android:attr/textAppearanceLarge"
+                      android:textStyle="bold" android:textColor="#ffffff" android:text="Supplier:"
+                      android:id="@+id/lblGoodsinProvideSupplier"/>
+            <TextView android:layout_width="0dp" android:layout_weight="0.5" android:layout_height="wrap_content"
+                      android:gravity="center" android:textAppearance="?android:attr/textAppearanceLarge"
+                      android:textStyle="bold" android:textColor="#ffffff" android:inputType="text"
+                      android:text="321" android:id="@+id/txtGoodsinProvideSupplier"/>
+        </LinearLayout>
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal" >
+            <TextView android:layout_width="0dp" android:layout_weight="0.5" android:layout_height="wrap_content"
+                      android:gravity="center" android:textAppearance="?android:attr/textAppearanceLarge"
+                      android:textStyle="bold" android:textColor="#ffffff" android:text="Quantity:"
+                      android:id="@+id/lblGoodsinProvideQuantity"/>
+            <TextView android:layout_width="0dp" android:layout_weight="0.5" android:layout_height="wrap_content"
+                      android:gravity="center" android:textAppearance="?android:attr/textAppearanceLarge"
+                      android:textStyle="bold" android:textColor="#ffffff" android:inputType="number"
+                      android:text="100" android:id="@+id/txtGoodsinProvideQuantity"/>
+        </LinearLayout>
+        <Button android:layout_width="fill_parent" android:layout_height="wrap_content"
+                style="@style/ButtonText" android:background="@drawable/button_green"
+                android:text="Done" android:drawableLeft="@drawable/appbar_navigate_next"
+                android:drawableRight="@drawable/appbar_navigate_next"
+                android:layout_margin="100dp" android:id="@+id/bnGoodsinProvideSend"/>
+    </LinearLayout>
+
+</LinearLayout>

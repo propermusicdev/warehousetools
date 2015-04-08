@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+    <LinearLayout android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  android:padding="1dp"
+                  android:background="@drawable/border"
+                  android:id="@+id/lyt_dialogBody">
+
+        <LinearLayout android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="horizontal"
+                      android:background="@drawable/button_black"
+                      android:id="@+id/lyt_dialogHeader">
+            <ImageView android:id="@+id/imgDialogTitle"
+                       android:layout_width="50dp"
+                       android:layout_height="50dp"
+                       android:layout_gravity="left"
+                       android:src="@drawable/dialod64info"
+                       android:contentDescription="title logo"/>
+            <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Product Info"
+                    android:gravity="center_horizontal"
+                    android:textColor="#ffffff"
+                    android:id="@+id/DialogTitle"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="8"
+                android:padding="3dp">
+            <!--SupplierCat-->
+            <LinearLayout android:layout_width="fill_parent"
+                          android:layout_height="wrap_content"
+                          android:orientation="horizontal"
+                          android:padding="3dp"
+                          android:id="@+id/lyt_dialogSuppCat">
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Catalog:"
+                        android:textColor="#ffffff"
+                        android:id="@+id/lblDialogSuppCat"/>
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.7"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:text="101"
+                        android:textColor="#ffffff"
+                        android:id="@+id/txtDialogSuppCat"/>
+            </LinearLayout>
+            <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray"/>       <!-- Line Separator -->
+            <!--Arttist-->
+            <LinearLayout android:layout_width="fill_parent"
+                          android:layout_height="wrap_content"
+                          android:orientation="horizontal"
+                          android:padding="3dp"
+                          android:id="@+id/lyt_dialogArtist">
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Artist:"
+                        android:textColor="#ffffff"
+                        android:id="@+id/lblDialogArtist"/>
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.7"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:text="Sample Artist"
+                        android:textColor="#ffffff"
+                        android:id="@+id/txtDialogArtist"/>
+            </LinearLayout>
+            <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray"/>       <!-- Line Separator -->
+            <!--Title-->
+            <LinearLayout android:layout_width="fill_parent"
+                          android:layout_height="wrap_content"
+                          android:orientation="horizontal"
+                          android:padding="3dp"
+                          android:id="@+id/lyt_dialogTitle">
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.2"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Title:"
+                        android:textColor="#ffffff"
+                        android:id="@+id/lblDialogAtitle"/>
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.8"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:text="Sample Title"
+                        android:textColor="#ffffff"
+                        android:id="@+id/txtDialogATitle"/>
+            </LinearLayout>
+            <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray"/>       <!-- Line Separator -->
+            <!--Barcode-->
+            <LinearLayout android:layout_width="fill_parent"
+                          android:layout_height="wrap_content"
+                          android:orientation="horizontal"
+                          android:padding="3dp"
+                          android:id="@+id/lyt_dialogBarcode">
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Barcode:"
+                        android:textColor="#ffffff"
+                        android:id="@+id/lblDialogBarcode"/>
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.7"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:text="824363000121"
+                        android:textColor="#ffffff"
+                        android:id="@+id/txtDialogBarcode"/>
+            </LinearLayout>
+            <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray"/>       <!-- Line Separator -->
+            <!--Format-->
+            <LinearLayout android:layout_width="fill_parent"
+                          android:layout_height="wrap_content"
+                          android:orientation="horizontal"
+                          android:padding="3dp"
+                          android:id="@+id/lyt_dialogFormat">
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Format:"
+                        android:textColor="#ffffff"
+                        android:id="@+id/lblDialogFormat"/>
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.7"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:text="101"
+                        android:textColor="#ffffff"
+                        android:id="@+id/txtDialogFormat"/>
+            </LinearLayout>
+            <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray"/>       <!-- Line Separator -->
+            <!--EAN-->
+            <LinearLayout android:layout_width="fill_parent"
+                          android:layout_height="wrap_content"
+                          android:orientation="horizontal"
+                          android:padding="3dp"
+                          android:id="@+id/lyt_dialogEAN">
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="EAN:"
+                        android:textColor="#ffffff"
+                        android:id="@+id/lblDialogEAN"/>
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.7"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:text="824363000121"
+                        android:textColor="#ffffff"
+                        android:id="@+id/txtDialogEAN"/>
+            </LinearLayout>
+            <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray"/>       <!-- Line Separator -->
+            <!--StockAmount-->
+            <LinearLayout android:layout_width="fill_parent"
+                          android:layout_height="wrap_content"
+                          android:orientation="horizontal"
+                          android:padding="3dp"
+                          android:id="@+id/lyt_dialogStockAmount">
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.6"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="StockAmount:"
+                        android:textColor="#ffffff"
+                        android:id="@+id/lblDialogStockAmount"/>
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.4"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textStyle="bold"
+                        android:gravity="left"
+                        android:text="100"
+                        android:textColor="#ffffff"
+                        android:id="@+id/txtDialogStockAmount"/>
+            </LinearLayout>
+            <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray"/>       <!-- Line Separator -->
+            <!--QtyInBin-->
+            <LinearLayout android:layout_width="fill_parent"
+                          android:layout_height="wrap_content"
+                          android:orientation="horizontal"
+                          android:padding="3dp"
+                          android:id="@+id/lyt_dialogQtyInBin">
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="BinQty:"
+                        android:textColor="#ffffff"
+                        android:id="@+id/lblDialogQtyInBin"/>
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.7"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:text="101"
+                        android:textColor="#ffffff"
+                        android:id="@+id/txtDialogQtyInBin"/>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout android:layout_width="fill_parent"
+                      android:layout_height="0dp"
+                      android:layout_weight="2"
+                      android:orientation="vertical"
+                      android:id="@+id/lyt_Dialog_butons">
+            <Button android:text="OK"
+                    android:background="@drawable/button_blue"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="6"
+                    style="@style/ButtonText"
+                    android:drawableLeft="@drawable/appbarthumbsup"
+                    android:id="@+id/bnDialogFinish"/>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
+
+        <!--ProductId = productId;-->
+        <!--SupplierCat = supplierCat;-->
+        <!--Artist = artist;-->
+        <!--Title = title;-->
+        <!--Barcode = barcode;-->
+        <!--Format = format;-->
+        <!--this.EAN = EAN;-->
+        <!--SuppCode = suppCode;-->
+        <!--StockAmount = stockAmount;-->
+        <!--DeletionType = deletionType;-->
+        <!--PackshotURL = packshotURL;-->
+        <!--QtyInBin = qtyInBin;-->

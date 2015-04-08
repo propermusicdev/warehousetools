@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/lyMain"
+            android:orientation="vertical">
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/lyList">
+        <ListView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:id="@+id/lvHistory"
+                android:layout_weight="4"/>
+        <Button android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:text="@string/action_exit"
+                android:textSize="16sp"
+                android:id="@+id/bnExiActBinMoveMonitor"
+                android:background="@drawable/button_red"
+                android:width="190dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                style="@style/ButtonTextTiny"
+                android:drawableLeft="@drawable/appbarpower"/>
+    </LinearLayout>
+
+</RelativeLayout>

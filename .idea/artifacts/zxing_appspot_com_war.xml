@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="zxing.appspot.com:war">
+    <output-path>$PROJECT_DIR$/../AndroidSupportLibrary/zxing-master/zxing.appspot.com/target</output-path>
+    <root id="archive" name="zxing.appspot.com-3.1.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="zxing.appspot.com:war exploded" />
+    </root>
+  </artifact>
+</component>

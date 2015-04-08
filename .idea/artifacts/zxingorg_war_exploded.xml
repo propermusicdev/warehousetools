@@ -1,0 +1,25 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="zxingorg:war exploded">
+    <output-path>$PROJECT_DIR$/../AndroidSupportLibrary/zxing-master/zxingorg/target/zxingorg-3.1.1-SNAPSHOT</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="zxingorg" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="archive" name="core-3.1.1-SNAPSHOT.jar">
+            <element id="module-output" name="core" />
+          </element>
+          <element id="archive" name="javase-3.1.1-SNAPSHOT.jar">
+            <element id="module-output" name="javase" />
+          </element>
+          <element id="library" level="project" name="Maven: com.google.guava:guava:18.0" />
+        </element>
+      </element>
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="C:\Users\Lebel\IdeaProjects\AndroidSupportLibrary\zxing-master\zxingorg\target/MANIFEST.MF" />
+      </element>
+      <element id="javaee-facet-resources" facet="zxingorg/web/Web" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/lebelblue_list_selector_holo_light"
+                android:orientation="vertical"
+                android:id="@+id/lytLSTPMain">
+    <LinearLayout
+            android:id="@+id/lytLSTPDetailImage"
+            android:layout_width="fill_parent"
+            android:layout_height="70dp"
+            android:layout_alignParentTop="true"
+            android:layout_margin="8dp"
+            android:background="#e5e5e5"
+            android:orientation="horizontal" >
+
+        <ImageView
+                android:id="@+id/imgReplenLSTPAlbum"
+                android:layout_width="80dp"
+                android:layout_height="70dp"
+                android:contentDescription="@string/img_detail_center"
+                android:scaleType="fitXY"
+                android:src="@drawable/nopic" />
+
+        <LinearLayout
+                android:id="@+id/lytReplenLSTPDetailTitle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#e5e5e5"
+                android:orientation="vertical" >
+
+            <TextView
+                    android:id="@+id/txtv_ReplenLSTPArtist"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:maxLines="4"
+                    android:singleLine="false"
+                    android:text="@string/defaultLabelText"
+                    android:textColor="#957700"
+                    android:textColorHint="#957700"
+                    android:textSize="18sp"
+                    android:width="0dip"/>
+
+            <TextView
+                    android:id="@+id/txtv_ReplenLSTPTitle"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:maxLines="4"
+                    android:singleLine="false"
+                    android:text="@string/defaultLabelText"
+                    android:textColor="#6699FF"
+                    android:textColorHint="#6699FF"
+                    android:textSize="14sp"
+                    android:textStyle="italic|bold"
+                    android:width="0dip"/>
+        </LinearLayout>
+    </LinearLayout>
+    <com.proper.data.customcontrols.LetterSpacingTextView
+            android:id="@+id/lblReplenLSTPEAN"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_below="@+id/lytLSTPDetailImage"
+            android:text="0123456789"
+            android:gravity="center_horizontal"
+            android:background="#e5e5e5"/>
+    <!-- *****************************SuppCat******************************-->
+    <LinearLayout
+            android:id="@+id/lytReplenLSTPSuppCat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lblReplenLSTPEAN"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="horizontal"
+            android:background="#e5e5e5">
+
+        <TextView
+                android:id="@+id/lblReplenLSTPSuppCat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_vertical_margin"
+                android:layout_marginTop="@dimen/fiveDp_margin"
+                android:gravity="left"
+                android:text="@string/defaultLabelText"
+                android:textStyle="bold"
+                android:textColor="#7f4903" />
+
+        <TextView
+                android:id="@+id/txtvReplenLSTPSuppCat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_vertical_margin"
+                android:layout_marginTop="@dimen/fiveDp_margin"
+                android:gravity="right"
+                android:text="@string/defaultLabelText" />
+    </LinearLayout>
+    <!-- *****************************Format******************************-->
+    <LinearLayout
+            android:id="@+id/lytReplenLSTPFormat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lytReplenLSTPSuppCat"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="horizontal"
+            android:background="#e5e5e5">
+
+        <TextView
+                android:id="@+id/lblReplenLSTPFormat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_vertical_margin"
+                android:layout_marginTop="@dimen/fiveDp_margin"
+                android:gravity="left"
+                android:text="@string/defaultLabelText"
+                android:textStyle="bold"
+                android:textColor="#7f4903" />
+
+        <TextView
+                android:id="@+id/txtvReplenLSTPFormat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_vertical_margin"
+                android:layout_marginTop="@dimen/fiveDp_margin"
+                android:gravity="right"
+                android:text="@string/defaultLabelText" />
+    </LinearLayout>
+    <!-- *****************************Format******************************-->
+    <LinearLayout
+            android:id="@+id/lytReplenLSTPQtyInBin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lytReplenLSTPFormat"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="horizontal"
+            android:background="#e5e5e5">
+
+        <TextView
+                android:id="@+id/lblReplenLSTPQtyInBin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_vertical_margin"
+                android:layout_marginTop="@dimen/fiveDp_margin"
+                android:gravity="left"
+                android:text="@string/defaultLabelText"
+                android:textStyle="bold"
+                android:textColor="#7f4903" />
+
+        <TextView
+                android:id="@+id/txtvReplenLSTPQtyInBin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_vertical_margin"
+                android:layout_marginTop="@dimen/fiveDp_margin"
+                android:gravity="right"
+                android:text="@string/defaultLabelText" />
+    </LinearLayout>
+    <!-- *****************************Format******************************-->
+    <LinearLayout
+            android:id="@+id/lytReplenLSTPQtyScanned"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lytReplenLSTPQtyInBin"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="horizontal"
+            android:background="#e5e5e5">
+
+        <TextView
+                android:id="@+id/lblReplenLSTPQtyScanned"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_vertical_margin"
+                android:layout_marginTop="@dimen/fiveDp_margin"
+                android:gravity="left"
+                android:text="@string/defaultLabelText"
+                android:textStyle="bold"
+                android:textColor="#7f4903" />
+
+        <TextView
+                android:id="@+id/txtvReplenLSTPQtyScanned"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_vertical_margin"
+                android:layout_marginTop="@dimen/fiveDp_margin"
+                android:gravity="right"
+                android:text="@string/defaultLabelText" />
+    </LinearLayout>
+</RelativeLayout>
+<!--ProductId,SupplierCat,Artist,Title,Barcode,EAN,Format,QtyInBin,QtyScanned-->

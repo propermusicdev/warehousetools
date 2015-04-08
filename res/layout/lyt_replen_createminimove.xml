@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:padding="12dp"
+        android:background="@drawable/flat_button_sandrift"
+        android:id="@+id/lytReplenCMM">
+    <LinearLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+            android:orientation="vertical" android:background="@drawable/flat_button_beige">
+        <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
+                  android:textAppearance="?android:attr/textAppearanceSmall"
+                  android:layout_marginTop="6dp" android:layout_marginBottom="8dp"
+                  android:textColor="#ffffff" android:text="The Ravonettes Well, Well"
+                  android:gravity="center" android:id="@+id/txtvReplenCMMIntro"/>
+        <ViewFlipper android:layout_width="fill_parent" android:layout_height="wrap_content"
+                android:padding="2dp" android:id="@+id/vfReplenCMMGetBin">
+            <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                          android:orientation="vertical">
+                <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
+                          android:layout_marginBottom="10dp" android:textColor="#ffffff"
+                          android:text="Select Default Primary Location: " android:textSize="16sp"
+                          android:gravity="center" android:layout_gravity="center"/>
+                <Spinner android:layout_width="fill_parent" android:layout_height="wrap_content"
+                        android:id="@+id/spReplenCMMSelectBin"></Spinner>
+                <Button android:layout_width="fill_parent" android:layout_height="wrap_content"
+                        android:layout_margin="5dp" android:text="Use this Primary Location"
+                        android:layout_gravity="center" android:background="@drawable/button_green"
+                        style="@style/ButtonTextSmall" android:id="@+id/bnReplenCMMSelectBin"
+                        android:drawableLeft="@drawable/appbarthumbsup"/>
+            </LinearLayout>
+            <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                          android:orientation="vertical">
+                <Button android:layout_width="fill_parent"
+                        android:layout_margin="2dp"
+                        android:text="Scan Destination"
+                        android:id="@+id/bnReplenCMMScan"
+                        android:background="@drawable/button_yellow"
+                        android:layout_gravity="center"
+                        style="@style/ButtonTextSmall"
+                        android:drawableLeft="@drawable/appbarsocialstackoverflow"/>
+                <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                              android:layout_weight="0.2" android:textColor="#ffffff"
+                              android:text="Dst Bin: " android:textSize="16sp"
+                              android:gravity="center" android:layout_gravity="center"/>
+                    <EditText android:layout_width="0dp" android:layout_height="wrap_content"
+                              android:layout_weight="0.4" android:textColor="#ffffff" android:inputType="textCapCharacters"
+                              android:hint="eg: 1HCH5" android:gravity="center" android:textStyle="bold"
+                              android:textSize="20sp" android:layout_gravity="center" android:textColorHint="#ccc"
+                              android:capitalize="characters" android:id="@+id/etxtReplenCMMBincode"/>
+                    <Button android:layout_width="0dp" android:layout_weight="0.4"
+                            android:layout_margin="2dp"
+                            android:text="byHand"
+                            android:id="@+id/bnReplenCMMEnterBin"
+                            android:background="@drawable/button_yellow"
+                            android:layout_gravity="center"
+                            style="@style/ButtonTextTiny"
+                            android:drawableLeft="@drawable/appbarcursorhand"/>
+                </LinearLayout>
+            </LinearLayout>
+        </ViewFlipper>
+        <Button android:layout_width="fill_parent"
+                android:layout_margin="5dp"
+                android:text="use another location"
+                android:id="@+id/bnReplenCMMToggleCommand"
+                android:background="@drawable/button_black"
+                android:layout_gravity="center"
+                style="@style/ButtonTextSmall"
+                android:drawableLeft="@drawable/appbarthumbsdown"/>
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:background="@drawable/flat_button_palebrown"
+                android:layout_marginTop="25dp">
+            <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="0.5" android:textColor="#ffffff"
+                        android:gravity="center" android:text="Destination:"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                          android:layout_weight="0.5" android:textColor="#ffffff" android:textStyle="bold"
+                          android:gravity="center" android:text="Not Selected" android:textSize="20sp"
+                        android:id="@+id/txtvReplenCMMBin"/>
+            </LinearLayout>
+            <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray"/>       <!-- Line Separator -->
+            <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                          android:orientation="horizontal">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                          android:layout_weight="0.5" android:textColor="#ffffff"
+                          android:gravity="center" android:text="Moving Total:"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                          android:layout_weight="0.5" android:textColor="#ffffff" android:textStyle="bold"
+                          android:gravity="center" android:text="0" android:textSize="20sp"
+                          android:id="@+id/txtvReplenCMMMoveQty"/>
+            </LinearLayout>
+            <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray"/>       <!-- Line Separator -->
+            <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                          android:orientation="horizontal">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                          android:layout_weight="0.5" android:textColor="#ffffff"
+                          android:gravity="center" android:text="Total Bin Qty:"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                          android:layout_weight="0.5" android:textColor="#ffffff" android:textStyle="bold"
+                          android:gravity="center" android:text="0" android:textSize="20sp"
+                        android:id="@+id/txtvReplenCMMTotalQty"/>
+            </LinearLayout>
+        </LinearLayout>
+        <Button android:layout_width="fill_parent"
+                android:layout_margin="5dp"
+                android:text="@string/action_exit"
+                android:id="@+id/bnExitActReplenCMM"
+                android:background="@drawable/button_red"
+                android:layout_gravity="center"
+                style="@style/ButtonTextSmall"
+                android:drawableLeft="@drawable/appbarpower"/>
+    </LinearLayout>
+</LinearLayout>

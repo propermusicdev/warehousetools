@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <style name="lebelOrange" parent="@style/_lebelOrange"/>
+
+  <style name="_lebelOrange" parent="Theme.AppCompat.Light">
+
+    <item name="android:editTextStyle">@style/EditTextlebelOrange</item>
+
+    <item name="android:textColorHighlight">#99ff8800</item>
+
+    <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewlebelOrange</item>
+
+    <item name="android:checkboxStyle">@style/CheckBoxlebelOrange</item>
+
+    <item name="android:radioButtonStyle">@style/RadioButtonlebelOrange</item>
+
+    <item name="android:buttonStyle">@style/ButtonlebelOrange</item>
+
+    <item name="android:imageButtonStyle">@style/ImageButtonlebelOrange</item>
+
+    <item name="android:spinnerStyle">@style/SpinnerlebelOrange</item>
+
+    <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItemlebelOrange</item>
+
+    <item name="android:progressBarStyleHorizontal">@style/ProgressBarlebelOrange</item>
+
+    <item name="android:seekBarStyle">@style/SeekBarlebelOrange</item>
+
+    <item name="android:ratingBarStyle">@style/RatingBarlebelOrange</item>
+
+    <item name="android:ratingBarStyleIndicator">@style/RatingBarBiglebelOrange</item>
+
+    <item name="android:ratingBarStyleSmall">@style/RatingBarSmalllebelOrange</item>
+
+    <item name="android:buttonStyleToggle">@style/TogglelebelOrange</item>
+
+    <item name="android:listViewStyle">@style/ListViewlebelOrange</item>
+
+    <item name="android:listViewWhiteStyle">@style/ListViewlebelOrange.White</item>
+
+    <item name="android:spinnerItemStyle">@style/SpinnerItemlebelOrange</item>
+
+  </style>
+
+</resources>

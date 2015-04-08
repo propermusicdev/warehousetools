@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="fill_parent"
+              android:orientation="horizontal"
+        android:background="@drawable/flat_button_palebrown">
+
+    <ImageView android:id="@+id/myTitleImage"
+               android:layout_width="32dp"
+               android:layout_height="32dp"
+               android:scaleType="fitXY"
+               android:layout_marginRight="6dp"
+               android:background="@drawable/ic_launcher"/>
+
+    <TextView
+
+            android:id="@+id/myTitle"
+            android:text="This is my new title"
+            android:layout_width="fill_parent"
+            android:layout_height="32dp"
+            android:textColor="#ffff"
+            android:textSize="19sp"
+            android:textStyle="bold"
+            />
+</LinearLayout>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/detailsScroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/flat_button_beige">
+        <LinearLayout
+                android:id="@+id/lytBody"
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:paddingTop="50dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="50dp"
+                android:paddingLeft="16dp">
+
+
+            <TextView
+                    android:id="@+id/LabelIntro"
+                    android:layout_marginBottom="40dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:text="@string/LoreIpsum"/>
+
+            <Button android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                    android:text="@string/but_yes"
+                    android:id="@+id/bnDetContinue"
+                    android:background="@drawable/button_green"
+                    style="@style/ButtonText"
+                    android:drawableLeft="@drawable/appbarcheckmarkthick"/>
+
+            <Button android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/but_no"
+                    android:id="@+id/bnDetClose"
+                    android:background="@drawable/button_red"
+                    style="@style/ButtonText"
+                    android:drawableLeft="@drawable/appbarnoentry"/>
+
+        </LinearLayout>
+</ScrollView>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+    <LinearLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+            android:orientation="vertical" android:padding="10dp">
+        <!-- Header -->
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="0dp" android:layout_weight="0.1">
+            <TextView android:layout_width="fill_parent" android:layout_height="fill_parent"
+                      android:id="@+id/txtvGoodsInPhotoDisplayHeader" android:text="Photos Taken" android:background="@drawable/flat_button_blue"
+                    android:textColor="#ffffff" android:textStyle="bold" android:textSize="18sp"
+                    android:gravity="center"/>
+        </LinearLayout>
+        <!-- Gallery -->
+        <GridView
+                android:id="@+id/dgvGoodsInPhotoDisplayGallery" android:layout_width="fill_parent" android:layout_height="0dp"
+                android:layout_weight="0.8" android:minHeight="500dp" android:layout_margin="5dp" android:columnWidth="120dp"
+                android:gravity="center" android:numColumns="auto_fit" android:verticalSpacing="5dp" android:drawSelectorOnTop="true"
+                android:stretchMode="columnWidth">
+        </GridView>
+        <!-- Footer -->
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="0dp" android:layout_weight="0.1">
+            <Button android:layout_width="fill_parent" android:layout_height="wrap_content"
+                    android:layout_margin="10dp" android:text="Exit" android:id="@+id/bnExitActGoodsInPhotoDisplay"
+                    android:background="@drawable/button_red" style="@style/ButtonText"
+                    android:drawableLeft="@drawable/appbarpower" android:drawableRight="@drawable/appbarpower"/>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

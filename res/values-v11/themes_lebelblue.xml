@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <style name="lebelBlue" parent="@style/_lebelBlue"/>
+
+  <style name="_lebelBlue" parent="Theme.AppCompat.Light">
+
+    <item name="android:editTextBackground">@drawable/lebelblue_edit_text_holo_light</item>
+
+    <item name="android:textColorHighlight">#9933b5e5</item>
+    <item name="android:textSelectHandleLeft">@drawable/lebelblue_text_select_handle_left</item>
+    <item name="android:textSelectHandleRight">@drawable/lebelblue_text_select_handle_right</item>
+    <item name="android:textSelectHandle">@drawable/lebelblue_text_select_handle_middle</item>
+
+    <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewlebelBlue</item>
+
+    <item name="android:listChoiceIndicatorMultiple">@drawable/lebelblue_btn_check_holo_light</item>
+
+    <item name="android:listChoiceIndicatorSingle">@drawable/lebelblue_btn_radio_holo_light</item>
+
+    <item name="android:buttonStyle">@style/ButtonlebelBlue</item>
+
+    <item name="android:imageButtonStyle">@style/ImageButtonlebelBlue</item>
+
+    <item name="android:dropDownSpinnerStyle">@style/SpinnerlebelBlue</item>
+
+    <item name="android:progressBarStyleHorizontal">@style/ProgressBarlebelBlue</item>
+
+    <item name="android:seekBarStyle">@style/SeekBarlebelBlue</item>
+
+    <item name="android:ratingBarStyle">@style/RatingBarlebelBlue</item>
+
+    <item name="android:ratingBarStyleIndicator">@style/RatingBarBiglebelBlue</item>
+
+    <item name="android:ratingBarStyleSmall">@style/RatingBarSmalllebelBlue</item>
+
+    <item name="android:buttonStyleToggle">@style/TogglelebelBlue</item>
+
+    <item name="android:listChoiceBackgroundIndicator">@drawable/lebelblue_list_selector_holo_light</item>
+
+    <item name="android:activatedBackgroundIndicator">@drawable/lebelblue_activated_background_holo_light</item>
+
+    <item name="android:fastScrollThumbDrawable">@drawable/lebelblue_fastscroll_thumb_holo</item>
+
+  </style>
+
+</resources>

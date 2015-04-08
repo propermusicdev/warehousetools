@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/flat_button_sandrift">
+    <LinearLayout android:layout_width="fill_parent" android:layout_height="0dp"
+            android:layout_weight="0.1" android:orientation="horizontal">
+        <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.9"
+                android:id="@+id/etxtBMSSEAN"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="42dp"
+                android:layout_weight="0.1"
+                android:text="Go"
+                android:id="@+id/btnBMSSSearch"
+                style="@style/ButtonTextSmall"
+                android:drawableLeft="@drawable/appbarpagesearch"/>
+    </LinearLayout>
+    <LinearLayout android:layout_width="fill_parent" android:layout_height="0dp"
+                  android:layout_weight="0.9" android:padding="2dp" android:orientation="vertical">
+        <LinearLayout
+                android:id="@+id/lytBMSSInnerTop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#666666"
+                android:padding="5dp"
+                android:orientation="horizontal" >
+            <TextView android:id="@+id/txtBMSSHeader_qryview"
+                      android:layout_width="0dp"
+                      android:layout_height="wrap_content"
+                      android:layout_weight="1"
+                      android:layout_gravity="center"
+                      android:minHeight="45dp"
+                      android:gravity="center"
+                      android:textSize="14sp"
+                      android:textStyle="bold"
+                      android:textColor="#0091F2"
+                      android:maxLines="4"
+                      android:singleLine="false"
+                      android:text="@string/empty_data_template"/>
+        </LinearLayout>
+        <!-- ******************* End of title here ***************************-->
+
+        <ViewFlipper
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="6"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:id="@+id/vfBMSSSearchResult">
+            <LinearLayout
+                    android:id="@+id/lytBMSSNoData"
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:background="#c0caff">
+                <TextView android:layout_width="fill_parent"
+                          android:layout_height="wrap_content"
+                          android:background="#cab1da"
+                          android:textSize="14sp"
+                          android:textStyle="bold"
+                          android:textColor="#cc3333"
+                          android:gravity="center"
+                          android:text="@string/empty_data_template"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:id="@+id/lytBMSSData"
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+                <!--android:listSelector="@drawable/lebelblue_list_selector_holo_light"-->
+                <ListView android:layout_width="match_parent"
+                          android:layout_height="fill_parent"
+                          android:id="@+id/qryBMSSListView" />
+                <ExpandableListView
+                        android:layout_width="match_parent"
+                        android:layout_height="fill_parent"
+                        android:id="@+id/qryXpBMSSListView"/>
+            </LinearLayout>
+        </ViewFlipper>
+        <!-- ******************* End of viewFlipper here ***************************-->
+    </LinearLayout>
+</LinearLayout>

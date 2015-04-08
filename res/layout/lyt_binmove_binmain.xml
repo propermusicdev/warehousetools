@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/button_beige">
+
+    <LinearLayout
+            android:id="@+id/mainLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
+
+        <LinearLayout
+                android:id="@+id/lytBody"
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+            <LinearLayout
+                    android:id="@+id/lytResult"
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp">
+
+                <!-- Login Layout used to be here -->
+                <LinearLayout
+                        android:id="@+id/lytSource"
+                        android:orientation="horizontal"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent">
+                    <LinearLayout android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/fiveDp_margin"
+                                android:layout_gravity="center"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="@string/sampletext"
+                                android:id="@+id/txtvSourceLabel"/>
+                        <EditText
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/fiveDp_margin"
+                                android:layout_gravity="center"
+                                android:inputType="textCapCharacters"
+                                android:capitalize="characters"
+                                android:hint="@string/hint_bincode"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:textColorHint="#cccccc"
+                                android:background="@null"
+                                android:cursorVisible="false"
+                                android:id="@+id/txtvSourceText"/>
+                        <Button android:layout_marginTop="@dimen/activity_horizontal_margin"
+                                android:text="ByHand"
+                                android:background="@drawable/button_blue"
+                                android:layout_width="wrap_content"
+                                android:layout_height="35dp"
+                                android:layout_gravity="center"
+                                style="@style/ButtonTextTiny"
+                                android:drawableLeft="@drawable/appbarcursorhand"
+                                android:id="@+id/bnEnterSourceBinMain"/>
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                        android:id="@+id/lytDestination"
+                        android:orientation="horizontal"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent">
+                    <LinearLayout android:layout_width="fill_parent"
+                                  android:layout_height="wrap_content"
+                                  android:orientation="horizontal">
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/fiveDp_margin"
+                                android:layout_gravity="center"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="@string/sampletext"
+                                android:id="@+id/txtvDestinationLabel"/>
+                        <EditText
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/fiveDp_margin"
+                                android:layout_gravity="center"
+                                android:inputType="textCapCharacters"
+                                android:capitalize="characters"
+                                android:hint="@string/hint_bincode"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:textColorHint="#cccccc"
+                                android:background="@null"
+                                android:cursorVisible="false"
+                                android:id="@+id/txtvDestinationText"/>
+                        <Button android:layout_marginTop="@dimen/activity_horizontal_margin"
+                                android:text="ByHand"
+                                android:background="@drawable/button_yellow"
+                                android:layout_width="wrap_content"
+                                android:layout_height="35dp"
+                                android:layout_gravity="center"
+                                style="@style/ButtonTextTiny"
+                                android:drawableLeft="@drawable/appbarcursorhand"
+                                android:id="@+id/bnEnterDestinationBinMain"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                    android:id="@+id/lytAction"
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                <Button android:layout_width="fill_parent"
+                        android:text="@string/action_src"
+                        android:id="@+id/bnScanSource"
+                        android:background="@drawable/button_blue"
+                        style="@style/ButtonTextSmall"
+                        android:drawableLeft="@drawable/appbarbarcode"/>
+
+                <Button android:layout_width="fill_parent"
+                        android:text="@string/action_dest"
+                        android:id="@+id/bnScanDestination"
+                        android:background="@drawable/button_yellow"
+                        android:layout_gravity="center"
+                        style="@style/ButtonTextSmall"
+                        android:drawableLeft="@drawable/appbarbarcode"/>
+
+                <Button android:layout_width="fill_parent"
+                        android:text="@string/action_continue"
+                        android:id="@+id/bnContinue"
+                        android:background="@drawable/button_green"
+                        android:layout_gravity="center"
+                        style="@style/ButtonTextSmall"
+                        android:drawableLeft="@drawable/appbararrowright"/>
+
+                <Button android:layout_width="fill_parent"
+                        android:text="@string/action_exit"
+                        android:id="@+id/bnExitActBinMain"
+                        android:background="@drawable/button_red"
+                        android:layout_gravity="center"
+                        style="@style/ButtonTextSmall"
+                        android:drawableLeft="@drawable/appbarpower"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

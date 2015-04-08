@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/flat_button_sandrift">
+    <LinearLayout android:orientation="vertical"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:padding="@dimen/activity_horizontal_margin"
+                  android:background="@drawable/button_beige"
+                  android:id="@+id/lytBPMMain">
+        <!--android:textSize="14sp"-->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="20dp"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/intro_Description"
+                android:id="@+id/txtvBPMIntro"
+                android:textColor="#ffffff"/>
+        <!--android:width="190dp"-->
+        <!--android:height="40dp"-->
+        <Button android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:text="@string/but_start"
+                android:id="@+id/bnBPMScan"
+                android:background="@drawable/button_palebrown"
+                android:layout_gravity="center"
+                style="@style/ButtonTextTiny"
+                android:drawableLeft="@drawable/appbarbarcode"/>
+
+        <Button android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:text="@string/action_exit"
+                android:id="@+id/bnExitActSingleMove"
+                android:background="@drawable/button_red"
+                android:layout_gravity="center"
+                style="@style/ButtonTextTiny"
+                android:drawableLeft="@drawable/appbarpower"/>
+
+        <LinearLayout android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="horizontal">
+            <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="0.6"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:gravity="center_vertical"
+                    android:text="Source Bin:"
+                    android:id="@+id/txtvBPMSrcBin"/>
+
+            <Button android:text="ByHand"
+                    android:background="@drawable/button_green"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    style="@style/ButtonTextTiny"
+                    android:drawableLeft="@drawable/appbarcursorhand"
+                    android:id="@+id/bnEnterSrcBinBPM"/>
+        </LinearLayout>
+        <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="8dp"
+                android:hint="@string/hint_bincode"
+                android:textColorHint="#6c6c6c"
+                android:gravity="center"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:inputType="textCapCharacters"
+                android:capitalize="characters"
+                android:textStyle="bold"
+                android:textColor="#ffffff"
+                android:background="@null"
+                android:id="@+id/etxtBPMSrcBin"/>
+
+        <LinearLayout android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="horizontal">
+            <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="0.6"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:gravity="center_vertical"
+                    android:text="@string/label_Barcode"
+                    android:id="@+id/txtvBPMBarcode"/>
+
+            <Button android:text="ByHand"
+                    android:background="@drawable/button_blue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    style="@style/ButtonTextTiny"
+                    android:drawableLeft="@drawable/appbarcursorhand"
+                    android:id="@+id/bnEnterBarcodeBPM"/>
+        </LinearLayout>
+        <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="6dp"
+                android:hint="@string/hint_barcode"
+                android:textColorHint="#c6c6c6"
+                android:gravity="center"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:inputType="number"
+                android:textStyle="bold"
+                android:textColor="#ffffff"
+                android:background="@null"
+                android:id="@+id/etxtBPMBarcode"/>
+
+        <LinearLayout android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="horizontal">
+            <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="0.6"
+                    android:layout_marginTop="8dp"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Destination Bin:"
+                    android:id="@+id/txtvBPMDstBin"/>
+
+            <Button android:text="ByHand"
+                    android:background="@drawable/button_yellow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    style="@style/ButtonTextTiny"
+                    android:drawableLeft="@drawable/appbarcursorhand"
+                    android:id="@+id/bnEnterDstBinBPM"/>
+        </LinearLayout>
+        <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="6dp"
+                android:hint="@string/hint_bincode"
+                android:textColorHint="#6c6c6c"
+                android:gravity="center"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:inputType="textCapCharacters"
+                android:capitalize="characters"
+                android:textStyle="bold"
+                android:textColor="#ffffff"
+                android:background="@null"
+                android:id="@+id/etxtBPMDstBin"/>
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:padding="20dp"
+              android:background="@drawable/flat_button_sandrift">
+    <RelativeLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                    android:orientation="vertical" android:background="@drawable/flat_button_beige"
+                    android:layout_marginTop="20dp" android:layout_marginBottom="20dp">
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Provide Info"
+                android:id="@+id/bnGoodsinInfoDisplayProvideInfo"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"/>
+
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Take Picture"
+                android:id="@+id/bnGoodsinInfoDisplayTakePicture"
+                android:layout_below="@+id/bnGoodsinInfoDisplayProvideInfo"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/activity_vertical_margin"/>
+
+        <ImageView
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:id="@+id/thumbnailImage"
+                android:layout_below="@+id/bnGoodsinInfoDisplayTakePicture"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/txtvSupplierName"
+                android:layout_above="@+id/txtvOrderNumber"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/txtvOrderNumber"
+                android:layout_above="@+id/personNameTextView"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/personNameTextView"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_above="@+id/emailTextView"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/emailTextView"
+                android:layout_above="@+id/bnExitActGoodsinInfoDisplay"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"/>
+
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Send"
+                android:id="@+id/bnExitActGoodsinInfoDisplay"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                />
+    </RelativeLayout>
+
+</LinearLayout>

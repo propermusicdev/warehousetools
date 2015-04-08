@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal"
+                  android:background="@drawable/button_black"
+                  android:id="@+id/lyt_BaseDialogReplenHeader">
+        <ImageView android:id="@+id/BaseDialogReplenTitleImage"
+                   android:layout_width="50dp"
+                   android:layout_height="50dp"
+                   android:layout_gravity="left"
+                   android:src="@drawable/bin"
+                   android:contentDescription="title logo"/>
+        <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Medium Text"
+                android:gravity="center_horizontal"
+                android:textColor="#ffffff"
+                android:id="@+id/BaseDialogReplenMessage"/>
+
+    </LinearLayout>
+    <LinearLayout android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal"
+                  android:padding="10dp"
+                  android:background="@drawable/border"
+                  android:id="@+id/lyt_BaseDialogReplenBody">
+        <Button android:text="OK"
+                android:background="@drawable/button_blue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                style="@style/ButtonTextSmall"
+                android:drawableLeft="@drawable/appbarcursorhand"
+                android:id="@+id/BaseDialogReplenOk"/>
+        <Button android:text="YES"
+                android:background="@drawable/button_green"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                style="@style/ButtonTextSmall"
+                android:drawableLeft="@drawable/appbarthumbsup"
+                android:id="@+id/BaseDialogReplenYes"/>
+        <Button android:text="NO"
+                android:background="@drawable/button_red"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                style="@style/ButtonTextSmall"
+                android:drawableLeft="@drawable/appbarthumbsdown"
+                android:id="@+id/BaseDialogReplenNo"/>
+    </LinearLayout>
+</LinearLayout>

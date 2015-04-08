@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <style name="lebelTelerik" parent="@style/_lebelTelerik"/>
+
+  <style name="_lebelTelerik" parent="Theme.AppCompat.Light">
+
+    <item name="android:editTextStyle">@style/EditTextlebelTelerik</item>
+
+    <item name="android:textColorHighlight">#9999cc00</item>
+
+    <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewlebelTelerik</item>
+
+    <item name="android:checkboxStyle">@style/CheckBoxlebelTelerik</item>
+
+    <item name="android:radioButtonStyle">@style/RadioButtonlebelTelerik</item>
+
+    <item name="android:buttonStyle">@style/ButtonlebelTelerik</item>
+
+    <item name="android:imageButtonStyle">@style/ImageButtonlebelTelerik</item>
+
+    <item name="android:spinnerStyle">@style/SpinnerlebelTelerik</item>
+
+    <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItemlebelTelerik</item>
+
+    <item name="android:progressBarStyleHorizontal">@style/ProgressBarlebelTelerik</item>
+
+    <item name="android:seekBarStyle">@style/SeekBarlebelTelerik</item>
+
+    <item name="android:ratingBarStyle">@style/RatingBarlebelTelerik</item>
+
+    <item name="android:ratingBarStyleIndicator">@style/RatingBarBiglebelTelerik</item>
+
+    <item name="android:ratingBarStyleSmall">@style/RatingBarSmalllebelTelerik</item>
+
+    <item name="android:buttonStyleToggle">@style/TogglelebelTelerik</item>
+
+    <item name="android:listViewStyle">@style/ListViewlebelTelerik</item>
+
+    <item name="android:listViewWhiteStyle">@style/ListViewlebelTelerik.White</item>
+
+    <item name="android:spinnerItemStyle">@style/SpinnerItemlebelTelerik</item>
+
+  </style>
+
+</resources>

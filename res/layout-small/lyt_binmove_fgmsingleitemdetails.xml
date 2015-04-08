@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:id="@+id/lytOutter">
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lytHeader"
+            android:background="#f9ecb6">
+
+        <Button android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="@string/action_exit"
+                android:id="@+id/bnExitActSingleDetails"
+                android:layout_weight="1"
+                android:background="@drawable/button_red"
+                android:width="50dp"
+                android:layout_gravity="center_vertical"
+                style="@style/ButtonTextTiny"
+                android:textSize="16sp"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="4.5"
+                android:text="@string/details_header"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:id="@+id/txtvArtist"
+                android:textColor="#957700"
+                android:gravity="center"/>
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView2"
+                android:layout_weight="0.5"
+                android:layout_gravity="center"
+                android:contentDescription="@string/info_text"
+                android:src="@drawable/administrator26"/>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/lytBody">
+        <ListView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/lvDetails"
+                android:cacheColorHint="@android:color/transparent"
+                android:drawSelectorOnTop="true"
+                android:listSelector="@drawable/lebeltelerik_list_focused_holo"/>
+                <!--android:choiceMode="singleChoice"/ lebelblue_list_focused_holo-->
+
+    </LinearLayout>
+</LinearLayout>

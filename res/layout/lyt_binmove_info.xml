@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent">-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:id="@+id/lytInfoOutter">
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:orientation="vertical"
+                  android:id="@+id/lytInfoLayer">
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="0dp"
+                      android:layout_weight="1"
+                      android:id="@+id/lytInfoHeader"
+                      android:background="@drawable/button_sandrift">
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Messages"
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"
+                    android:id="@+id/txtvInfoHeader"/>
+        </LinearLayout>
+        <ListView android:layout_width="match_parent"
+                  android:layout_height="0dp"
+                  android:layout_weight="4"
+                  android:cacheColorHint="@android:color/transparent"
+                  android:id="@+id/lvMessages">
+
+        </ListView>
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="0dp"
+                      android:orientation="vertical"
+                      android:layout_weight="1"
+                      android:background="@drawable/button_sandrift">
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Actions"
+                    android:textStyle="bold"
+                    android:id="@+id/txtvSubHeader"/>
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="0dp"
+                      android:layout_weight="4">
+            <ListView android:layout_width="match_parent"
+                      android:layout_height="match_parent"
+                      android:cacheColorHint="@android:color/transparent"
+                      android:id="@+id/lvMessageActions">
+            </ListView>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
+<!--</ScrollView>-->

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:background="@drawable/lebeltelerik_list_selector_holo_light">
+
+    <TextView
+            android:id="@+id/txtvBCKLSupplierCat"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".7"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:text="Bin Code"
+            android:textSize="20sp"
+            android:textColor="@drawable/lebel_binlist_item1color"
+            android:textStyle="normal" />
+    <!-- android:textColor="#957700" -->
+    <TextView
+            android:id="@+id/txtvBCKLQuantity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="Quantity"
+            android:textSize="20sp"
+            android:textColor="@drawable/lebel_binlist_item1color"
+            android:textStyle="normal"/>
+
+</LinearLayout>

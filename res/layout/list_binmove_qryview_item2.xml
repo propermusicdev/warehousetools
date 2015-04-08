@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/lebel_newlist_selector">
+
+        <ImageView
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1.5"
+                android:id="@+id/imgBarcode_qryView2"/>
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_weight="7"
+                android:layout_height="wrap_content">
+            <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Medium Text"
+                    android:textColor="#005396"
+                    android:singleLine="false"
+                    android:maxLines="2"
+                    android:id="@+id/txtvArtist_qryView2"/>
+            <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Medium Text"
+                    android:textColor="#005396"
+                    android:singleLine="false"
+                    android:maxLines="2"
+                    android:id="@+id/txtvTitle_qryView2"/>
+        </LinearLayout>
+        <ImageView
+                android:layout_width="0.5dp"
+                android:layout_height="25dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:id="@+id/img2_qryView2"/>
+        <CheckBox
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:text=""
+                android:focusable="false"
+                android:freezesText="false"
+                android:id="@+id/checkBox_qryView2"/>
+</LinearLayout>

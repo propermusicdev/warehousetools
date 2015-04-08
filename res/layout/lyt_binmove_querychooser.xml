@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+        android:background="@drawable/flat_button_beige"
+        android:id="@+id/screenQueryChooser">
+
+    <LinearLayout
+            android:id="@+id/lytQueryChooserMain"
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="28dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/intro_qryChooserDescription"
+                android:textColor="#333333"
+                android:id="@+id/txtvIntroQryChooser"/>
+        <Button android:layout_width="fill_parent"
+                android:layout_margin="10dp"
+                android:text="@string/action_qryBarcode"
+                android:id="@+id/bnQryChooserBarcode"
+                android:background="@drawable/button_blue"
+                android:layout_gravity="center"
+                style="@style/ButtonText"
+                android:drawableLeft="@drawable/appbarbarcode"/>
+        <Button
+                android:layout_width="fill_parent"
+                android:layout_margin="10dp"
+                android:text="@string/action_qryBin"
+                android:id="@+id/bnQryChooserBin"
+                android:background="@drawable/button_green"
+                android:layout_gravity="center"
+                style="@style/ButtonText"
+                android:drawableLeft="@drawable/appbarbarcode"/>
+        <Button android:layout_width="fill_parent"
+                android:layout_margin="10dp"
+                android:text="@string/action_qryBarcodeBin"
+                android:id="@+id/bnQryChooserBarcodeBin"
+                android:background="@drawable/button_purpple"
+                android:layout_gravity="center"
+                style="@style/ButtonTextSmall"
+                android:drawableLeft="@drawable/appbarbarcode"/>
+        <Button android:layout_width="fill_parent"
+                android:layout_margin="10dp"
+                android:text="@string/action_exit"
+                android:id="@+id/bnExitActQryChooser"
+                android:background="@drawable/button_red"
+                android:layout_gravity="center"
+                style="@style/ButtonText"
+                android:drawableLeft="@drawable/appbarpower"/>
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <style name="lebelBlue" parent="@style/_lebelBlue"/>
+
+  <style name="_lebelBlue" parent="Theme.AppCompat.Light">
+
+    <item name="android:editTextStyle">@style/EditTextlebelBlue</item>
+
+    <item name="android:textColorHighlight">#9933b5e5</item>
+
+    <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewlebelBlue</item>
+
+    <item name="android:checkboxStyle">@style/CheckBoxlebelBlue</item>
+
+    <item name="android:radioButtonStyle">@style/RadioButtonlebelBlue</item>
+
+    <item name="android:buttonStyle">@style/ButtonlebelBlue</item>
+
+    <item name="android:imageButtonStyle">@style/ImageButtonlebelBlue</item>
+
+    <item name="android:spinnerStyle">@style/SpinnerlebelBlue</item>
+
+    <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItemlebelBlue</item>
+
+    <item name="android:progressBarStyleHorizontal">@style/ProgressBarlebelBlue</item>
+
+    <item name="android:seekBarStyle">@style/SeekBarlebelBlue</item>
+
+    <item name="android:ratingBarStyle">@style/RatingBarlebelBlue</item>
+
+    <item name="android:ratingBarStyleIndicator">@style/RatingBarBiglebelBlue</item>
+
+    <item name="android:ratingBarStyleSmall">@style/RatingBarSmalllebelBlue</item>
+
+    <item name="android:buttonStyleToggle">@style/TogglelebelBlue</item>
+
+    <item name="android:listViewStyle">@style/ListViewlebelBlue</item>
+
+    <item name="android:listViewWhiteStyle">@style/ListViewlebelBlue.White</item>
+
+    <item name="android:spinnerItemStyle">@style/SpinnerItemlebelBlue</item>
+
+  </style>
+
+</resources>

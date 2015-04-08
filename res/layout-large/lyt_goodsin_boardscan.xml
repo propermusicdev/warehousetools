@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:paddingTop="100dp" android:paddingBottom="100dp"
+              android:paddingLeft="50dp" android:paddingRight="50dp"
+              android:background="@drawable/jellybeans_nexus7_2560x16001">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                  android:orientation="vertical" android:background="@drawable/flat_button_beige" android:paddingTop="280dp">
+        <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
+                  android:layout_margin="50dp" android:id="@+id/txtGoodsInBoardScanIntro"
+                  android:gravity="center" android:textAppearance="?android:attr/textAppearanceLarge"
+                  android:textStyle="bold" android:textColor="#ffffff" android:text="@string/LoreIpsum"/>
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal" >
+            <TextView android:layout_width="0dp" android:layout_weight="0.4" android:layout_height="wrap_content"
+                      android:gravity="center" android:textAppearance="?android:attr/textAppearanceLarge"
+                      android:textStyle="bold" android:textColor="#ffffff" android:text="Goods-In Board ID:"
+                      android:id="@+id/lblGoodsInBoardScanBoardID"/>
+            <EditText android:layout_width="0dp" android:layout_weight="0.3" android:layout_height="wrap_content"
+                      android:gravity="center" android:textAppearance="?android:attr/textAppearanceLarge"
+                      android:textStyle="bold" android:textColor="#ffffff" android:inputType="number"
+                      android:id="@+id/txtGoodsInBoardScanBoardID"/>
+            <Button android:layout_width="0dp" android:layout_weight="0.3" android:layout_height="wrap_content"
+                    android:text="Scan" android:id="@+id/bnGoodsInBoardScanByHand"
+                    android:background="@drawable/button_blue" style="@style/ButtonText"
+                    android:drawableLeft="@drawable/appbarbarcode" />
+        </LinearLayout>
+        <Button android:layout_width="fill_parent" android:layout_height="wrap_content"
+                android:layout_margin="60dp" android:text="Scan" android:id="@+id/bnGoodsInBoardScan"
+                android:background="@drawable/button_blue" style="@style/ButtonText"
+                android:drawableLeft="@drawable/appbarbarcode" android:drawableRight="@drawable/appbarbarcode"/>
+    </LinearLayout>
+
+</LinearLayout>
