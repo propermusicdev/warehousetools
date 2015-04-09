@@ -72,8 +72,6 @@ public class ActQueryScan extends BaseScanActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lyt_binmove_qryscan);
-
-
         Bundle extras = getIntent().getExtras();
         NAV_INSTRUCTION = extras.getInt("INSTRUCTION_EXTRA");
         //compare instructions passed by the previous screen and then do stuff
@@ -764,6 +762,7 @@ public class ActQueryScan extends BaseScanActivity {
         super.onResume();
     }
 
+    @Override
     public void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "onDestroy");

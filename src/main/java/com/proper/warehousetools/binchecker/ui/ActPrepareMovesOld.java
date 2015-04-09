@@ -131,17 +131,17 @@ public class ActPrepareMovesOld extends BaseScanActivity implements ICommunicato
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lyt_binchecker_preparemovesold);
-        radioGroup = (RadioGroup) this.findViewById(R.id.rgBCPMScanMode);
-        radSrcBin = (RadioButton) this.findViewById(R.id.rdBCPMSrcBin);
-        radDstBin = (RadioButton) this.findViewById(R.id.rdBCPMDstBin);
-        radProduct = (RadioButton) this.findViewById(R.id.rdBCPMBarcode);
-        btnScan = (Button) this.findViewById(R.id.bnBCPMScan);
-        btnEnterByHand = (Button) this.findViewById(R.id.bnBCPMEnterBin);
-        btnExit = (Button) this.findViewById(R.id.bnExitActPrepareMoves);
-        btnNewMove = (Button) this.findViewById(R.id.bnBCPMNewMove);
-        btnSubmit = (Button) this.findViewById(R.id.bnBCPMSubmit);
-        txtBarcode = (EditText) this.findViewById(R.id.etxtBCPMScanValue);
-        lvMoves = (ListView) this.findViewById(R.id.lvBCPMMoves);
+        radioGroup = (RadioGroup) this.findViewById(R.id.rgBCPMOScanMode);
+        radSrcBin = (RadioButton) this.findViewById(R.id.rdBCPMOSrcBin);
+        radDstBin = (RadioButton) this.findViewById(R.id.rdBCPMODstBin);
+        radProduct = (RadioButton) this.findViewById(R.id.rdBCPMOBarcode);
+        btnScan = (Button) this.findViewById(R.id.bnBCPMOScan);
+        btnEnterByHand = (Button) this.findViewById(R.id.bnBCPMOEnterBin);
+        btnExit = (Button) this.findViewById(R.id.bnExitActPrepareMovesOld);
+        btnNewMove = (Button) this.findViewById(R.id.bnBCPMONewMove);
+        btnSubmit = (Button) this.findViewById(R.id.bnBCPMOSubmit);
+        txtBarcode = (EditText) this.findViewById(R.id.etxtBCPMOScanValue);
+        lvMoves = (ListView) this.findViewById(R.id.lvBCPMOMoves);
         btnNewMove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -245,15 +245,15 @@ public class ActPrepareMovesOld extends BaseScanActivity implements ICommunicato
 
     private void radioGroupButtonChanged(RadioGroup group, int checkedId) {
         switch (checkedId) {
-            case R.id.rdBCPMSrcBin:
+            case R.id.rdBCPMOSrcBin:
                 setSelectedMode(MODE_SOURCE);
                 paintScanButton();
                 break;
-            case R.id.rdBCPMBarcode:
+            case R.id.rdBCPMOBarcode:
                 setSelectedMode(MODE_PRODUCT);
                 paintScanButton();
                 break;
-            case R.id.rdBCPMDstBin:
+            case R.id.rdBCPMODstBin:
                 setSelectedMode(MODE_DESTINATION);
                 paintScanButton();
                 break;

@@ -7,21 +7,21 @@
     <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
                   android:orientation="horizontal" android:gravity="center">
         <RadioGroup android:layout_width="wrap_content" android:layout_height="30dp"
-                    android:orientation="horizontal" android:id="@+id/rgBCPMScanMode">
+                    android:orientation="horizontal" android:id="@+id/rgBCPMOScanMode">
             <RadioButton android:layout_width="wrap_content" android:layout_height="fill_parent"
-                         android:id="@+id/rdBCPMBarcode" android:text="Product" android:textColor="#ffffff" android:textAppearance="?android:attr/textAppearanceSmall"/>
+                         android:id="@+id/rdBCPMOBarcode" android:text="Product" android:textColor="#ffffff" android:textAppearance="?android:attr/textAppearanceSmall"/>
             <View android:layout_width="4dp" android:layout_height="1dp" />
             <View android:layout_width="2dp" android:layout_height="fill_parent"
                   android:layout_marginBottom="4dp" android:background="@android:color/darker_gray"/>
             <View android:layout_width="4dp" android:layout_height="1dp" />
             <RadioButton android:layout_width="wrap_content" android:layout_height="fill_parent"
-                         android:id="@+id/rdBCPMSrcBin"  android:text="Src Bin" android:textColor="#ffffff" android:textAppearance="?android:attr/textAppearanceSmall"/>
+                         android:id="@+id/rdBCPMOSrcBin"  android:text="Src Bin" android:textColor="#ffffff" android:textAppearance="?android:attr/textAppearanceSmall"/>
             <View android:layout_width="4dp" android:layout_height="1dp" />
             <View android:layout_width="2dp" android:layout_height="fill_parent"
                   android:layout_marginBottom="4dp" android:background="@android:color/darker_gray"/>
             <View android:layout_width="4dp" android:layout_height="1dp" />
             <RadioButton android:layout_width="wrap_content" android:layout_height="fill_parent"
-                         android:id="@+id/rdBCPMDstBin" android:text="Dst Bin" android:textColor="#ffffff" android:textAppearance="?android:attr/textAppearanceSmall"/>
+                         android:id="@+id/rdBCPMODstBin" android:text="Dst Bin" android:textColor="#ffffff" android:textAppearance="?android:attr/textAppearanceSmall"/>
         </RadioGroup>
     </LinearLayout>
     <LinearLayout
@@ -37,7 +37,7 @@
                     android:layout_weight="0.5"
                     android:layout_marginBottom="10dp"
                     android:text="New Move"
-                    android:id="@+id/bnBCPMNewMove"
+                    android:id="@+id/bnBCPMONewMove"
                     android:background="@drawable/button_palebrown"
                     android:layout_gravity="center"
                     style="@style/ButtonTextTiny"
@@ -46,7 +46,7 @@
                     android:layout_weight="0.5"
                     android:layout_marginBottom="10dp"
                     android:text="Scan"
-                    android:id="@+id/bnBCPMScan"
+                    android:id="@+id/bnBCPMOScan"
                     android:background="@drawable/button_green"
                     android:layout_gravity="center"
                     style="@style/ButtonTextSmall"
@@ -55,7 +55,7 @@
         <!--<Button android:layout_width="fill_parent"-->
                 <!--android:layout_marginBottom="20dp"-->
                 <!--android:text="New Move"-->
-                <!--android:id="@+id/bnBCPMScan"-->
+                <!--android:id="@+id/bnBCPMOScan"-->
                 <!--android:background="@drawable/button_green"-->
                 <!--android:layout_gravity="center"-->
                 <!--style="@style/ButtonTextSmall"-->
@@ -63,7 +63,7 @@
         <Button android:layout_width="fill_parent"
                 android:layout_marginBottom="10dp"
                 android:text="Submit"
-                android:id="@+id/bnBCPMSubmit"
+                android:id="@+id/bnBCPMOSubmit"
                 android:background="@drawable/button_palebrown"
                 android:layout_gravity="center"
                 style="@style/ButtonTextSmall"
@@ -71,7 +71,7 @@
         <Button android:layout_width="fill_parent"
                 android:layout_marginTop="10dp"
                 android:text="@string/action_exit"
-                android:id="@+id/bnExitActPrepareMoves"
+                android:id="@+id/bnExitActPrepareMovesOld"
                 android:background="@drawable/button_red"
                 android:layout_gravity="center"
                 style="@style/ButtonTextSmall"
@@ -82,7 +82,7 @@
                 android:layout_marginTop="8dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Bin / Product"
-                android:id="@+id/lblBCPMBin"/>
+                android:id="@+id/lblBCPMOBin"/>
         <LinearLayout android:layout_width="fill_parent"
                       android:layout_height="wrap_content"
                       android:orientation="horizontal">
@@ -103,7 +103,7 @@
                     android:textStyle="bold"
                     android:textColor="#ffffff"
                     android:background="@null"
-                    android:id="@+id/etxtBCPMScanValue"/>
+                    android:id="@+id/etxtBCPMOScanValue"/>
             <Button android:text="ByHand"
                     android:background="@drawable/button_green"
                     android:layout_width="wrap_content"
@@ -111,11 +111,11 @@
                     android:layout_gravity="center"
                     style="@style/ButtonTextTiny"
                     android:drawableLeft="@drawable/appbarcursorhand"
-                    android:id="@+id/bnBCPMEnterBin"/>
+                    android:id="@+id/bnBCPMOEnterBin"/>
         </LinearLayout>
         <ListView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/lvBCPMMoves" android:layout_gravity="center_horizontal"/>
+                android:id="@+id/lvBCPMOMoves" android:layout_gravity="center_horizontal"/>
     </LinearLayout>
 </LinearLayout>

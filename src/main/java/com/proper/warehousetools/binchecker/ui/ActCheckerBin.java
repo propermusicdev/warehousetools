@@ -37,6 +37,7 @@ public class ActCheckerBin extends BaseScanActivity {
     private Button btnEnterBinCode;
     private WebServiceTask wsTask;
     private boolean alreadyFired = false;
+    private int previousScanMode = -33;
 
     public String getScanInput() {
         return scanInput;
@@ -122,7 +123,8 @@ public class ActCheckerBin extends BaseScanActivity {
             }
             refreshActivity();
         }
-        if (resultCode == RESULT_OK) {
+        if (resultCode == RESULT_FIRST_USER) {
+            previousScanMode = data.getIntExtra("PREVIOUS_MODE", -33);
             mReception.setText("");  //clear the textbox
             if (wsTask != null && wsTask.getStatus().equals(AsyncTask.Status.RUNNING)) {
                 wsTask.cancel(true);
@@ -471,6 +473,7 @@ public class ActCheckerBin extends BaseScanActivity {
                         BinResponse resp = (BinResponse) response.getResponse();
                         Intent i = new Intent(ActCheckerBin.this, ActPrepareMoves.class);
                         i.putExtra("RESPONSE_EXTRA", resp);
+                        i.putExtra("LAST_MODE", previousScanMode);
                         startActivityForResult(i, RESULT_OK);
                     }
                 }else{

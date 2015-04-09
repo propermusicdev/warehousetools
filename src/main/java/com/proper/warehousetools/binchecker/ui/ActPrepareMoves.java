@@ -15,24 +15,18 @@ import android.view.ContextMenu;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import com.proper.data.binchecker.CheckerProduct;
 import com.proper.data.binchecker.IndividualMoveLine;
 import com.proper.data.binchecker.IndividualMoveRequest;
 import com.proper.data.binchecker.adapters.CheckerProductAdapter;
-import com.proper.data.binchecker.adapters.IndividualMoveAdapter;
 import com.proper.data.binmove.*;
-import com.proper.data.binmove.adapters.ProductBinAdapter;
 import com.proper.data.core.IBinCheckerQtyCommunicator;
-import com.proper.data.core.ICommunicator;
 import com.proper.data.diagnostics.LogEntry;
 import com.proper.data.enums.HttpResponseCodes;
 import com.proper.data.helpers.HttpResponseHelper;
-import com.proper.data.helpers.ReplenResponseHelper;
 import com.proper.warehousetools.BaseScanActivity;
 import com.proper.warehousetools.R;
-import com.proper.warehousetools.stocktake.ui.chainway_C4000.StockTakeProductQuantityFragment;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -60,7 +54,7 @@ public class ActPrepareMoves extends BaseScanActivity implements IBinCheckerQtyC
     private Button btnAbort, btnScan, btnUpdate; //btnEnterBarcode
     private EditText txtBarcode;
     private ExpandableListView lvProducts;
-    private StockTakeBarcodeQueryTask barcodeQryTask = null;
+    private BarcodeQueryTask barcodeQryTask = null;
     private UpdateBinCheckerTask updateBinTask = null;
     private BinResponse currentBinData = null;
     private LinkedList<CheckerProduct> currentLines = null;
@@ -241,15 +235,14 @@ public class ActPrepareMoves extends BaseScanActivity implements IBinCheckerQtyC
             }
         }
 
-        btnUpdate = (Button) this.findViewById(R.id.bnSTWUpdateBin);
-        btnScan = (Button) this.findViewById(R.id.bnSTWBinScan);
-        radioGroup = (RadioGroup) this.findViewById(R.id.rgSTWScanMode);
-        radSingleMode = (RadioButton) this.findViewById(R.id.rdSTWSingle);
-        radBulkMode = (RadioButton) this.findViewById(R.id.rdSTWBulk);
-        //btnEnterBarcode = (Button) this.findViewById(R.id.bnSTWEnterBarcode);
-        btnAbort = (Button) this.findViewById(R.id.bnSTWExitActStockTakeLines);
-        txtBarcode = (EditText) this.findViewById(R.id.etxtSTWInvisibleBarcode);
-        lvProducts = (ExpandableListView) this.findViewById(R.id.lvSTWLines);
+        btnUpdate = (Button) this.findViewById(R.id.bnBCPMUpdateBin);
+        btnScan = (Button) this.findViewById(R.id.bnBCPMBinScan);
+        radioGroup = (RadioGroup) this.findViewById(R.id.rgBCPMScanMode);
+        radSingleMode = (RadioButton) this.findViewById(R.id.rdBCPMSingle);
+        radBulkMode = (RadioButton) this.findViewById(R.id.rdBCPMBulk);
+        btnAbort = (Button) this.findViewById(R.id.bnExitActPrepareMoves);
+        txtBarcode = (EditText) this.findViewById(R.id.etxtBCPMInvisibleBarcode);
+        lvProducts = (ExpandableListView) this.findViewById(R.id.lvBCPMLines);
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -275,8 +268,8 @@ public class ActPrepareMoves extends BaseScanActivity implements IBinCheckerQtyC
             }
         });
         txtBarcode.addTextChangedListener(new TextChanged());
-        TextView lblBin = (TextView) this.findViewById(R.id.txtvSTWBinTitle);
-//        lblBin.setText(String.format("%s", currentBinData.getBinCode()));
+        TextView lblBin = (TextView) this.findViewById(R.id.txtvBCPMBinTitle);
+        lblBin.setText(currentBinData.getRequestedBinCode());
 //        lvProducts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
 //            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -336,10 +329,10 @@ public class ActPrepareMoves extends BaseScanActivity implements IBinCheckerQtyC
 
     private void radioGroupButtonChanged(RadioGroup group, int checkedId) {
         switch (checkedId) {
-            case R.id.rdSTWSingle:
+            case R.id.rdBCPMSingle:
                 setSelectedMode(MODE_SINGLE);
                 break;
-            case R.id.rdSTWBulk:
+            case R.id.rdBCPMBulk:
                 setSelectedMode(MODE_BULK);
                 break;
         }
@@ -359,7 +352,7 @@ public class ActPrepareMoves extends BaseScanActivity implements IBinCheckerQtyC
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
 
-        if (v.getId() == R.id.lvSTWLines) {
+        if (v.getId() == R.id.lvBCPMLines) {
             ExpandableListView.ExpandableListContextMenuInfo info =
                     (ExpandableListView.ExpandableListContextMenuInfo) menuInfo;
             int type =
@@ -395,7 +388,7 @@ public class ActPrepareMoves extends BaseScanActivity implements IBinCheckerQtyC
                     //final String msg = String.format("Are you sure you want to update this line entry (%s)", groupPos + 1);
                     final String msg = "Are you sure you want to update the whole Bin ?";
                     AlertDialog.Builder alert = new AlertDialog.Builder(this);
-                    alert.setTitle("Update Line ?");
+                    alert.setTitle("Update Bin ?");
                     alert.setMessage(msg);
                     alert.setPositiveButton("Yes", new AlertDialog.OnClickListener() {
 
@@ -523,7 +516,7 @@ public class ActPrepareMoves extends BaseScanActivity implements IBinCheckerQtyC
                                     currentUser.getUserId(), currentUser.getUserCode(), eanCode);
                             today = new java.sql.Timestamp(utilDate.getTime());
                             thisMessage.setSource(deviceIMEI);
-                            thisMessage.setMessageType("StockTakeBarcodeQuery");
+                            thisMessage.setMessageType("BarcodeQuery");
                             thisMessage.setIncomingStatus(1); //default value
                             thisMessage.setIncomingMessage(msg);
                             thisMessage.setOutgoingStatus(0);   //default value
@@ -531,21 +524,17 @@ public class ActPrepareMoves extends BaseScanActivity implements IBinCheckerQtyC
                             thisMessage.setInsertedTimeStamp(today);
                             thisMessage.setTTL(100);    //default value
 
-                            //sort out quantity
 
-
-                            //TODO -- findProductInLine if found tally, if not then asynctask
+                            //TODO -- findProductInLine if found tally, if not then asyncTask
                             CheckerProduct exists = findProductInLine(eanCode);
                             if (exists != null) {
                                 //TODO - >>>>>>>    manipulate adapter line: tally, color   <<<<<<<<
                                 setAlreadyFired(false);
                                 refreshDataScreen();
                             } else {
-                                barcodeQryTask = new StockTakeBarcodeQueryTask();
+                                barcodeQryTask = new BarcodeQueryTask();
                                 barcodeQryTask.execute(thisMessage);
                             }
-//                            barcodeQryTask = new StockTakeBarcodeQueryTask();
-//                            barcodeQryTask.execute(thisMessage);
                         } else {
                             appContext.playSound(2);
                             Vibrator vib = (Vibrator) ActPrepareMoves.this.getSystemService(Context.VIBRATOR_SERVICE);
@@ -561,8 +550,6 @@ public class ActPrepareMoves extends BaseScanActivity implements IBinCheckerQtyC
                                     });
                             builder.show();
                         }
-                    } else {
-                        //txtBarcode.setText("");
                     }
                 }
             }
@@ -632,6 +619,17 @@ public class ActPrepareMoves extends BaseScanActivity implements IBinCheckerQtyC
         productAdapter = new CheckerProductAdapter(currentLines, ActPrepareMoves.this);
         lvProducts.setAdapter(productAdapter);
         setAlreadyFired(false);
+    }
+
+    /** Returns True if Positive else then assumes Negative **/
+    private Boolean isNumberPositive(int number) {
+        boolean ret = false;
+        float i = (float) number;
+        float determinant = Math.signum(i);
+        if (determinant > 0) {
+            ret = true;
+        }
+        return ret;
     }
 
     /** Search current lines for a match **/
@@ -765,21 +763,35 @@ public class ActPrepareMoves extends BaseScanActivity implements IBinCheckerQtyC
                 }
                 switch (METHOD) {
                     case SUB:
+                        int trueQty = prod.getQtyScanned() - (prod.getQty()<0?0:prod.getQty());
                         IndividualMoveLine line2UpdateSub = new IndividualMoveLine(prod);
                         line2UpdateSub.setSrcBin(currentBinData.getRequestedBinCode());
-                        line2UpdateSub.setQty(prod.getQtyScanned() - (prod.getQty()<0?0:prod.getQty()));
+                        if (isNumberPositive(trueQty)) {
+                            line2UpdateSub.setQty(trueQty);
+                        } else {
+                            line2UpdateSub.setQty(Math.abs(trueQty));
+                        }
                         updateLineList.add(line2UpdateSub);
                         break;
                     case PAR:
                         //do nothing for now...
                         break;
                     case ADD:
+                        int trueQty1 = prod.getQtyScanned() - (prod.getQty()<0?0:prod.getQty());
                         IndividualMoveLine line2UpdateAdd = new IndividualMoveLine(prod);
                         line2UpdateAdd.setDstBin(currentBinData.getRequestedBinCode());
-                        if (prod.getQty() < 0 && prod.getQtyScanned() >=0) {
-                            line2UpdateAdd.setQty(Math.abs(prod.getQty()));
+                        if (prod.getQty() < 0 && prod.getQtyScanned() >= 0) {
+                            if (prod.getQtyScanned() > 0) {
+                                line2UpdateAdd.setQty(Math.abs(prod.getQty() + prod.getQtyScanned()));
+                            }else{
+                                line2UpdateAdd.setQty(Math.abs(prod.getQty()));
+                            }
                         } else{
-                            line2UpdateAdd.setQty(prod.getQtyScanned() - (prod.getQty()<0?0:prod.getQty()));
+                            if (isNumberPositive(trueQty1)) {
+                                line2UpdateAdd.setQty(trueQty1);
+                            } else {
+                                line2UpdateAdd.setQty(Math.abs(prod.getQty()) + prod.getQtyScanned());
+                            }
                         }
                         updateLineList.add(line2UpdateAdd);
                         break;
@@ -796,34 +808,60 @@ public class ActPrepareMoves extends BaseScanActivity implements IBinCheckerQtyC
         boolean ret = false;
         IndividualMoveRequest request = createUpdateRequest();
         if (request != null) {
-            try {
-                currentUser = currentUser != null ? currentUser : authenticator.getCurrentUser();   //Gets currently authenticated user
-                if (currentUser != null) {
-                    ret = true;
+            if (!request.getProducts().isEmpty()) {
+                try {
+                    currentUser = currentUser != null ? currentUser : authenticator.getCurrentUser();   //Gets currently authenticated user
+                    if (currentUser != null) {
+                        ret = true;
 
-                    updateBinTask = new UpdateBinCheckerTask();
-                    updateBinTask.execute(request);
-                } else {
-                    appContext.playSound(2);
-                    Vibrator vib = (Vibrator) ActPrepareMoves.this.getSystemService(Context.VIBRATOR_SERVICE);
-                    // Vibrate for 500 milliseconds
-                    vib.vibrate(2000);
-                    String mMsg = "User not Authenticated \nPlease login";
-                    AlertDialog.Builder builder = new AlertDialog.Builder(ActPrepareMoves.this);
-                    builder.setMessage(mMsg)
-                            .setPositiveButton(R.string.but_ok, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {//do nothing
-                                }
-                            });
-                    builder.show();
+                        updateBinTask = new UpdateBinCheckerTask();
+                        updateBinTask.execute(request);
+                    } else {
+                        appContext.playSound(2);
+                        Vibrator vib = (Vibrator) ActPrepareMoves.this.getSystemService(Context.VIBRATOR_SERVICE);
+                        // Vibrate for 500 milliseconds
+                        vib.vibrate(2000);
+                        String mMsg = "User not Authenticated \nPlease login";
+                        AlertDialog.Builder builder = new AlertDialog.Builder(ActPrepareMoves.this);
+                        builder.setMessage(mMsg)
+                                .setPositiveButton(R.string.but_ok, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {//do nothing
+                                    }
+                                });
+                        builder.show();
+                    }
+                } catch (Exception ex){
+                    ex.printStackTrace();
+                    String iMsg = "Unable to Update Bin";
+                    today = new java.sql.Timestamp(utilDate.getTime());
+                    LogEntry log = new LogEntry(1L, ApplicationID, "ActPrepareMoves - UpdateBin", deviceIMEI, RuntimeException.class.getSimpleName(), iMsg, today);
+                    //logger.log(log);
                 }
-            } catch (Exception ex){
-                ex.printStackTrace();
-                String iMsg = "Unable to Update StockTakeBin";
-                today = new java.sql.Timestamp(utilDate.getTime());
-                LogEntry log = new LogEntry(1L, ApplicationID, "ActStockTakeWorkLines - UpdateBin - Line:503", deviceIMEI, RuntimeException.class.getSimpleName(), iMsg, today);
-                //logger.log(log);
+            } else {
+                final String msg = "This bin checks out fine";
+                AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                alert.setTitle("All is Well");
+                alert.setMessage(msg);
+                alert.setPositiveButton("Ok, I'm done", new AlertDialog.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        exitActivity();
+                    }
+                });
+                alert.show();
             }
+        } else {
+            final String msg = "Failed to create an Update Request, please start again";
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.setTitle("Unexpected Result");
+            alert.setMessage(msg);
+            alert.setPositiveButton("Restart Process", new AlertDialog.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    exitActivity();
+                }
+            });
+            alert.show();
         }
         return ret;
     }
@@ -978,7 +1016,7 @@ public class ActPrepareMoves extends BaseScanActivity implements IBinCheckerQtyC
         }
     }
 
-    private class StockTakeBarcodeQueryTask extends AsyncTask<com.proper.messagequeue.Message, Void, HttpResponseHelper> {
+    private class BarcodeQueryTask extends AsyncTask<com.proper.messagequeue.Message, Void, HttpResponseHelper> {
         protected ProgressDialog xDialog;
 
         @Override
@@ -999,12 +1037,10 @@ public class ActPrepareMoves extends BaseScanActivity implements IBinCheckerQtyC
         @Override
         protected HttpResponseHelper doInBackground(com.proper.messagequeue.Message... msg) {
             HttpResponseHelper response = null;
-            Thread.currentThread().setName("StockTakeProductResponseAsyncTask");
-            //StockTakeProductResponse productResponse = null;
+            Thread.currentThread().setName("BinCheckerBarcodeQueryAsyncTask");
             BarcodeResponse productResponse = null;
-
             response = resolver.resolveHttpMessage(msg[0]);
-
+            response.setResponse(responseHelper.refineProductResponse(response.getResponse().toString()));
             if (!response.isSuccess()) {
                 String ymsg = "Network Error has occurred that resulted in package loss. Please check Wi-Fi";
                 Log.e("ERROR !!!", ymsg);
@@ -1070,9 +1106,7 @@ public class ActPrepareMoves extends BaseScanActivity implements IBinCheckerQtyC
                                     exists = findProductLineByScan(resp.getValue().getProducts().get(0));
                                 }
                             }
-                            //exists = findProductLineByScan(resp.getValue().getProducts().get(0));
                         }
-                        //StockTakeLineProduct exists = findProductLineByScan(resp.getValue());
                         if (exists != null) {
                             refreshDataScreen();
                         }else{
@@ -1223,8 +1257,6 @@ public class ActPrepareMoves extends BaseScanActivity implements IBinCheckerQtyC
             //super.onPostExecute(binResponse);
             if (wsDialog != null && wsDialog.isShowing()) wsDialog.dismiss();
             alreadyFired = false;
-//            revertToDefaultValues();
-//            setMoveInProgress(false);
             if (!response.isSuccess()) {
                 /**--------------------------- Network Error -------------------------**/
                 HttpResponseCodes statusCode = HttpResponseCodes.findCode(response.getHttpResponseCode());
@@ -1236,9 +1268,7 @@ public class ActPrepareMoves extends BaseScanActivity implements IBinCheckerQtyC
                         builder.setMessage(statusCode.toString() + ": - " + response.getResponseMessage())
                                 .setPositiveButton(R.string.but_ok, new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
-                                        Intent i = new Intent();
-                                        setResult(RESULT_OK, i);
-                                        ActPrepareMoves.this.finish();
+                                        //exitActivity();
                                     }
                                 });
                         builder.show();
@@ -1248,14 +1278,9 @@ public class ActPrepareMoves extends BaseScanActivity implements IBinCheckerQtyC
                 }
             } else {
                 if (response.getResponse() != null) {
-                    if (response.getResponse().getClass().equals(AbstractMap.SimpleEntry.class)) {
+                    if (response.getResponse().getClass().equals(PartialBinMoveResponse.class)) {
                         /**TODO - -------------------------------------- Success ----------------------------------**/
-                        AbstractMap.SimpleEntry<PartialBinMoveResponse, String> resp =
-                                (AbstractMap.SimpleEntry<PartialBinMoveResponse, String>) response.getResponse();
-//                        Intent i = new Intent(ActPrepareMovesOld.this, ActCheckBin.class);
-//                        i.putExtra("DATA_EXTRA", resp.getKey());
-//                        i.putExtra("LAST_MODE", lastScanningMode);
-//                        startActivityForResult(i, RESULT_FIRST_USER);
+                        PartialBinMoveResponse resp = (PartialBinMoveResponse) response.getResponse();
                         Vibrator vib = (Vibrator) ActPrepareMoves.this.getSystemService(Context.VIBRATOR_SERVICE);
                         vib.vibrate(2000);
                         AlertDialog.Builder builder = new AlertDialog.Builder(ActPrepareMoves.this);
@@ -1264,10 +1289,7 @@ public class ActPrepareMoves extends BaseScanActivity implements IBinCheckerQtyC
                                 .setPositiveButton(R.string.but_ok, new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
                                         //reloadActivity();
-                                        Intent i = new Intent();
-                                        i.putExtra("LAST_MODE", selectedMode);
-                                        setResult(RESULT_OK, i);
-                                        ActPrepareMoves.this.finish();
+                                        exitActivity();
                                     }
                                 });
                         builder.show();
@@ -1280,10 +1302,7 @@ public class ActPrepareMoves extends BaseScanActivity implements IBinCheckerQtyC
                                 .setPositiveButton(R.string.but_ok, new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
                                         //reloadActivity();
-                                        Intent i = new Intent();
-                                        i.putExtra("LAST_MODE", selectedMode);
-                                        setResult(RESULT_OK, i);
-                                        ActPrepareMoves.this.finish();
+                                        exitActivity();
                                     }
                                 });
                         builder.show();
@@ -1299,10 +1318,7 @@ public class ActPrepareMoves extends BaseScanActivity implements IBinCheckerQtyC
                         builder.setMessage(response.getResponseMessage())
                                 .setPositiveButton(R.string.but_ok, new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
-                                        Intent i = new Intent();
-                                        i.putExtra("LAST_MODE", selectedMode);
-                                        setResult(RESULT_OK, i);
-                                        ActPrepareMoves.this.finish();
+                                        exitActivity();
                                     }
                                 });
                         builder.show();
@@ -1313,10 +1329,7 @@ public class ActPrepareMoves extends BaseScanActivity implements IBinCheckerQtyC
                         builder.setMessage("The product query has return no result\nPlease verify then re-scan")
                                 .setPositiveButton(R.string.but_ok, new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
-                                        Intent i = new Intent();
-                                        i.putExtra("LAST_MODE", selectedMode);
-                                        setResult(RESULT_OK, i);
-                                        ActPrepareMoves.this.finish();
+                                        exitActivity();
                                     }
                                 });
                         builder.show();

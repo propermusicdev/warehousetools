@@ -90,8 +90,10 @@ public class ActQueryChooser extends PlainActivity {
                     startActivityForResult(i, RESULT_OK);
                 }
                 if (deviceID.equalsIgnoreCase(getString(R.string.LargeDevice))) {
+//                    Intent i = new Intent(ActQueryChooser.this,
+//                            com.proper.warehousetools.binmove.ui.chainway_c4000.ActQueryScan.class);
                     Intent i = new Intent(ActQueryChooser.this,
-                            com.proper.warehousetools.binmove.ui.chainway_c4000.ActQueryScan.class);
+                            com.proper.warehousetools.binmove.ui.chainway_c4000.ActSearchScan.class);
                     i.putExtra("INSTRUCTION_EXTRA", NAV_INSTRUCTION);
                     startActivityForResult(i, REQUEST_BARCODE);
                 }
@@ -151,8 +153,10 @@ public class ActQueryChooser extends PlainActivity {
                     startActivityForResult(i, RESULT_OK);
                 }
                 if (deviceID.equalsIgnoreCase(getString(R.string.LargeDevice))) {
+//                    Intent i = new Intent(ActQueryChooser.this,
+//                            com.proper.warehousetools.binmove.ui.chainway_c4000.ActQueryScan.class);
                     Intent i = new Intent(ActQueryChooser.this,
-                            com.proper.warehousetools.binmove.ui.chainway_c4000.ActQueryScan.class);
+                            com.proper.warehousetools.binmove.ui.chainway_c4000.ActSearchScan.class);
                     i.putExtra("INSTRUCTION_EXTRA", NAV_INSTRUCTION);
                     startActivityForResult(i, REQUEST_BINCODE);
                 }

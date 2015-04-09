@@ -191,8 +191,7 @@ public class ActMain extends ActionBarActivity {
                         break;
                     case 5:
                         if (screenSize != Configuration.SCREENLAYOUT_SIZE_XLARGE) {
-                            //i = new Intent(ActMain.this, com.proper.warehousetools.binchecker.ui.ActCheckBin.class);
-                            i = new Intent(ActMain.this, com.proper.warehousetools.binchecker.ui.ActPrepareMoves.class);
+                            i = new Intent(ActMain.this, com.proper.warehousetools.binchecker.ui.ActCheckerBin.class);
                             startActivityForResult(i, RESULT_FIRST_USER);
                         } else {
                             String mMsg = "Coming Soon.\nPlease try again later";
