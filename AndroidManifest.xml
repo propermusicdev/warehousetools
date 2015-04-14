@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.proper.warehousetools"
-          android:versionCode="945"
-          android:versionName="20150409.172250">
+          android:versionCode="969"
+          android:versionName="20150413.114117">
     <uses-sdk android:minSdkVersion="9" android:targetSdkVersion="21"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -24,7 +24,8 @@
         </activity>
         <!--<activity android:name="com.android.barcode.BaseScannerActivityLegacy"/>-->
         <!--<activity android:name=".binmove.BaseScannerActivity"/>-->
-        <activity android:name=".ActMain" android:launchMode="singleTop">
+        <!--<activity android:name=".ActMain" android:launchMode="singleTop">-->
+        <activity android:name=".ActMain">
             <meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".ActLogin" />
         </activity>
         <!--https://sufficientlysecure.org/index.php/2012/05/24/execute-service-once-a-day-when-internet-connection-is-available/comment-page-1/-->

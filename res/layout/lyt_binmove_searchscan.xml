@@ -10,6 +10,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.92"
+                android:gravity="center"
+                android:singleLine="true"
+                android:textAllCaps="true"
+                android:imeOptions="actionDone"
                 android:id="@+id/etxtBMSSEAN"/>
         <Button
                 android:layout_width="wrap_content"
@@ -22,7 +26,8 @@
                 android:drawableLeft="@drawable/appbarpagesearch"/>
     </LinearLayout>
     <LinearLayout android:layout_width="fill_parent" android:layout_height="0dp"
-                  android:layout_weight="0.8" android:padding="2dp" android:orientation="vertical">
+                  android:layout_weight="0.8" android:padding="2dp"
+                  android:orientation="vertical" android:background="#ffffff">
         <LinearLayout
                 android:id="@+id/lytBMSSInnerTop"
                 android:layout_width="match_parent"
@@ -59,12 +64,13 @@
                     android:orientation="vertical"
                     android:layout_width="fill_parent"
                     android:layout_height="match_parent"
-                    android:padding="@dimen/activity_horizontal_margin"
+                    android:paddingBottom="@dimen/activity_horizontal_margin"
                     android:background="#c0caff">
                 <TextView android:layout_width="fill_parent"
                           android:layout_height="wrap_content"
+                          android:layout_marginTop="160dp"
                           android:background="#cab1da"
-                          android:textSize="14sp"
+                          android:textAppearance="?android:attr/textAppearanceLarge"
                           android:textStyle="bold"
                           android:textColor="#cc3333"
                           android:gravity="center"

@@ -111,17 +111,15 @@ public class BaseScanActivity extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_logout:
-                Intent i = new Intent(this, ActMain.class);
-                i.putExtra("RESULT_EXTRA", 666);
-                //i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                //setResult(666, i);
-                startActivity(i);
-                break;
-            default:
-                break;
-        }
+//        switch (item.getItemId()) {
+//            case R.id.menu_logout:
+//                Intent i = new Intent();
+//                setResult(666, i);
+//                finish();
+//                break;
+//            default:
+//                break;
+//        }
         return super.onOptionsItemSelected(item);
     }
 

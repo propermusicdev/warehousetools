@@ -23,14 +23,14 @@
                 android:text="@string/intro_qryChooserDescription"
                 android:textColor="#333333"
                 android:id="@+id/txtvIntroQryChooser"/>
-        <Button android:layout_width="fill_parent"
-                android:layout_margin="10dp"
-                android:text="@string/action_qryBarcode"
-                android:id="@+id/bnQryChooserBarcode"
-                android:background="@drawable/button_blue"
-                android:layout_gravity="center"
-                style="@style/ButtonText"
-                android:drawableLeft="@drawable/appbarbarcode"/>
+        <!--<Button android:layout_width="fill_parent"-->
+                <!--android:layout_margin="10dp"-->
+                <!--android:text="@string/action_qryBarcode"-->
+                <!--android:id="@+id/bnQryChooserBarcode"-->
+                <!--android:background="@drawable/button_blue"-->
+                <!--android:layout_gravity="center"-->
+                <!--style="@style/ButtonText"-->
+                <!--android:drawableLeft="@drawable/appbarbarcode"/>
         <Button
                 android:layout_width="fill_parent"
                 android:layout_margin="10dp"
@@ -39,10 +39,19 @@
                 android:background="@drawable/button_green"
                 android:layout_gravity="center"
                 style="@style/ButtonText"
+                android:drawableLeft="@drawable/appbarbarcode"/>-->
+        <Button
+                android:layout_width="fill_parent"
+                android:layout_margin="10dp"
+                android:text="@string/action_qrySearch"
+                android:id="@+id/bnQryChooserSearch"
+                android:background="@drawable/button_green"
+                android:layout_gravity="center"
+                style="@style/ButtonText"
                 android:drawableLeft="@drawable/appbarbarcode"/>
         <Button android:layout_width="fill_parent"
                 android:layout_margin="10dp"
-                android:text="@string/action_qryBarcodeBin"
+                android:text="@string/action_qryCombineBarcodeBin"
                 android:id="@+id/bnQryChooserBarcodeBin"
                 android:background="@drawable/button_purpple"
                 android:layout_gravity="center"

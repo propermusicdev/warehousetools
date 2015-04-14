@@ -16,9 +16,11 @@
     <string name="action_single">Move Single Product</string>
     <string name="action_bin">Move Many Products</string>
     <string name="action_wholebin">Move Whole Bin</string>
+    <string name="action_qrySearch">Search</string>
     <string name="action_qryBarcode">Search Barcode</string>
     <string name="action_qryBin">Search Bin</string>
     <string name="action_qryBarcodeBin">Search Barcode &amp; Bin</string>
+    <string name="action_qryCombineBarcodeBin">Combine Barcode &amp; Bin</string>
     <string name="action_exit">Exit</string>
     <string name="action_scansingle">Scan Product</string>
     <string name="action_dest">Scan Destination Bin</string>
@@ -48,7 +50,7 @@
     <string name="label_BinCode">BinCode:</string>
     <string name="image_description">shows image of the barcode</string>
     <string name="img_detail_center">logo</string>
-    <string name="empty_data_template">No DATA is Present</string>
+    <string name="empty_data_template">No Data Available</string>
     <string name="label_initials">Enter Initials:</string>
     <string name="initials_template">eg: XP</string>
     <string name="preference_credentials">Proper_Credentials</string>

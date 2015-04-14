@@ -295,12 +295,23 @@ public class ActMain extends ActionBarActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Bundle extras = data.getExtras();
-        if (extras != null) {
-            int val = extras.getInt("RESULT_EXTRA");
+        if (data != null) {
+            Bundle extras = data.getExtras();
+            if (extras != null) {
+                int val = extras.getInt("RESULT_EXTRA");
+                if (val == ENDAPP_RESULTCODE) {
+                    Intent i = new Intent();
+//                    i.putExtra("RESULT_EXTRA", 666);
+                    setResult(ENDAPP_RESULTCODE, i);
+                    finish();
+                }
+            }
         }
         if (resultCode == ENDAPP_RESULTCODE) {
-            finish(); //onDestroy();
+            authenticator.logOffUser();
+            Intent i = new Intent();
+            setResult(ENDAPP_RESULTCODE, i);
+            finish();
         }
     }
 

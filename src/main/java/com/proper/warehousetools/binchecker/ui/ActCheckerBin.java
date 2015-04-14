@@ -11,6 +11,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -114,6 +115,20 @@ public class ActCheckerBin extends BaseScanActivity {
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_logout:
+                Intent i = new Intent();
+                setResult(666, i);
+                finish();
+                break;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == 0) {
@@ -130,6 +145,11 @@ public class ActCheckerBin extends BaseScanActivity {
                 wsTask.cancel(true);
             }
             refreshActivity();
+        }
+        if (resultCode == 666) {
+            Intent i = new Intent();
+            setResult(666, i);
+            finish();
         }
     }
 
@@ -474,7 +494,7 @@ public class ActCheckerBin extends BaseScanActivity {
                         Intent i = new Intent(ActCheckerBin.this, ActPrepareMoves.class);
                         i.putExtra("RESPONSE_EXTRA", resp);
                         i.putExtra("LAST_MODE", previousScanMode);
-                        startActivityForResult(i, RESULT_OK);
+                        startActivityForResult(i, 2);
                     }
                 }else{
                     /**--------------------------- Failed because of Bad scan -------------------------**/

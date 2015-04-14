@@ -23,10 +23,9 @@ public class ActQueryChooser extends PlainActivity {
     private static final int REQUEST_BINCODE = 1003;
     private static final int REQUEST_BARCODE_BIN = 1005;
     private int NAV_INSTRUCTION = 0;
-    private Button btnQryBin;
-    private Button btnQryBarcode;
-    private Button btnQryBarcodeBin;
-    private Button btnExit;
+//    private Button btnQryBin;
+//    private Button btnQryBarcode;
+    private Button btnQryBarcodeBin, btnExit, btnSearch;
     private ScrollView screen;
 
 
@@ -41,25 +40,32 @@ public class ActQueryChooser extends PlainActivity {
         Animation animFadeIn = AnimationUtils.loadAnimation(this, R.anim.abc_fade_in);
         Animation animOpenScale = AnimationUtils.loadAnimation(this, R.anim.activity_open_scale);
         screen.startAnimation(animOpenScale);
-        btnQryBarcode.startAnimation(animFadeIn);
-        btnQryBin.startAnimation(animFadeIn);
+//        btnQryBarcode.startAnimation(animFadeIn);
+//        btnQryBin.startAnimation(animFadeIn);
+        btnSearch.startAnimation(animFadeIn);
         btnQryBarcodeBin.startAnimation(animFadeIn);
         btnExit.startAnimation(animFadeIn);
     }
 
     private void configureUI(Bundle bundle) {
-        btnQryBin = (Button) this.findViewById(R.id.bnQryChooserBin);
-        btnQryBarcode = (Button) this.findViewById(R.id.bnQryChooserBarcode);
+//        btnQryBin = (Button) this.findViewById(R.id.bnQryChooserBin);
+//        btnQryBarcode = (Button) this.findViewById(R.id.bnQryChooserBarcode);
+        btnSearch = (Button) this.findViewById(R.id.bnQryChooserSearch);
         btnQryBarcodeBin = (Button) this.findViewById(R.id.bnQryChooserBarcodeBin);
         btnExit = (Button) this.findViewById(R.id.bnExitActQryChooser);
-
-        btnQryBin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ButtonClicked(view);
-            }
-        });
-        btnQryBarcode.setOnClickListener(new View.OnClickListener() {
+//        btnQryBin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                ButtonClicked(view);
+//            }
+//        });
+//        btnQryBarcode.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                ButtonClicked(view);
+//            }
+//        });
+        btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ButtonClicked(view);
@@ -80,21 +86,19 @@ public class ActQueryChooser extends PlainActivity {
     }
 
     private void ButtonClicked(View view) {
-        if (view == btnQryBarcode) {
-            NAV_INSTRUCTION = R.integer.ACTION_BARCODEQUERY;
+        if (view == btnSearch) {
+            //NAV_INSTRUCTION = R.integer.ACTION_BARCODEQUERY;
             if (!deviceID.isEmpty()) {
                 if (deviceID.equalsIgnoreCase(getString(R.string.SmallDevice))) {
                     Intent i = new Intent(ActQueryChooser.this,
                             com.proper.warehousetools.binmove.ui.speedata_mt02.ActQueryScan.class);
-                    i.putExtra("INSTRUCTION_EXTRA", NAV_INSTRUCTION);
+                    //i.putExtra("INSTRUCTION_EXTRA", NAV_INSTRUCTION);
                     startActivityForResult(i, RESULT_OK);
                 }
                 if (deviceID.equalsIgnoreCase(getString(R.string.LargeDevice))) {
-//                    Intent i = new Intent(ActQueryChooser.this,
-//                            com.proper.warehousetools.binmove.ui.chainway_c4000.ActQueryScan.class);
                     Intent i = new Intent(ActQueryChooser.this,
                             com.proper.warehousetools.binmove.ui.chainway_c4000.ActSearchScan.class);
-                    i.putExtra("INSTRUCTION_EXTRA", NAV_INSTRUCTION);
+                    //i.putExtra("INSTRUCTION_EXTRA", NAV_INSTRUCTION);
                     startActivityForResult(i, REQUEST_BARCODE);
                 }
             } else {
@@ -143,39 +147,6 @@ public class ActQueryChooser extends PlainActivity {
                         });
                 builder.show();
             }
-        } else if (view == btnQryBin) {
-            NAV_INSTRUCTION = R.integer.ACTION_BINQUERY;
-            if (!deviceID.isEmpty()) {
-                if (deviceID.equalsIgnoreCase(getString(R.string.SmallDevice))) {
-                    Intent i = new Intent(ActQueryChooser.this,
-                            com.proper.warehousetools.binmove.ui.speedata_mt02.ActQueryScan.class);
-                    i.putExtra("INSTRUCTION_EXTRA", NAV_INSTRUCTION);
-                    startActivityForResult(i, RESULT_OK);
-                }
-                if (deviceID.equalsIgnoreCase(getString(R.string.LargeDevice))) {
-//                    Intent i = new Intent(ActQueryChooser.this,
-//                            com.proper.warehousetools.binmove.ui.chainway_c4000.ActQueryScan.class);
-                    Intent i = new Intent(ActQueryChooser.this,
-                            com.proper.warehousetools.binmove.ui.chainway_c4000.ActSearchScan.class);
-                    i.putExtra("INSTRUCTION_EXTRA", NAV_INSTRUCTION);
-                    startActivityForResult(i, REQUEST_BINCODE);
-                }
-            } else {
-                //prompt deviceID has not been identified
-                appContext.playSound(2);
-                Vibrator vib = (Vibrator) ActQueryChooser.this.getSystemService(Context.VIBRATOR_SERVICE);
-                // Vibrate for 500 milliseconds
-                vib.vibrate(2000);
-                String mMsg = "User not Authenticated \nPlease login";
-                AlertDialog.Builder builder = new AlertDialog.Builder(ActQueryChooser.this);
-                builder.setMessage(mMsg)
-                        .setPositiveButton(R.string.but_ok, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                //do nothing
-                            }
-                        });
-                builder.show();
-            }
         } else if (view == btnExit) {
             Intent i = new Intent();
             setResult(RESULT_OK, i);
@@ -183,6 +154,40 @@ public class ActQueryChooser extends PlainActivity {
         } else {
             throw new NullPointerException("Well Done! You have triggered a button that doesn't exist in this reality");
         }
+//        else if (view == btnQryBin) {
+//            NAV_INSTRUCTION = R.integer.ACTION_BINQUERY;
+//            if (!deviceID.isEmpty()) {
+//                if (deviceID.equalsIgnoreCase(getString(R.string.SmallDevice))) {
+//                    Intent i = new Intent(ActQueryChooser.this,
+//                            com.proper.warehousetools.binmove.ui.speedata_mt02.ActQueryScan.class);
+//                    i.putExtra("INSTRUCTION_EXTRA", NAV_INSTRUCTION);
+//                    startActivityForResult(i, RESULT_OK);
+//                }
+//                if (deviceID.equalsIgnoreCase(getString(R.string.LargeDevice))) {
+////                    Intent i = new Intent(ActQueryChooser.this,
+////                            com.proper.warehousetools.binmove.ui.chainway_c4000.ActQueryScan.class);
+//                    Intent i = new Intent(ActQueryChooser.this,
+//                            com.proper.warehousetools.binmove.ui.chainway_c4000.ActSearchScan.class);
+//                    i.putExtra("INSTRUCTION_EXTRA", NAV_INSTRUCTION);
+//                    startActivityForResult(i, REQUEST_BINCODE);
+//                }
+//            } else {
+//                //prompt deviceID has not been identified
+//                appContext.playSound(2);
+//                Vibrator vib = (Vibrator) ActQueryChooser.this.getSystemService(Context.VIBRATOR_SERVICE);
+//                // Vibrate for 500 milliseconds
+//                vib.vibrate(2000);
+//                String mMsg = "User not Authenticated \nPlease login";
+//                AlertDialog.Builder builder = new AlertDialog.Builder(ActQueryChooser.this);
+//                builder.setMessage(mMsg)
+//                        .setPositiveButton(R.string.but_ok, new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int id) {
+//                                //do nothing
+//                            }
+//                        });
+//                builder.show();
+//            }
+//        }
     }
 
     @Override

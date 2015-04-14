@@ -248,26 +248,30 @@ public class ActLogin extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        try {
-            if (authenticator.getCurrentUser() != null) {
-                if (authenticator.isAuthenticated()) {
+        if (resultCode == 666) {
+            logOut();
+        } else {
+            try {
+                if (authenticator.getCurrentUser() != null) {
+                    if (authenticator.isAuthenticated()) {
+                        logOut();
+                    }
+                } else {
                     logOut();
                 }
-            } else {
-                logOut();
-            }
-            switch (resultCode) {
-                case RESULT_OK:
-                    logOut();
-                    break;
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            today = new java.sql.Timestamp(utilDate.getTime());
-            LogEntry log = new LogEntry(1L, ApplicationID, "ActLogin - Attempting Logout - onActivityResult", deviceIMEI, ex.getClass().getSimpleName(), ex.getMessage(), today);
+                switch (resultCode) {
+                    case RESULT_OK:
+                        logOut();
+                        break;
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                today = new java.sql.Timestamp(utilDate.getTime());
+                LogEntry log = new LogEntry(1L, ApplicationID, "ActLogin - Attempting Logout - onActivityResult", deviceIMEI, ex.getClass().getSimpleName(), ex.getMessage(), today);
 //            logger.log(log);
+            }
+            this.finish();
         }
-        this.finish();
     }
 
     @Override

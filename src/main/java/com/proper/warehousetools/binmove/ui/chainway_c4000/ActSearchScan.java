@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.*;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -95,6 +96,7 @@ public class ActSearchScan extends BaseFragmentActivity {
         });
         lvResult = (ListView) this.findViewById(R.id.qryBMSSListView);
         lvxResult = (ExpandableListView) this.findViewById(R.id.qryXpBMSSListView);
+        txtEAN.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS);
         txtEAN.setImeOptions(EditorInfo.IME_ACTION_DONE);
         txtEAN.addTextChangedListener(new TextChanged());
 
@@ -115,7 +117,7 @@ public class ActSearchScan extends BaseFragmentActivity {
                             /** Bin code **/
                             NAV_INSTRUCTION = R.integer.ACTION_BINQUERY;
                             if (!getScanInput().isEmpty()) {
-                                txtEAN.setText("");     //to counter a weird bug in editText control
+                                //txtEAN.setText("");     //to counter a weird bug in editText control
                                 txtEAN.setText(getScanInput());
                                 appContext.playSound(1);
                             } else {
@@ -127,7 +129,7 @@ public class ActSearchScan extends BaseFragmentActivity {
                             /** Barcode **/
                             NAV_INSTRUCTION = R.integer.ACTION_BARCODEQUERY;
                             if (!getScanInput().isEmpty()) {
-                                txtEAN.setText("");     //to counter a weird bug in editText control
+                                //txtEAN.setText("");     //to counter a weird bug in editText control
                                 txtEAN.setText(getScanInput());
                                 appContext.playSound(1);
                             } else {
@@ -179,6 +181,9 @@ public class ActSearchScan extends BaseFragmentActivity {
                     txtHeader.setTypeface(null, Typeface.BOLD);
                     lvResult.setAdapter(binAdapter);
                     flipper.setDisplayedChild(1);
+                } else{
+                    //Empty data template
+                    flipper.setDisplayedChild(0);
                 }
                 break;
             case R.integer.ACTION_BARCODEQUERY:
@@ -217,7 +222,55 @@ public class ActSearchScan extends BaseFragmentActivity {
                         }
                     });
                     flipper.setDisplayedChild(1);
-                    lvxResult.expandGroup(0);    // Expand the first item
+                    //lvxResult.expandGroup(0);    // Expand the first item
+                    int count = barcodeResponse.getProducts().size();
+                    if(barcodeResponse.getProducts().get(0).getBins().isEmpty()){
+                        lvxResult.expandGroup(0);
+                    }else{
+                        if(barcodeResponse.getProducts().size() > 1) lvxResult.expandGroup(1);
+                    }
+                    switch (count) {
+                        case 1:
+                            lvxResult.expandGroup(0);
+                            break;
+                        case 2:
+                            if(!barcodeResponse.getProducts().get(0).getBins().isEmpty()){
+                                lvxResult.expandGroup(0);
+                            }else{
+                                lvxResult.expandGroup(1);
+                            }
+                            break;
+                        case 3:
+                            if(!barcodeResponse.getProducts().get(0).getBins().isEmpty()){
+                                lvxResult.expandGroup(0);
+                            }else{
+                                if(!barcodeResponse.getProducts().get(1).getBins().isEmpty()){
+                                    lvxResult.expandGroup(1);
+                                } else{
+                                    lvxResult.expandGroup(2);
+                                }
+                            }
+                            break;
+                        default:
+                            if(!barcodeResponse.getProducts().get(0).getBins().isEmpty()){
+                                lvxResult.expandGroup(0);
+                            }else{
+                                if(!barcodeResponse.getProducts().get(1).getBins().isEmpty()){
+                                    lvxResult.expandGroup(1);
+                                } else{
+                                    if(!barcodeResponse.getProducts().get(2).getBins().isEmpty()){
+                                        lvxResult.expandGroup(2);
+                                    } else{
+                                        lvxResult.expandGroup(3);
+                                    }
+                                }
+                            }
+                            break;
+                    }
+
+                } else{
+                    //Empty data template
+                    flipper.setDisplayedChild(0);
                 }
                 break;
         }
@@ -319,6 +372,7 @@ public class ActSearchScan extends BaseFragmentActivity {
         int iBetween = 0;
         if (v == btnGo) {
             String edited = txtEAN.getText().toString();
+            fullTurnCount ++;
             Message msg = new Message();
 
             if (edited == null || edited.isEmpty()) {
@@ -550,7 +604,7 @@ public class ActSearchScan extends BaseFragmentActivity {
                     msg.obj = "";
                 } else {
                     msg.what = 1;
-                    msg.obj = barCode;
+                    msg.obj = barCode.toUpperCase();
                 }
 
                 handler.sendMessage(msg);

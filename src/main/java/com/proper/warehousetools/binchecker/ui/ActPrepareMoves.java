@@ -16,6 +16,7 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
+import com.proper.data.binchecker.BinCheckerResponse;
 import com.proper.data.binchecker.CheckerProduct;
 import com.proper.data.binchecker.IndividualMoveLine;
 import com.proper.data.binchecker.IndividualMoveRequest;
@@ -901,6 +902,20 @@ public class ActPrepareMoves extends BaseScanActivity implements IBinCheckerQtyC
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_logout:
+                Intent i = new Intent();
+                setResult(666, i);
+                finish();
+                break;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
         if (keyCode == KEY_SCAN) {
@@ -1178,7 +1193,7 @@ public class ActPrepareMoves extends BaseScanActivity implements IBinCheckerQtyC
         protected HttpResponseHelper doInBackground(IndividualMoveRequest... req) {
             HttpResponseHelper response = null;
             Thread.currentThread().setName("StockTakeBinResponseAsyncTask");
-            PartialBinMoveResponse qryResponse = null;
+            BinCheckerResponse qryResponse = null;
             thisMessage = new com.proper.messagequeue.Message();
             today = new java.sql.Timestamp(utilDate.getTime());
             ObjectMapper mapper = new ObjectMapper();
@@ -1214,8 +1229,6 @@ public class ActPrepareMoves extends BaseScanActivity implements IBinCheckerQtyC
                     JSONObject resp = new JSONObject(response.getResponse().toString());
                     JSONArray messages = resp.getJSONArray("Messages");
                     JSONArray actions = resp.getJSONArray("MessageObjects");
-                    String RequestedSrcBin = resp.getString("RequestedSrcBin");
-                    String RequestedDstBin = resp.getString("RequestedDstBin");
                     //String Result = resp.getString("Result");
                     List<BinMoveMessage> messageList = new ArrayList<BinMoveMessage>();
                     List<BinMoveObject> actionList = new ArrayList<BinMoveObject>();
@@ -1238,11 +1251,8 @@ public class ActPrepareMoves extends BaseScanActivity implements IBinCheckerQtyC
                         int qty = Integer.parseInt(action.getString("Qty"));
                         actionList.add(new BinMoveObject(act, prodId, cat, ean, qty));
                     }
-                    qryResponse.setRequestedSrcBin(RequestedSrcBin);
-                    qryResponse.setRequestedDstBin(RequestedDstBin);
+                    qryResponse = new BinCheckerResponse(messageList, actionList);
                     //qryResponse.setResult(Result);
-                    qryResponse.setMessages(messageList);
-                    qryResponse.setMessageObjects(actionList);
                     response.setResponse(qryResponse);
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -1278,22 +1288,48 @@ public class ActPrepareMoves extends BaseScanActivity implements IBinCheckerQtyC
                 }
             } else {
                 if (response.getResponse() != null) {
-                    if (response.getResponse().getClass().equals(PartialBinMoveResponse.class)) {
+                    if (response.getResponse().getClass().equals(BinCheckerResponse.class)) {
                         /**TODO - -------------------------------------- Success ----------------------------------**/
-                        PartialBinMoveResponse resp = (PartialBinMoveResponse) response.getResponse();
-                        Vibrator vib = (Vibrator) ActPrepareMoves.this.getSystemService(Context.VIBRATOR_SERVICE);
-                        vib.vibrate(2000);
-                        AlertDialog.Builder builder = new AlertDialog.Builder(ActPrepareMoves.this);
-                        builder.setTitle("Success")
-                                .setMessage("Corrected Successfully !!")
-                                .setPositiveButton(R.string.but_ok, new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        //reloadActivity();
-                                        exitActivity();
-                                    }
-                                });
-                        builder.show();
-                        appContext.playSound(2);
+                        BinCheckerResponse resp = (BinCheckerResponse) response.getResponse();
+                        boolean foundResult = false;
+                        String result = "";
+                        for (BinMoveMessage msg: resp.getMessages()) {
+                            if (msg.getMessageName().equals("Result")) {
+                                foundResult = true;
+                                result = msg.getMessageText();
+                            }
+                        }
+                        if (foundResult && result.equalsIgnoreCase("Success")) {
+                            Vibrator vib = (Vibrator) ActPrepareMoves.this.getSystemService(Context.VIBRATOR_SERVICE);
+                            vib.vibrate(2000);
+                            AlertDialog.Builder builder = new AlertDialog.Builder(ActPrepareMoves.this);
+                            builder.setTitle("Success")
+                                    .setMessage("Corrected Successfully !!")
+                                    .setPositiveButton(R.string.but_ok, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            //reloadActivity();
+                                            exitActivity();
+                                        }
+                                    });
+                            builder.show();
+                            appContext.playSound(1);
+                        }else {
+                            //Error
+                            Vibrator vib = (Vibrator) ActPrepareMoves.this.getSystemService(Context.VIBRATOR_SERVICE);
+                            vib.vibrate(2000);
+                            AlertDialog.Builder builder = new AlertDialog.Builder(ActPrepareMoves.this);
+                            builder.setTitle("Check Failed");
+                            builder.setMessage("Error:->" + response.getResponse().toString())
+                                    .setPositiveButton(R.string.but_ok, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            exitActivity();
+                                        }
+                                    });
+                            builder.show();
+                            appContext.playSound(2);
+                            btnScan.setEnabled(true);
+                        }
+                        //resp.getMessages().get(2).getMessageText().equalsIgnoreCase("Success");
                     } else { // Unnecessary but just to make sure...
                         Vibrator vib = (Vibrator) ActPrepareMoves.this.getSystemService(Context.VIBRATOR_SERVICE);
                         vib.vibrate(2000);
