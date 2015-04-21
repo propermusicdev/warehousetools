@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.proper.warehousetools"
-          android:versionCode="969"
-          android:versionName="20150413.114117">
+          android:versionCode="1014"
+          android:versionName="20150421.155030">
     <uses-sdk android:minSdkVersion="9" android:targetSdkVersion="21"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />

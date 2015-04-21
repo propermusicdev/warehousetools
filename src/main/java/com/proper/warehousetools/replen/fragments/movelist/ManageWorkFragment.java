@@ -126,7 +126,7 @@ public class ManageWorkFragment extends Fragment {
         mActivity.getPrefs().getString("Movelist", mActivity.getMoveListReponseString());
     }
 
-    private void showDialog(int severity, int dialogType, String message, String title) {
+    private void showReplenDialog(int severity, int dialogType, String message, String title) {
         FragmentManager fm = mActivity.getSupportFragmentManager();
 
         //DialogHelper dialog = new DialogHelper(severity, dialogType, message, title);
@@ -190,18 +190,18 @@ public class ManageWorkFragment extends Fragment {
                 String msg = "";
                 if (item.getTitle().toString().equalsIgnoreCase(menuItemMoveList)) {
                     //TODO - check if move list line is completed if it's not then we can work it
-                    msg = String.format("Are you sure you want to work this move list entry number (%s)", groupPos);
+                    msg = String.format("Are you sure you want to work this move list entry number (%s)", groupPos + 1);
                     mActivity.setCanNavigate(true);
                     canWork = true;
-                    showDialog(R.integer.MSG_SEVERITY_POSITIVE, R.integer.MSG_TYPE_NOTIFICATION, msg, "This Line?");
+                    showReplenDialog(R.integer.MSG_SEVERITY_POSITIVE, R.integer.MSG_TYPE_NOTIFICATION, msg, "This Line?");
                 }
                 canComplete = false;
                 if (item.getTitle().toString().equalsIgnoreCase(menuItemMoveListProcess)) {
                     //TODO - check that all move list are completed make sure that there's no outstanding move list available
-                    msg = String.format("Are you sure you want to process this entry number (%s) from move list", groupPos);
+                    msg = String.format("Are you sure you want to process this entry number (%s) from move list", groupPos + 1);
                     canComplete = true;
                     //mActivity.setCanNavigate(true);
-                    showDialog(R.integer.MSG_SEVERITY_POSITIVE, R.integer.MSG_TYPE_NOTIFICATION, msg, "This Line?");
+                    showReplenDialog(R.integer.MSG_SEVERITY_POSITIVE, R.integer.MSG_TYPE_NOTIFICATION, msg, "This Line?");
                 }
             }
         }
@@ -249,14 +249,16 @@ public class ManageWorkFragment extends Fragment {
                 Log.e("ERROR !!!", ymsg);
                 response.setResponseMessage(ymsg);
             }
-            if (response.getResponse().toString().contains("not recognised")) {
+            if (response.getResponse().toString().contains("not recognised") || response.getResponse().toString().contains("Error"))  {
                 //manually error trap this error
                 String iMsg = "The Response object returns null due to improper request.";
                 response.setResponseMessage(iMsg);
             }else {
-                if (!mActivity.getMoveListReponseString().isEmpty()) {
+                //if (!mActivity.getMoveListReponseString().isEmpty()) {
+                if (!response.getResponse().toString().isEmpty()) {
                     try {
-                        JSONObject resp = new JSONObject(mActivity.getMoveListReponseString());
+                        //JSONObject resp = new JSONObject(mActivity.getMoveListReponseString());
+                        JSONObject resp = new JSONObject(response.getResponse().toString());
                         int requestedUserId = Integer.parseInt(resp.getString("RequestedUserId"));
                         int movelistsReturned = Integer.parseInt(resp.getString("MovelistsReturned"));
                         JSONArray moveList = resp.getJSONArray("Movelists");
@@ -282,6 +284,7 @@ public class ManageWorkFragment extends Fragment {
                         }
                         qryResponse =  new ReplenMoveListResponse(requestedUserId, moveListItemResponseList, movelistsReturned);
                         response.setResponse(qryResponse);
+                        mActivity.setMoveListReponseString(response.getResponse().toString());
                         mActivity.setMoveListResponse(qryResponse);
                     } catch (Exception ex){
                         ex.printStackTrace();
@@ -317,7 +320,7 @@ public class ManageWorkFragment extends Fragment {
 //                                    }
 //                                });
 //                        builder.show();
-                        showDialog(R.integer.MSG_SEVERITY_FAILURE, R.integer.MSG_TYPE_NOTIFICATION,
+                        showReplenDialog(R.integer.MSG_SEVERITY_FAILURE, R.integer.MSG_TYPE_NOTIFICATION,
                                 statusCode.toString() + ": - " + response.getResponseMessage(), "Network Error");
                         mActivity.getAppContext().playSound(2);
                     }
@@ -333,7 +336,7 @@ public class ManageWorkFragment extends Fragment {
                     } else {        //just to make sure
                         Vibrator vib = (Vibrator) mActivity.getSystemService(Context.VIBRATOR_SERVICE);
                         vib.vibrate(2000);
-                        showDialog(R.integer.MSG_SEVERITY_WARNING, R.integer.MSG_TYPE_NOTIFICATION,
+                        showReplenDialog(R.integer.MSG_SEVERITY_WARNING, R.integer.MSG_TYPE_NOTIFICATION,
                                 response.getResponseMessage(), "Bad HttpResponse");
                         mActivity.getAppContext().playSound(2);
                     }
@@ -349,7 +352,7 @@ public class ManageWorkFragment extends Fragment {
 //                                }
 //                            });
 //                    builder.show();
-                    showDialog(R.integer.MSG_SEVERITY_FAILURE, R.integer.MSG_TYPE_NOTIFICATION,
+                    showReplenDialog(R.integer.MSG_SEVERITY_FAILURE, R.integer.MSG_TYPE_NOTIFICATION,
                             response.getResponseMessage(), "Bad Scan");
                     mActivity.getAppContext().playSound(2);
                 }

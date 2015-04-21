@@ -208,7 +208,7 @@ public class ManageMoveLineFragment extends Fragment {
                     lvWorkLines.setSelected(true);
                     lvWorkLines.setItemChecked(groupPos, true);
                     if (item.getTitle().toString().equalsIgnoreCase(menuItemMoveLine)) {
-                        final String msg = String.format("Are you sure you want to process this line entry (%s) from move list", groupPos);
+                        final String msg = String.format("Are you sure you want to process this line entry (%s) from move list", groupPos + 1);
 //                AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
 //                alert.setTitle("This Move Line ?");
 //                alert.setMessage(msg);
@@ -426,7 +426,7 @@ public class ManageMoveLineFragment extends Fragment {
                 }
             } else {
                 if (response.getResponse() != null) {
-                    if (response.getResponse().getClass().equals(ReplenMoveListResponse.class)) {
+                    if (response.getResponse().getClass().equals(ReplenMoveListLinesResponse.class)) {
                         /**--------------------------- Success -------------------------**/
                         ReplenMoveListLinesResponse resp = (ReplenMoveListLinesResponse) response.getResponse();
                         mActivity.setCurrentListLines(resp);

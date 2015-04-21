@@ -34,7 +34,8 @@
                   android:id="@+id/lyt_BaseDialogReplenBody">
         <Button android:text="OK"
                 android:background="@drawable/button_blue"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight=".5"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 style="@style/ButtonTextSmall"
@@ -42,7 +43,8 @@
                 android:id="@+id/BaseDialogReplenOk"/>
         <Button android:text="YES"
                 android:background="@drawable/button_green"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight=".5"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 style="@style/ButtonTextSmall"
@@ -50,7 +52,8 @@
                 android:id="@+id/BaseDialogReplenYes"/>
         <Button android:text="NO"
                 android:background="@drawable/button_red"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight=".5"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 style="@style/ButtonTextSmall"

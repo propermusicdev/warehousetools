@@ -17,10 +17,9 @@
             android:id="@+id/imgLogo"/>
 
     <TextView
-            android:layout_width="fill_parent"
+            android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_margin="40dp"
             android:background="@drawable/button_blue"
             style="@style/ButtonTextSmall"
             android:text="Please Log In"
@@ -32,7 +31,8 @@
         <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_height="fill_parent"
+                android:layout_marginTop="10dp">
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -112,11 +112,30 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
+                android:layout_marginBottom="10dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:gravity="center"
                 android:text="Sample Server"
                 android:textStyle="bold"
                 android:textColor="#ffffff"
                 android:id="@+id/txtvLoginConnectionReport"/>
+    </LinearLayout>
+    <LinearLayout android:layout_width="fill_parent"
+                  android:layout_height="48dp"
+                  android:orientation="horizontal"
+            android:id="@+id/lytLoginAdminControl">
+
+        <RadioGroup android:layout_width="wrap_content" android:layout_height="fill_parent"
+                    android:orientation="horizontal" android:id="@+id/rgLoginAdmin">
+            <View android:layout_width="20dp" android:layout_height="1dp" />
+            <RadioButton android:layout_width="wrap_content" android:layout_height="fill_parent"
+                         android:id="@+id/rdLoginAdminControlTest" android:text="Test Server" android:textColor="#ffffff" android:textAppearance="?android:attr/textAppearanceSmall"/>
+            <View android:layout_width="20dp" android:layout_height="1dp" />
+            <View android:layout_width="2dp" android:layout_height="fill_parent"
+                  android:layout_marginBottom="10dp" android:background="@android:color/darker_gray"/>
+            <View android:layout_width="20dp" android:layout_height="1dp" />
+            <RadioButton android:layout_width="wrap_content" android:layout_height="fill_parent"
+                         android:id="@+id/rdLoginAdminControlLive"  android:text="Live Server" android:textColor="#ffffff" android:textAppearance="?android:attr/textAppearanceSmall"/>
+        </RadioGroup>
     </LinearLayout>
 </LinearLayout>

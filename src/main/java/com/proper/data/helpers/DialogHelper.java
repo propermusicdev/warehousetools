@@ -1,12 +1,14 @@
 package com.proper.data.helpers;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -42,6 +44,16 @@ public class DialogHelper extends DialogFragment implements View.OnClickListener
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         ICommunicator = (ICommunicator) activity;
+    }
+
+    //@NonNull
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        //return super.onCreateDialog(savedInstanceState);
+        Dialog dialog = super.onCreateDialog(savedInstanceState);
+        /** request a window without the title **/
+        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        return dialog;
     }
 
     @Override

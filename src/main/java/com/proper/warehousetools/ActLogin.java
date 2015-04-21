@@ -48,21 +48,35 @@ public class ActLogin extends Activity {
     private java.util.Date utilDate = java.util.Calendar.getInstance().getTime();
     private java.sql.Timestamp today = null;
     private Button btnLogin;
-    private EditText txtInitials;
-    private EditText txtPin;
+    private EditText txtInitials, txtPin;
+    private TextView txtConnReport;
     private ImageView logo;
+    private LinearLayout lytAdminControl;
+    private RadioGroup rgRadioGroup;
+    private RadioButton rdLive, rdTest;
     private UserAuthenticator authenticator = null;
     private UserLoginTask loginTask;
     private UserLoginResponse currentUser;
-    private String currentUserToken = "";
-    private String initials = "";
-    private String pin = "";
-    private int loginAttempt = 0;
+    private String currentUserToken = "", initials = "", pin = "";
+    private int loginAttempt = 0, selectedConfig = R.integer.CONFIG_TESTSERVER;
     //private ArrayAdapter<Contact> adapter;
     private LogHelper logger = new LogHelper();
     private DeviceUtils device = null;
     private HttpMessageResolver httpResolver = null;
     protected MockClass testResolver;
+
+    public int getSelectedConfig() {
+        return selectedConfig;
+    }
+
+    public void setSelectedConfig(int selectedConfig) {
+        SharedPreferences pref = getSharedPreferences(getString(R.string.preference_configuration), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putInt("Configuration", selectedConfig);
+        editor.commit();
+        this.selectedConfig = selectedConfig;
+        updateConnectionStringText();
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -105,25 +119,19 @@ public class ActLogin extends Activity {
         txtPin.addTextChangedListener(new TextChanged(this.txtPin));
         TextView lblLoginTitle = (TextView) this.findViewById(R.id.lblLoginTitle);
         logo = (ImageView) this.findViewById(R.id.imgLogo);
+        lytAdminControl = (LinearLayout) this.findViewById(R.id.lytLoginAdminControl);
+        rgRadioGroup = (RadioGroup) this.findViewById(R.id.rgLoginAdmin);
+        rdLive = (RadioButton) this.findViewById(R.id.rdLoginAdminControlLive);
+        rdTest = (RadioButton) this.findViewById(R.id.rdLoginAdminControlTest);
+        rgRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                radioGroupButtonChanged(group, checkedId);
+            }
+        });
         TextView lblConnReport = (TextView) this.findViewById(R.id.lblLoginConnectionReport);
-        TextView txtConnReport = (TextView) this.findViewById(R.id.txtvLoginConnectionReport);
-        String configString = httpResolver.getDefaultConfigName();
-        if (configString.equalsIgnoreCase("CONFIG_TESTSERVER")) {
-            txtConnReport.setText("TEST SERVER");
-            txtConnReport.setTextColor(Color.RED);
-        }
-        if (configString.equalsIgnoreCase("CONFIG_LIVESERVER")) {
-            txtConnReport.setText("LIVE SERVER");
-            txtConnReport.setTextColor(Color.GREEN);
-        }
-        if (configString.equalsIgnoreCase("CONFIG_LIVESERVER_EXTERNAL")) {
-            txtConnReport.setText("LIVE SERVER:EXT");
-            txtConnReport.setTextColor(Color.GREEN);
-        }
-        if (configString.equalsIgnoreCase("CONFIG_TESTSERVER_EXTERNAL")) {
-            txtConnReport.setText("TEST SERVER:EXT");
-            txtConnReport.setTextColor(Color.RED);
-        }
+        txtConnReport = (TextView) this.findViewById(R.id.txtvLoginConnectionReport);
+        updateConnectionStringText();
         //opening transition animations (opening, closing)
         //overridePendingTransition(R.anim.activity_open_translate,R.anim.activity_close_scale);
 
@@ -143,6 +151,49 @@ public class ActLogin extends Activity {
             lblLoginTitle.startAnimation(animRightIn);
             logo.startAnimation(animRotateIn_icon);
             txtConnReport.startAnimation(anim);
+        }
+        //lytAdminControl.setVisibility(View.GONE);   //For Admin purpose Only - not for production
+    }
+
+    private void updateConnectionStringText() {
+        String configString = httpResolver.getDefaultConfigName();
+        if (configString.equalsIgnoreCase("CONFIG_TESTSERVER")) {
+            txtConnReport.setText("TEST SERVER");
+            txtConnReport.setTextColor(Color.RED);
+        }
+        if (configString.equalsIgnoreCase("CONFIG_LIVESERVER")) {
+            txtConnReport.setText("LIVE SERVER");
+            txtConnReport.setTextColor(Color.GREEN);
+        }
+        if (configString.equalsIgnoreCase("CONFIG_LIVESERVER_EXTERNAL")) {
+            txtConnReport.setText("LIVE SERVER:EXT");
+            txtConnReport.setTextColor(Color.GREEN);
+        }
+        if (configString.equalsIgnoreCase("CONFIG_TESTSERVER_EXTERNAL")) {
+            txtConnReport.setText("TEST SERVER:EXT");
+            txtConnReport.setTextColor(Color.RED);
+        }
+    }
+
+    private void effectRadioButton(int config) {
+        switch (config) {
+            case R.integer.CONFIG_LIVESERVER_EXTERNAL:
+                rdLive.performClick();
+                break;
+            case R.integer.CONFIG_TESTSERVER:
+                rdTest.performClick();
+                break;
+        }
+    }
+
+    private void radioGroupButtonChanged(RadioGroup group, int checkedId) {
+        switch (checkedId) {
+            case R.id.rdLoginAdminControlLive:
+                setSelectedConfig(R.integer.CONFIG_LIVESERVER_EXTERNAL);
+                break;
+            case R.id.rdLoginAdminControlTest:
+                setSelectedConfig(R.integer.CONFIG_TESTSERVER);
+                break;
         }
     }
 

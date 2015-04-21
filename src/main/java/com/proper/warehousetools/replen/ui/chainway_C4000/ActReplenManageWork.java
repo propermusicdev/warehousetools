@@ -486,19 +486,19 @@ public class ActReplenManageWork extends FragmentActivity implements IViewPagerF
         }
     }
 
-    public synchronized void showDialog(int severity, int dialogType, String message, String title) {
-        FragmentManager fm = getSupportFragmentManager();
-
-        //DialogHelper dialog = new DialogHelper(severity, dialogType, message, title);
-        DialogHelper dialog = new DialogHelper();
-        Bundle args = new Bundle();
-        args.putInt("DialogType_ARG", dialogType);
-        args.putInt("Severity_ARG", severity);
-        args.putString("Message", message);
-        args.putString("Title_ARG", title);
-        dialog.setArguments(args);
-        dialog.show(fm, "Dialog");
-    }
+//    public synchronized void showDialog(int severity, int dialogType, String message, String title) {
+//        FragmentManager fm = getSupportFragmentManager();
+//
+//        //DialogHelper dialog = new DialogHelper(severity, dialogType, message, title);
+//        DialogHelper dialog = new DialogHelper();
+//        Bundle args = new Bundle();
+//        args.putInt("DialogType_ARG", dialogType);
+//        args.putInt("Severity_ARG", severity);
+//        args.putString("Message", message);
+//        args.putString("Title_ARG", title);
+//        dialog.setArguments(args);
+//        dialog.show(fm, "Dialog");
+//    }
 
     @Override
     public void switchFragment(int target) {

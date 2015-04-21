@@ -3,6 +3,7 @@ package com.proper.messagequeue;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -72,7 +73,13 @@ public class HttpMessageResolver implements IHttpMessageResolver {
     }
 
     public String getDefaultConfig() {
-        currentConfig = R.integer.CONFIG_TESTSERVER; return setConfig(currentConfig);
+        //currentConfig = R.integer.CONFIG_LIVESERVER_EXTERNAL; return setConfig(currentConfig); // Live only
+        currentConfig = getStoredShared(); return setConfig(currentConfig); // Debug only
+    }
+
+    private int getStoredShared() {
+        SharedPreferences pref = appContext.getSharedPreferences(appContext.getString(R.string.preference_configuration), Context.MODE_PRIVATE);
+        return pref.getInt("Configuration", R.integer.CONFIG_TESTSERVER);
     }
 
     public String getDefaultConfigName() {
@@ -80,27 +87,33 @@ public class HttpMessageResolver implements IHttpMessageResolver {
         return setConfigName(currentConfig);
     }
 
-    public String setConfig(int configurqation) {
+    public String setConfig(int configuration) {
         String newConfig = "";
-        switch(configurqation) {
+        SharedPreferences pref = appContext.getSharedPreferences(appContext.getString(R.string.preference_configuration), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        switch(configuration) {
             case R.integer.CONFIG_TESTSERVER:
-                //newConfig = "http://192.168.10.96:8080/warehouse/api/v1/message/barcodequery2";
-                //newConfig = "http://192.168.10.248:9090/warehouse.support/api/v1/message/barcodequery2";
+                //newConfig = "http://192.168.10.55:9090/samplews/api/messages/queue";
                 newConfig = "http://192.168.10.248:9090/samplews/api/messages/queue";
+                editor.putInt("Configuration", configuration);
                 break;
             case R.integer.CONFIG_LIVESERVER:
                 //newConfig = "http://192.168.10.246:9090/warehouse.support/api/v1/message/barcodequery2";
                 newConfig = "http://192.168.10.246:9090/samplews/api/messages/queue";
+                editor.putInt("Configuration", configuration);
                 break;
             case R.integer.CONFIG_LIVESERVER_EXTERNAL:
-                //newConfig = "http://89.248.28.82:9090/warehouse.support/api/v1/message/barcodequery2";\
+                //newConfig = "http://192.168.10.55:9090/samplews/api/messages/queue";
                 newConfig = "http://89.248.28.82:9090/samplews/api/messages/queue";
+                editor.putInt("Configuration", configuration);
                 break;
             case R.integer.CONFIG_TESTSERVER_EXTERNAL:
                 //newConfig = "http://89.248.28.81:9090/warehouse.support/api/v1/message/barcodequery2";
                 newConfig = "http://89.248.28.81:9090/samplews/api/messages/queue";
+                editor.putInt("Configuration", configuration);
                 break;
         }
+        editor.commit();
         return newConfig;
     }
 
@@ -125,6 +138,10 @@ public class HttpMessageResolver implements IHttpMessageResolver {
 
     @Override
     public String resolveMessageQuery(Message msg) {
+        long startTime = System.currentTimeMillis();
+        long endTime;
+        //long timeElapsed = 0L;
+        int httpRespCode = 0;
 
         try {
             URL url = new URL(getDefaultConfig());
@@ -132,7 +149,7 @@ public class HttpMessageResolver implements IHttpMessageResolver {
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "application/json");
             conn.setUseCaches(false); // new line
-            conn.setDoInput(true); //new line
+            conn.setDoInput(true); // new line
             conn.setDoOutput(true);
 
             ObjectMapper mapper = new ObjectMapper();
@@ -145,12 +162,11 @@ public class HttpMessageResolver implements IHttpMessageResolver {
             osw.close();
 
             if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                throw new RuntimeException("Failed : HTTP error code : "
-                        + conn.getResponseCode());
+                httpRespCode = conn.getResponseCode();
+                //endTime = System.currentTimeMillis();
+                //timeElapsed = endTime - startTime;
+                throw new RuntimeException("Failed : HTTP error code : " + httpRespCode);
             }
-            //Serialise the returned entity
-            //LogEntry newEntry = mapper.readValue(conn.getInputStream(), LogEntry.class);
-            //Or Get the string returned
             BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             StringBuilder sb = new StringBuilder();
             String line = null;
@@ -158,30 +174,17 @@ public class HttpMessageResolver implements IHttpMessageResolver {
             // Read Server Response
             while((line = reader.readLine()) != null)
             {
-                // Append server response string
-                sb.append(line + "");
+                sb.append(line + "");       // Append server response string
             }
 
             reader.close(); // new line added !
-            // Append Server Response To Content String but do nothing with it - for now...
-            setResponse(sb.toString().trim());
-
+            setResponse(sb.toString().trim()); // Append Server Response To Content String but do nothing with it - for now...
+            //httpRespCode = conn.getResponseCode();
             conn.disconnect();
-        } catch(MalformedURLException ex) {
-            ex.printStackTrace();
-            today = new java.sql.Timestamp(utilDate.getTime());
-            LogEntry log = new LogEntry(1L, ApplicationID, "HttpMessageResolver - resolveMessageQuery", deviceIMEI, ex.getClass().getSimpleName(), ex.getMessage(), today);
-            logger.log(log);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            today = new java.sql.Timestamp(utilDate.getTime());
-            LogEntry log = new LogEntry(1L, ApplicationID, "HttpMessageResolver - resolveMessageQuery", deviceIMEI, ex.getClass().getSimpleName(), ex.getMessage(), today);
-            logger.log(log);
+            //endTime = System.currentTimeMillis();
+            //timeElapsed = endTime - startTime;
         } catch (Exception ex) {
             ex.printStackTrace();
-            today = new java.sql.Timestamp(utilDate.getTime());
-            LogEntry log = new LogEntry(1L, ApplicationID, "HttpMessageResolver - resolveMessageQuery", deviceIMEI, ex.getClass().getSimpleName(), ex.getMessage(), today);
-            logger.log(log);
         }
         return response;
     }

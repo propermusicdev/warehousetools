@@ -100,10 +100,6 @@ public class ActSearchScan extends BaseFragmentActivity {
         txtEAN.setImeOptions(EditorInfo.IME_ACTION_DONE);
         txtEAN.addTextChangedListener(new TextChanged());
 
-//        LayoutInflater inflater = (LayoutInflater) this
-//                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//        Bundle extras = getIntent().getExtras();
-//        NAV_INSTRUCTION = extras.getInt("INSTRUCTION_EXTRA");
         handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -189,6 +185,7 @@ public class ActSearchScan extends BaseFragmentActivity {
             case R.integer.ACTION_BARCODEQUERY:
                 //  load QueryView with BarcodeQuery properties
                 if (barcodeResponse != null && !barcodeResponse.getProducts().isEmpty()) {
+
                     barcodeAdapter = new BarcodeResponseAdapter(this, barcodeResponse);
                     txtHeader.setText(String.format("Artist: %s", barcodeResponse.getProducts().get(0).getArtist() != null ?
                             barcodeResponse.getProducts().get(0).getArtist() : barcodeResponse.getProducts().get(1).getArtist()));
@@ -223,50 +220,64 @@ public class ActSearchScan extends BaseFragmentActivity {
                     });
                     flipper.setDisplayedChild(1);
                     //lvxResult.expandGroup(0);    // Expand the first item
-                    int count = barcodeResponse.getProducts().size();
-                    if(barcodeResponse.getProducts().get(0).getBins().isEmpty()){
-                        lvxResult.expandGroup(0);
-                    }else{
-                        if(barcodeResponse.getProducts().size() > 1) lvxResult.expandGroup(1);
+//                    int count = barcodeResponse.getProducts().size();
+//                    if (barcodeResponse.getProducts().get(0).getBins().isEmpty()) {
+//                        lvxResult.expandGroup(0);
+//                    } else {
+//                        if (barcodeResponse.getProducts().size() > 1) lvxResult.expandGroup(1);
+//                    }
+//                    switch (count) {
+//                        case 1:
+//                            lvxResult.expandGroup(0);
+//                            break;
+//                        case 2:
+//                            if (!barcodeResponse.getProducts().get(0).getBins().isEmpty()) {
+//                                lvxResult.expandGroup(0);
+//                            } else {
+//                                lvxResult.expandGroup(1);
+//                            }
+//                            break;
+//                        case 3:
+//                            if (!barcodeResponse.getProducts().get(0).getBins().isEmpty()) {
+//                                lvxResult.expandGroup(0);
+//                            } else {
+//                                if (!barcodeResponse.getProducts().get(1).getBins().isEmpty()) {
+//                                    lvxResult.expandGroup(1);
+//                                } else {
+//                                    lvxResult.expandGroup(2);
+//                                }
+//                            }
+//                            break;
+//                        default:
+//                            if (!barcodeResponse.getProducts().get(0).getBins().isEmpty()) {
+//                                lvxResult.expandGroup(0);
+//                            } else {
+//                                if (!barcodeResponse.getProducts().get(1).getBins().isEmpty()) {
+//                                    lvxResult.expandGroup(1);
+//                                } else {
+//                                    if (!barcodeResponse.getProducts().get(2).getBins().isEmpty()) {
+//                                        lvxResult.expandGroup(2);
+//                                    } else {
+//                                        lvxResult.expandGroup(3);
+//                                    }
+//                                }
+//                            }
+//                            break;
+//                    }
+                    //////////////////////////////////////////////////////////////////////
+                    int doneCount = 0;
+                    for (int i = 0; i < barcodeResponse.getProducts().size(); i++) {
+                        //for (ProductResponse resp : barcodeResponse.getProducts()) {
+                        //if (resp.getBins().size() > 0) {
+                        if (!barcodeResponse.getProducts().get(i).getBins().isEmpty() &&
+                                barcodeResponse.getProducts().get(i).getBins().size() > 0) {
+                            doneCount ++;
+                            if (doneCount == 1) {
+                                lvxResult.expandGroup(i);
+                            }
+                        }
                     }
-                    switch (count) {
-                        case 1:
-                            lvxResult.expandGroup(0);
-                            break;
-                        case 2:
-                            if(!barcodeResponse.getProducts().get(0).getBins().isEmpty()){
-                                lvxResult.expandGroup(0);
-                            }else{
-                                lvxResult.expandGroup(1);
-                            }
-                            break;
-                        case 3:
-                            if(!barcodeResponse.getProducts().get(0).getBins().isEmpty()){
-                                lvxResult.expandGroup(0);
-                            }else{
-                                if(!barcodeResponse.getProducts().get(1).getBins().isEmpty()){
-                                    lvxResult.expandGroup(1);
-                                } else{
-                                    lvxResult.expandGroup(2);
-                                }
-                            }
-                            break;
-                        default:
-                            if(!barcodeResponse.getProducts().get(0).getBins().isEmpty()){
-                                lvxResult.expandGroup(0);
-                            }else{
-                                if(!barcodeResponse.getProducts().get(1).getBins().isEmpty()){
-                                    lvxResult.expandGroup(1);
-                                } else{
-                                    if(!barcodeResponse.getProducts().get(2).getBins().isEmpty()){
-                                        lvxResult.expandGroup(2);
-                                    } else{
-                                        lvxResult.expandGroup(3);
-                                    }
-                                }
-                            }
-                            break;
-                    }
+                    //////////////////////////////////////////////////////////////////////
 
                 } else{
                     //Empty data template

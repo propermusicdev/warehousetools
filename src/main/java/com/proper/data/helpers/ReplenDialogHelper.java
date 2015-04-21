@@ -39,82 +39,26 @@ public class ReplenDialogHelper extends DialogFragment implements View.OnClickLi
         IReplenCommunicator = (IReplenCommunicator) activity;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        //http://developer.android.com/reference/android/app/DialogFragment.html
-        super.onCreate(savedInstanceState);
-        //setStyle(DialogFragment.STYLE_NO_FRAME, android.R.style.Theme_Holo); //commented 12/01/2015
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        //return super.onCreateView(inflater, container, savedInstanceState);
-        //dialog.setBackgroundDrawable(new ColorDrawable(0));
-        View view;
-        if (getShowsDialog() == true) {  // **The key check**
-            return super.onCreateView(inflater, container, savedInstanceState);
-        } else {
-            //View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_replen_base, null);
-            view = inflater.inflate(R.layout.dialog_replen_base, null);
-            setCancelable(false);
-            return configureDialogView(view);
-        }
-        //setCancelable(false);
-        //return view;
-    }
-
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         //return super.onCreateDialog(savedInstanceState);
-        //getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE); //new line 12/01/2015
-
-        // Return custom dialog...
-        Dialog dialog = super.onCreateDialog(savedInstanceState); // "new Dialog()" will cause crash
-
-        View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_replen_base, null);
-        //configureDialogView(view);
-        dialog.setContentView(configureDialogView(view));
-        //dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-
-        int drawable = R.drawable.dialod64info;
-        if (getArguments() != null) {
-            Bundle extras = getArguments();
-            this.mDialogType  = extras.getInt("DialogType_ARG");
-            this.mSeverity = extras.getInt("Severity_ARG");
-            //this.msg = extras.getString("Message_ARG");
-            this.title = extras.getString("Title_ARG");
-            if (extras.getString("Originated_ARG") != null && !getArguments().getString("Originated_ARG").isEmpty()) {
-                originatedClass = getArguments().getString("Originated_ARG");
-            } else {
-                originatedClass = "";
-            }
-            //originatedClass = getArguments().getString("").isEmpty()? "" : getArguments().getString("Originated_ARG");
-        }else {
-            throw new RuntimeException("ReplenDialogHelper Arguments should not be null");
-        }
-
-        switch (mSeverity) {
-            case R.integer.MSG_SEVERITY_FAILURE:
-                drawable = R.drawable.dialog64error;
-                break;
-            case R.integer.MSG_SEVERITY_WARNING:
-                drawable = R.drawable.dialog64warning;
-                break;
-            default: //Assume positive
-                if (mDialogType == getResources().getInteger(R.integer.MSG_TYPE_NOTIFICATION)) {
-                    //info
-                    drawable = R.drawable.dialod64info;
-                } else {
-                    //action
-                    drawable = R.drawable.dialog64success;
-                }
-                break;
-        }
-//        return new AlertDialog.Builder(getActivity())
-//                .setIcon(drawable)
-//                .setTitle(title).create();
+        Dialog dialog = super.onCreateDialog(savedInstanceState); /** Return custom dialog... **/
+        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE); /** Request window with no title 21/04/2015**/
         return dialog;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view;
+        /** http://stackoverflow.com/a/20466259**/
+        if (!getShowsDialog()) {  /**The key check, NOTE: Since we add it to a container then we exppect true**/
+            return super.onCreateView(inflater, container, savedInstanceState);
+        } else {
+            view = inflater.inflate(R.layout.dialog_replen_base, container);
+            setCancelable(false);
+            return configureDialogView(view);
+        }
     }
 
     private View configureDialogView(View v) {

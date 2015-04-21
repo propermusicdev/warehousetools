@@ -55,6 +55,7 @@
     <string name="initials_template">eg: XP</string>
     <string name="preference_credentials">Proper_Credentials</string>
     <string name="preference_replenmovelist">Replen_Movelist</string>
+    <string name="preference_configuration">Proper_Config</string>
 
     <string name="DEV_EAN_ERR">Failed: Barcode scanned is not valid！Software will ignore it！</string>
     <string name="DEV_BIN_ERR">Failed: BinCode scanned is not valid！Software will ignore it！</string>
