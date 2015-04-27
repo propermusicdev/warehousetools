@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.*;
 import android.os.Message;
 import android.text.Editable;
@@ -15,15 +16,19 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import com.proper.data.binmove.*;
 import com.proper.data.enums.HttpResponseCodes;
 import com.proper.data.helpers.HttpResponseHelper;
 import com.proper.data.helpers.MyCustomNamingStrategy;
+import com.proper.data.replen.ReplenMiniMove;
+import com.proper.data.replen.adapters.ReplenMiniMoveAdapter;
 import com.proper.utils.BinQuantitySorted;
 import com.proper.warehousetools.BaseScanActivity;
 import com.proper.warehousetools.R;
 import com.proper.warehousetools.replen.ui.ActReplenManager;
+import org.apache.commons.collections4.IteratorUtils;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import java.util.*;
@@ -48,6 +53,18 @@ public class ActReplenSelectProduct extends BaseScanActivity {
     private boolean qtyChanged;
     private boolean alreadyFired = false;
 
+    /** From ActReplenManager **/
+    private SharedPreferences prefs = null;
+    private ListView lvRepelen;
+    private List<ProductBinResponse> inputList;
+    private List<ReplenMiniMove> moveList = new ArrayList<ReplenMiniMove>();
+    private ReplenMiniMoveAdapter adapter;
+    private List<Bin> primaryList = new ArrayList<Bin>(), populatedBins = new ArrayList<Bin>();
+    private String currentSource = "";
+    private int tot = 0;
+    private int backParam = 0;
+    //private boolean qtyChanged = false;
+
     public String getScanInput() {
         return scanInput;
     }
@@ -67,6 +84,7 @@ public class ActReplenSelectProduct extends BaseScanActivity {
         Bundle extra = getIntent().getExtras();
         if (extra == null) throw new RuntimeException("onCreate: Bundled Extra cannot be null!, Line: 63");
         binResponse = (BinResponse) extra.getSerializable("RESPONSE_EXTRA");
+        prefs = getSharedPreferences("Proper_Replen", Context.MODE_PRIVATE);        //get preferences
 
         txtInto = (TextView) this.findViewById(R.id.txtvReplenScanProductIntro);
         txtPalate = (TextView) this.findViewById(R.id.txtvReplenScanProductPalate);
@@ -121,6 +139,7 @@ public class ActReplenSelectProduct extends BaseScanActivity {
         super.onResume();
     }
 
+    @Override
     public void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "onDestroy");
@@ -153,6 +172,266 @@ public class ActReplenSelectProduct extends BaseScanActivity {
             }
             refreshActivity();
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KEY_SCAN) {
+            if (event.getRepeatCount() == 0) {
+                boolean bContinuous = false;
+                int iBetween = 0;
+                mReception.requestFocus();
+                if (threadStop) {
+                    Log.i("Reading", "My Barcode " + readerStatus);
+                    readThread = new Thread(new GetBarcode(bContinuous, iBetween));
+                    readThread.setName("Single Barcode ReadThread");
+                    readThread.start();
+                }else {
+                    threadStop = true;
+                }
+            }
+        }
+
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (readThread != null && readThread.isInterrupted() == false) {
+            readThread.interrupt();
+        }
+        Intent resultIntent = new Intent();
+        if (backPressedParameter != null && !backPressedParameter.equalsIgnoreCase("")) {
+            setResult(1, resultIntent);
+        } else {
+            setResult(RESULT_OK, resultIntent);
+        }
+        //super.onBackPressed();
+        ActReplenSelectProduct.this.finish();
+    }
+
+    private void saveQuantityData() {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("From", currentSource);
+        editor.putInt("Quantity", tot);
+        editor.commit();
+    }
+
+    private void buildPrimaryLocations() {
+        //TODO - Fix this method when you can find some time
+        if (!adapter.isEmpty()) {
+            //List<Bin> bins = adapter.getAllBins();
+            //List<Bin> bins = moveList;
+            List<Bin> bins = new ArrayList<Bin>();
+            List<ReplenMiniMove> newMoveList = new ArrayList<ReplenMiniMove>();
+            List<ReplenMiniMove> newMoveListPrep = new ArrayList<ReplenMiniMove>();
+            List<ReplenMiniMove> moveSearch = new ArrayList<ReplenMiniMove>();
+            List<ReplenMiniMove> moveDup = new ArrayList<ReplenMiniMove>();
+            ListIterator<ReplenMiniMove> moveIterator = moveList.listIterator();
+            // ListIterator<AbstractMap.SimpleEntry<String, int[]>> refined = new ListIterator<AbstractMap.SimpleEntry<String, int[]>>().set();
+            List<AbstractMap.SimpleEntry<String, int[]>> refined = null;
+
+            int found = 0;
+            for (ReplenMiniMove move : moveList) {
+                if (moveSearch.isEmpty()) {
+                    moveSearch.add(move);
+                } else {
+                    if (!moveSearch.isEmpty()) {
+                        for (int i = 0; i < moveSearch.size(); i++) {
+                            ReplenMiniMove xMove = moveSearch.get(i);
+                            if (move.getDestination().equalsIgnoreCase(xMove.getDestination())) {
+                                //Find duplicates ....
+                                found++;
+                                moveDup.add(xMove);
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (moveList.size() > 1) {
+                for (ReplenMiniMove move : moveList) {
+                    while(moveIterator.hasNext()){
+                        ReplenMiniMove item = moveIterator.next();
+                        if(item.getDestination().equals(move.getDestination())){
+                            //moveIterator.set(new ReplenMiniMove(move.getDestination(), moveIterator.next().getQuantity() + move.getQuantity()));
+                            item.setQuantity(item.getQuantity() + move.getQuantity());
+                            moveIterator.set(item);
+                        }
+                    }
+                }
+            }
+
+
+//            for (ReplenMiniMove move : moveList) {
+//                refined = new ArrayList<AbstractMap.SimpleEntry<String, int[]>>();
+//                if (refined.isEmpty()) {
+//                    refined.add(new AbstractMap.SimpleEntry<String, int[]>(move.getDestination(), new int[move.getQuantity()]));
+//                }else {
+//                    for (int p = 0; p < refined.size(); p ++) {
+//                        AbstractMap.SimpleEntry<String, int[]> item = refined.get(p);
+//                        if (item.getKey().equalsIgnoreCase(move.getDestination())) {
+//                            //add
+//                        }
+//                    }
+//                }
+//            }
+//            for (ReplenMiniMove move : moveList) {
+//                //check for duplicates, if list contains item just add qty  -- !(Arrays.binarySearch(acceptable, getScanInput().length()) == -1)
+//                if (moveDup.contains(move)) {
+//                    int qty = 0;
+//                    for (int j = 0; j < moveDup.size(); j++) {
+//                        qty = moveDup.get(j).getQuantity() + qty;
+//                    }
+//                    newMoveListPrep.add(new ReplenMiniMove(move.getDestination(), qty));
+//                }
+//
+//
+//
+//                if (newMoveList.isEmpty()) {
+//                    newMoveList.add(move);
+//                    newMoveListPrep.add(move);
+//                } else {
+//                    for (int i = 0; i < newMoveList.size(); i++) {
+//                        ReplenMiniMove imove = newMoveList.get(i);
+//                        //check if is in the duplicate list
+//                        if (moveDup.contains(imove)) {
+//                            //Add the quantity
+//                            int qty = 0;
+//                            for (int j = 0; j < moveDup.size(); j++) {
+//                                qty = moveDup.get(j).getQuantity() + qty;
+//                            }
+//                            newMoveListPrep.add(new ReplenMiniMove(imove.getDestination(), qty));
+//                        } else {
+//                            newMoveListPrep.add(imove);
+//                        }
+////                        if (imove.getDestination().equalsIgnoreCase(move.getDestination())) {
+////                            //newMoveList.add(new ReplenMiniMove(move.getDestination(), move.getQuantity() + imove.getQuantity()));
+////                            newMoveListPrep.add(new ReplenMiniMove(move.getDestination(), move.getQuantity() + imove.getQuantity()));
+////                        }else {
+////                            //newMoveList.add(imove);
+////                            newMoveListPrep.add(imove);
+////                        }
+//                    }
+//                }
+//            }
+            moveList = new ArrayList<ReplenMiniMove>();
+            //moveList = newMoveListPrep;
+            moveList = IteratorUtils.toList(moveIterator);
+
+            for (ReplenMiniMove move : moveList) {
+                Bin bin = new Bin(move.getDestination(), move.getQuantity());
+
+                if (bins.isEmpty()) {
+                    bins.add(bin);
+                }else {
+                    if (!bins.contains(bin)) {
+                        bins.add(bin);
+                    }
+                }
+            }
+            for (int i = 0; i < bins.size(); i ++) {
+                if (bins.get(i).getBinCode().substring(0, 1).equalsIgnoreCase("1")) {
+                    primaryList.add(bins.get(i));
+                }
+            }
+            //primaryList = bins;
+        }
+
+    }
+
+    private void updateInputListQuantity(ProductBinSelection moveItem) {
+        if (moveItem != null && !inputList.isEmpty()) {
+            inputList.get(0).setQtyInBin(moveItem.getQtyInBin()); //TODO - updates values manually <<< Find a better way to minimise RISK >>>
+        }
+    }
+
+    private void showSoftKeyboard() {
+        InputMethodManager imm =(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null){
+            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
+        }
+    }
+
+    private void turnOnInputByHand(){
+        this.inputByHand = 1;    //Turn On Input by Hand
+        this.btnScan.setEnabled(false);
+        paintByHandButtons();
+    }
+
+    private void turnOffInputByHand(){
+        this.inputByHand = 0;    //Turn On Input by Hand
+        this.btnScan.setEnabled(true);  //
+        setScanInput(mReception.getText().toString());
+        if (!getScanInput().isEmpty()) {
+            mReception.setText(getScanInput()); // just to trigger text changed
+        }
+        paintByHandButtons();
+    }
+
+    private void paintByHandButtons() {
+        final String byHand = "ByHand";
+        final String finish = "Finish";
+        if (inputByHand == 0) {
+            btnEnterBinCode.setText(byHand);
+        } else {
+            btnEnterBinCode.setText(finish);
+        }
+    }
+
+    private class GetBarcode implements Runnable {
+
+        private boolean isContinuous = false;
+        String barCode = "";
+        private long sleepTime = 1000;
+        Message msg = null;
+
+        public GetBarcode(boolean isContinuous) {
+            this.isContinuous = isContinuous;
+        }
+
+        public GetBarcode(boolean isContinuous, int sleep) {
+            this.isContinuous = isContinuous;
+            this.sleepTime = sleep;
+        }
+
+        @Override
+        public void run() {
+
+            do {
+                barCode = mInstance.scan();
+
+                Log.i("MY", "barCode " + barCode.trim());
+
+                msg = new Message();
+
+                if (barCode == null || barCode.isEmpty()) {
+                    msg.what = 0;
+                    msg.obj = "";
+                } else {
+                    msg.what = 1;
+                    msg.obj = barCode;
+                }
+
+                handler.sendMessage(msg);
+
+                if (isContinuous) {
+                    try {
+                        Thread.sleep(sleepTime);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            } while (isContinuous && !threadStop);
+
+        }
+
+    }
+
+    public void refreshActivity() {
+        if (!mReception.getText().toString().equalsIgnoreCase("")) mReception.setText("");
+        if (!btnScan.isEnabled()) btnScan.setEnabled(true);
     }
 
     class TextChanged implements TextWatcher {
@@ -313,130 +592,6 @@ public class ActReplenSelectProduct extends BaseScanActivity {
                 }
             }
         }
-    }
-
-    private void showSoftKeyboard() {
-        InputMethodManager imm =(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-        if (imm != null){
-            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
-        }
-    }
-
-    private void turnOnInputByHand(){
-        this.inputByHand = 1;    //Turn On Input by Hand
-        this.btnScan.setEnabled(false);
-        paintByHandButtons();
-    }
-
-    private void turnOffInputByHand(){
-        this.inputByHand = 0;    //Turn On Input by Hand
-        this.btnScan.setEnabled(true);  //
-        setScanInput(mReception.getText().toString());
-        if (!getScanInput().isEmpty()) {
-            mReception.setText(getScanInput()); // just to trigger text changed
-        }
-        paintByHandButtons();
-    }
-
-    private void paintByHandButtons() {
-        final String byHand = "ByHand";
-        final String finish = "Finish";
-        if (inputByHand == 0) {
-            btnEnterBinCode.setText(byHand);
-        } else {
-            btnEnterBinCode.setText(finish);
-        }
-    }
-
-    private class GetBarcode implements Runnable {
-
-        private boolean isContinuous = false;
-        String barCode = "";
-        private long sleepTime = 1000;
-        Message msg = null;
-
-        public GetBarcode(boolean isContinuous) {
-            this.isContinuous = isContinuous;
-        }
-
-        public GetBarcode(boolean isContinuous, int sleep) {
-            this.isContinuous = isContinuous;
-            this.sleepTime = sleep;
-        }
-
-        @Override
-        public void run() {
-
-            do {
-                barCode = mInstance.scan();
-
-                Log.i("MY", "barCode " + barCode.trim());
-
-                msg = new Message();
-
-                if (barCode == null || barCode.isEmpty()) {
-                    msg.what = 0;
-                    msg.obj = "";
-                } else {
-                    msg.what = 1;
-                    msg.obj = barCode;
-                }
-
-                handler.sendMessage(msg);
-
-                if (isContinuous) {
-                    try {
-                        Thread.sleep(sleepTime);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-            } while (isContinuous && !threadStop);
-
-        }
-
-    }
-
-    public void refreshActivity() {
-        if (!mReception.getText().toString().equalsIgnoreCase("")) mReception.setText("");
-        if (!btnScan.isEnabled()) btnScan.setEnabled(true);
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KEY_SCAN) {
-            if (event.getRepeatCount() == 0) {
-                boolean bContinuous = false;
-                int iBetween = 0;
-                mReception.requestFocus();
-                if (threadStop) {
-                    Log.i("Reading", "My Barcode " + readerStatus);
-                    readThread = new Thread(new GetBarcode(bContinuous, iBetween));
-                    readThread.setName("Single Barcode ReadThread");
-                    readThread.start();
-                }else {
-                    threadStop = true;
-                }
-            }
-        }
-
-        return super.onKeyDown(keyCode, event);
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (readThread != null && readThread.isInterrupted() == false) {
-            readThread.interrupt();
-        }
-        Intent resultIntent = new Intent();
-        if (backPressedParameter != null && !backPressedParameter.equalsIgnoreCase("")) {
-            setResult(1, resultIntent);
-        } else {
-            setResult(RESULT_OK, resultIntent);
-        }
-        //super.onBackPressed();
-        ActReplenSelectProduct.this.finish();
     }
 
     private class WebServiceProductTask extends AsyncTask<com.proper.messagequeue.Message, Void, HttpResponseHelper>{

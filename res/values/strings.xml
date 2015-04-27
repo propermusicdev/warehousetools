@@ -91,7 +91,7 @@
     <integer name="MSG_CANCEL">5</integer>
 
     <!--<style name="CustomDialog" parent="@android:style/Theme.Holo.Light" >-->
-    <style name="CustomDialog" parent="lebelBlue" >
+    <style name="CustomDialog" parent="_lebelTelerik" >
         <item name="android:windowBackground">@null</item>
         <item name="android:windowIsFloating">true</item>
     </style>

@@ -7,6 +7,8 @@
         <!-- Support library compatibility -->
         <item name="actionBarStyle">@style/MyActionBar</item>
         <!--<item name="android:listViewStyle">@style/ListViewStyle.Light</item>-->
+        <item name="android:panelFullBackground">@drawable/flat_button_blue</item>
+        <!--<item name="android:popupMenuStyle">@style/PopupMenu.Lebelblue</item>-->
     </style>
 
     <!-- ActionBar styles -->
@@ -19,6 +21,22 @@
         <!--<item name="background">@drawable/flat_button_palebrown</item>-->
         <item name="background">@drawable/woodendrape_blue</item>
     </style>
+
+    <!--<style name="PopupMenu.Lebelblue" parent="@style/Widget.AppCompat.PopupMenu">-->
+        <!--<item name="android:popupBackground">@drawable/menu_dropdown_panel_lebelblue</item>-->
+    <!--</style>-->
+
+
+    <!--<style name="Theme.AppTheme.actionBar.PopupMenu" parent="@android:style/Widget.Holo.Light.ListPopupWindow">-->
+        <!--<item name="android:popupBackground">@drawable/bkg_popup</item>-->
+    <!--</style>-->
+    <!--<style name="Widget.AppCompat.Base.ListPopupWindow"-->
+           <!--parent="android:Widget.B.ListPopupWindow">-->
+    <!--</style>-->
+    <!--<style name="Widget.AppCompat.Light.Base.ListPopupWindow"-->
+           <!--parent="android:Widget.Holo.Light.ListPopupWindow">-->
+    <!--</style>-->
+
 
     <!-- ListView Styles -->
     <!--<style name="AbsListViewStyle.Light" parent="android:style/Widget.AbsListView">-->

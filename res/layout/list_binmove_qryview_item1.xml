@@ -4,7 +4,8 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-        android:background="@drawable/lebelblue_list_selector_holo_light">
+        android:background="@drawable/lebelorange_list_selector_holo_light">
+    <!--android:background="@drawable/lebelblue_list_selector_holo_light">-->
     <LinearLayout
             android:id="@+id/lytDetailImage"
             android:layout_width="fill_parent"

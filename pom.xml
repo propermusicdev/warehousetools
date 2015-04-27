@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.proper.warehousetools</groupId>
   <artifactId>warehousetools</artifactId>
-  <version>20150421.155030</version>
+  <version>20150427.140425</version>
   <dependencies>
     <!--<dependency>-->
     <!--<groupId>org.jvnet.hudson.plugins</groupId>-->

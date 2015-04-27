@@ -61,7 +61,7 @@ public class ActLoginTest {
         EditText txtPin = (EditText) activity.findViewById(R.id.etxtLoginPin);
         txtInitials.setText("LF");
         txtPin.setText("8233");
-        Button btnLogin = (Button) activity.findViewById(R.id.bnLoginProceed);
+        Button btnLogin = (Button) activity.findViewById(R.id.bnLoginProceedOne);
         btnLogin.getText();
         assertEquals("Enter", btnLogin.getText());
         assertEquals("LF", txtInitials.getText().toString());

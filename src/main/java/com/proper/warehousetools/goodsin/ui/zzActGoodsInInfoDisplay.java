@@ -142,7 +142,7 @@ public class zzActGoodsInInfoDisplay extends PlainActivity {
                 break;
             case R.id.bnGoodsinInfoDisplayTakePicture:
                 //do take picture
-                mPhotoPathUri = PhotoHelper.generateTimeStampPhotoFileUri();
+                mPhotoPathUri = PhotoHelper.generateTimeStampPhotoFileUri(boardScanResult.getDelivery().getGoodsInId());
 
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, mPhotoPathUri);

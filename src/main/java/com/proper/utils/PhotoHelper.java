@@ -40,7 +40,7 @@ public class PhotoHelper {
      * within the appropriate folder for storing pictures for the current user
      * @return The full path to the file
      */
-    public static Uri generateTimeStampPhotoFileUri() {
+    public static Uri generateTimeStampPhotoFileUri(int goodsInID) {
         Uri photoFileUri = null;
 
         // Request the path to the Pluralsight folder in the photo folder
@@ -49,7 +49,7 @@ public class PhotoHelper {
         if (outputDir != null) {
             // Create a file name for the photo based on current date/time
             String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-            String photoFileName = "IMG_" + timeStamp + ".jpg";
+            String photoFileName = String.format("%s_IMG_%s_.jpg", goodsInID, timeStamp); //"IMG_" + timeStamp + ".jpg";
 
             // Create File instance representing the photo file within th
             //  the Plurasight subfolder of the photos folder

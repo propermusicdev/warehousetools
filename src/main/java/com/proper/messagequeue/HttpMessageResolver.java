@@ -40,7 +40,6 @@ import javax.ws.rs.client.InvocationCallback;
 import javax.ws.rs.core.Response;
 import java.io.*;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.util.*;
@@ -73,11 +72,11 @@ public class HttpMessageResolver implements IHttpMessageResolver {
     }
 
     public String getDefaultConfig() {
-        //currentConfig = R.integer.CONFIG_LIVESERVER_EXTERNAL; return setConfig(currentConfig); // Live only
-        currentConfig = getStoredShared(); return setConfig(currentConfig); // Debug only
+        currentConfig = R.integer.CONFIG_LIVESERVER_EXTERNAL; return setConfig(currentConfig); // Live only
+        //currentConfig = getStoredSharedConfiguration(); return setConfig(currentConfig); // Debug only
     }
 
-    private int getStoredShared() {
+    private int getStoredSharedConfiguration() {
         SharedPreferences pref = appContext.getSharedPreferences(appContext.getString(R.string.preference_configuration), Context.MODE_PRIVATE);
         return pref.getInt("Configuration", R.integer.CONFIG_TESTSERVER);
     }
@@ -439,14 +438,19 @@ public class HttpMessageResolver implements IHttpMessageResolver {
             ftp.setFileTransferMode(FTP.BINARY_FILE_TYPE); //new
             ftp.setBufferSize(3774873); //3.6MB - ftp.setBufferSize(0)// new line improve speed
             ftp.enterLocalPassiveMode();
-            //ftp.connect(host);
-            String imagesDir = "/GoodsInImages/";
-            //change directory
+            String imagesDir = "";
+            if (getStoredSharedConfiguration() == R.integer.CONFIG_LIVESERVER_EXTERNAL) {
+                imagesDir = "/GoodsInImages/";
+            } else {
+                //Assume it's testing
+                imagesDir = "/GoodsInTests/";
+            }
+            /**change directory**/
             ftp.changeWorkingDirectory(imagesDir);
-            String newFolderDir = String.format("%s(%s)", images.getGoogsinID(), images.getSupplier());
-            ftp.makeDirectory(newFolderDir); //create a new directory
-            ftp.changeWorkingDirectory(newFolderDir);
-            //Upload File
+            //String newFolderDir = String.format("%s(%s)", images.getGoogsinID(), images.getSupplier());
+            //ftp.makeDirectory(newFolderDir); //create a new directory
+            //ftp.changeWorkingDirectory(newFolderDir);
+            /**Upload File**/
 
             int successCount = 0;
             for (int i = 0; i < images.getFiles().size(); i++) {
@@ -458,9 +462,9 @@ public class HttpMessageResolver implements IHttpMessageResolver {
                 }
             }
             if (successCount > 0) {
-                //overallResult = true;
-                //ret = new AbstractMap.SimpleEntry<Boolean, String>(true, FilenameUtils.concat("ftp://properuk.net/GoodsInImages", newFolderDir));
-                ret = new AbstractMap.SimpleEntry<Boolean, String>(true, newFolderDir);
+                //ret = new AbstractMap.SimpleEntry<Boolean, String>(true, newFolderDir);
+                //ret = new AbstractMap.SimpleEntry<Boolean, String>(true, imagesDir);
+                ret = new AbstractMap.SimpleEntry<Boolean, String>(true, ""); // requested by Sam on 24/04/2015 17:01
             }
             ftp.logout();
             ftp.disconnect();

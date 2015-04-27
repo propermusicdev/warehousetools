@@ -1,119 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- File created by the Android Action Bar Style Generator
 
-<!-- Generated with http://android-holo-colors.com -->
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+     Copyright (C) 2011 The Android Open Source Project
+     Copyright (C) 2012 readyState Software Ltd
 
-  <style name="EditTextlebelBlue" parent="android:Widget.EditText">
-	  <item name="android:background">@drawable/lebelblue_edit_text_holo_light</item>
-	  <item name="android:textColor">#000000</item>
-  </style>
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+  
+          http://www.apache.org/licenses/LICENSE-2.0
+  
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
 
-  <style name="AutoCompleteTextViewlebelBlue" parent="android:Widget.AutoCompleteTextView">
-      <item name="android:dropDownSelector">@drawable/lebelblue_list_selector_holo_light</item>
-	  <item name="android:background">@drawable/lebelblue_edit_text_holo_light</item>
-	  <item name="android:textColor">#000000</item>
-  </style>
+<resources>
 
-  <style name="CheckBoxlebelBlue" parent="android:Widget.CompoundButton.CheckBox">
-      <item name="android:button">@drawable/lebelblue_btn_check_holo_light</item>
-  </style>
+    <style name="Theme.Lebelblue" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <item name="actionBarItemBackground">@drawable/selectable_background_lebelblue</item>
+        <item name="popupMenuStyle">@style/PopupMenu.Lebelblue</item>
+        <item name="dropDownListViewStyle">@style/DropDownListView.Lebelblue</item>
+        <item name="actionBarTabStyle">@style/ActionBarTabStyle.Lebelblue</item>
+        <item name="actionDropDownStyle">@style/DropDownNav.Lebelblue</item>
+        <item name="actionBarStyle">@style/ActionBar.Solid.Lebelblue</item>
+        <item name="actionModeBackground">@drawable/cab_background_top_lebelblue</item>
+        <item name="actionModeSplitBackground">@drawable/cab_background_bottom_lebelblue</item>
+        <item name="actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Lebelblue</item>
 
-  <style name="RadioButtonlebelBlue" parent="android:Widget.CompoundButton.RadioButton">
-      <item name="android:button">@drawable/lebelblue_btn_radio_holo_light</item>
-  </style>
+                <!-- Light.DarkActionBar specific -->
+        <item name="actionBarWidgetTheme">@style/Theme.Lebelblue.Widget</item>
 
-  <style name="ButtonlebelBlue" parent="android:Widget.Button">
-	  <item name="android:background">@drawable/lebelblue_btn_default_holo_light</item>
-	  <item name="android:minHeight">48dip</item>
-	  <item name="android:minWidth">64dip</item>
-	  <item name="android:textColor">#000000</item>
-  </style>
+    </style>
 
-  <style name="ImageButtonlebelBlue" parent="android:Widget.ImageButton">
-	  <item name="android:background">@drawable/lebelblue_btn_default_holo_light</item>
-  </style>
+    <style name="ActionBar.Solid.Lebelblue" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item name="background">@drawable/ab_solid_lebelblue</item>
+        <item name="backgroundStacked">@drawable/ab_stacked_solid_lebelblue</item>
+        <item name="backgroundSplit">@drawable/ab_bottom_solid_lebelblue</item>
+        <item name="progressBarStyle">@style/ProgressBar.Lebelblue</item>
+    </style>
 
-  <style name="SpinnerlebelBlue" parent="android:Widget.Spinner">
-      <item name="android:background">@drawable/lebelblue_spinner_background_holo_light</item>
-      <item name="android:dropDownSelector">@drawable/lebelblue_list_selector_holo_light</item>
-  </style>
+    <style name="ActionBar.Transparent.Lebelblue" parent="@style/Widget.AppCompat.ActionBar">
+        <item name="background">@drawable/ab_transparent_lebelblue</item>
+        <item name="progressBarStyle">@style/ProgressBar.Lebelblue</item>
+    </style>
+	
+    <style name="PopupMenu.Lebelblue" parent="@style/Widget.AppCompat.PopupMenu">	
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_lebelblue</item>	
+    </style>
+	
+    <style name="DropDownListView.Lebelblue" parent="@style/Widget.AppCompat.ListView.DropDown">
+        <item name="android:listSelector">@drawable/selectable_background_lebelblue</item>
+    </style>
 
-  <style name="SpinnerDropDownItemlebelBlue" parent="android:Widget.DropDownItem.Spinner">
-      <item name="android:checkMark">@drawable/lebelblue_btn_radio_holo_light</item>
-  </style>
-  <style name="TablebelBlue">
-      <item name="android:gravity">center_horizontal</item>
-      <item name="android:paddingLeft">16dip</item>
-      <item name="android:paddingRight">16dip</item>
-      <item name="android:background">@drawable/lebelblue_tab_indicator_holo</item>
-      <item name="android:layout_width">0dip</item>
-      <item name="android:layout_weight">1</item>
-      <item name="android:minWidth">80dip</item>
-  </style>
-
-  <style name="TabTextlebelBlue">
-	  <item name="android:textColor">#000000</item>
-      <item name="android:textSize">12sp</item>
-      <item name="android:textStyle">bold</item>
-      <!-- v14 <item name="android:textAllCaps">true</item> -->
-      <item name="android:ellipsize">marquee</item>
-      <item name="android:maxLines">2</item>
-      <item name="android:maxWidth">180dip</item>
-  </style>
-
-  <style name="ProgressBarlebelBlue" parent="android:Widget.ProgressBar.Horizontal">
-      <item name="android:progressDrawable">@drawable/lebelblue_progress_horizontal_holo_light</item>
-      <item name="android:indeterminateDrawable">@drawable/lebelblue_progress_indeterminate_horizontal_holo_light</item>
-      <item name="android:minHeight">16dip</item>
-      <item name="android:maxHeight">16dip</item>
-  </style>
-
-  <style name="SeekBarlebelBlue" parent="android:Widget.SeekBar">
-      <item name="android:progressDrawable">@drawable/lebelblue_scrubber_progress_horizontal_holo_light</item>
-      <item name="android:indeterminateDrawable">@drawable/lebelblue_scrubber_progress_horizontal_holo_light</item>
-      <item name="android:minHeight">13dip</item>
-      <item name="android:maxHeight">13dip</item>
-      <item name="android:thumb">@drawable/lebelblue_scrubber_control_selector_holo_light</item>
-      <item name="android:thumbOffset">16dip</item>
-      <item name="android:paddingLeft">16dip</item>
-      <item name="android:paddingRight">16dip</item>
-  </style>
-
-  <style name="RatingBarlebelBlue" parent="android:Widget.RatingBar">
-      <item name="android:progressDrawable">@drawable/lebelblue_ratingbar_full_holo_light</item>
-      <item name="android:indeterminateDrawable">@drawable/lebelblue_ratingbar_full_holo_light</item>
-  </style>
-
-  <style name="RatingBarBiglebelBlue">
-      <item name="android:progressDrawable">@drawable/lebelblue_ratingbar_holo_light</item>
-      <item name="android:indeterminateDrawable">@drawable/lebelblue_ratingbar_holo_light</item>
-      <item name="android:minHeight">35dip</item>
-      <item name="android:maxHeight">35dip</item>
-  </style>
-
-  <style name="RatingBarSmalllebelBlue">
-      <item name="android:progressDrawable">@drawable/lebelblue_ratingbar_small_holo_light</item>
-      <item name="android:indeterminateDrawable">@drawable/lebelblue_ratingbar_small_holo_light</item>
-      <item name="android:minHeight">16dip</item>
-      <item name="android:maxHeight">16dip</item>
-  </style>
-
-  <style name="TogglelebelBlue" parent="android:Widget.Button.Toggle">
-      <item name="android:background">@drawable/lebelblue_btn_toggle_holo_light</item>
-      <item name="android:minHeight">48dip</item>
-	  <item name="android:textColor">#000000</item>
-  </style>
-
-  <style name="ListViewlebelBlue" parent="android:Widget.ListView">
-      <item name="android:listSelector">@drawable/lebelblue_list_selector_holo_light</item>
-  </style>
-
-  <style name="ListViewlebelBlue.White" parent="android:Widget.ListView.White">
-      <item name="android:listSelector">@drawable/lebelblue_list_selector_holo_light</item>
-  </style>
-
-  <style name="SpinnerItemlebelBlue" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
-      <item name="android:textColor">#000000</item>
-  </style>
+    <style name="ActionBarTabStyle.Lebelblue" parent="@style/Widget.AppCompat.ActionBar.TabView">
+        <item name="android:background">@drawable/tab_indicator_ab_lebelblue</item>
+    </style>
+	
+    <style name="DropDownNav.Lebelblue" parent="@style/Widget.AppCompat.Spinner.DropDown.ActionBar">
+        <item name="android:background">@drawable/spinner_background_ab_lebelblue</item>
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_lebelblue</item>
+        <item name="android:dropDownSelector">@drawable/selectable_background_lebelblue</item>
+    </style>
+    
+    <style name="ProgressBar.Lebelblue" parent="@style/Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/progress_horizontal_lebelblue</item>
+    </style>
+    
+    <style name="ActionButton.CloseMode.Lebelblue" parent="@style/Widget.AppCompat.ActionButton.CloseMode">
+        <item name="android:background">@drawable/btn_cab_done_lebelblue</item>
+    </style>
+    
+    <!-- this style is only referenced in a Light.DarkActionBar based theme -->
+    <style name="Theme.Lebelblue.Widget" parent="@style/Theme.AppCompat">
+        <item name="popupMenuStyle">@style/PopupMenu.Lebelblue</item>
+        <item name="dropDownListViewStyle">@style/DropDownListView.Lebelblue</item>
+    </style>
 
 </resources>

@@ -76,7 +76,7 @@ public class ActMain extends ActionBarActivity {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
             getSupportActionBar().setLogo(R.drawable.ic_launcher);
             //getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.back));
-            getSupportActionBar().setTitle(String.format("%s", appContext.getPackageInfo().versionName));
+            getSupportActionBar().setTitle(String.format("ver %s", appContext.getPackageInfo().versionName));
         }
         if (screenSize == Configuration.SCREENLAYOUT_SIZE_SMALL) {
             getSupportActionBar().hide();

@@ -6,18 +6,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.*;
 //import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 //import android.support.v7.app.ActionBarActivity;
+import android.util.AttributeSet;
 import android.util.Log;
 //import android.view.Menu;
 //import android.view.MenuItem;
-import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
+import android.view.*;
+import android.widget.TextView;
 import com.proper.data.core.IReplenCommunicator;
 import com.proper.data.core.IScanKeyDown;
 import com.proper.data.core.IViewPagerFragmentSwitcher;
@@ -655,6 +656,8 @@ public class ActReplenManageWork extends FragmentActivity implements IViewPagerF
     public boolean onCreateOptionsMenu(Menu menu) {
         //return super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.mnu_replen_managework, menu);
+        /**http://stackoverflow.com/a/6211536**/
+        //setMenuBackground();
         return true;
     }
 
@@ -697,6 +700,38 @@ public class ActReplenManageWork extends FragmentActivity implements IViewPagerF
                 //3 ways this can change: 1. by working a line (Add, Update), 2. by moveListResponse selection change 3. by moveListResponse change
             }
         }
+    }
+
+    protected void setMenuBackground(){
+        // Log.d(TAG, "Enterting setMenuBackGround");
+        getLayoutInflater().setFactory( new LayoutInflater.Factory() {
+            public View onCreateView(String name, Context context, AttributeSet attrs) {
+                if ( name.equalsIgnoreCase( "com.android.internal.view.menu.IconMenuItemView" ) ) {
+                    try { // Ask our inflater to create the view
+                        LayoutInflater f = getLayoutInflater();
+                        final View view = f.createView( name, null, attrs );
+                        /* The background gets refreshed each time a new item is added the options menu.
+                        * So each time Android applies the default background we need to set our own
+                        * background. This is done using a thread giving the background change as runnable
+                        * object */
+                        new Handler().post( new Runnable() {
+                            public void run () {
+                                // sets the background color
+                                //view.setBackgroundResource( R.color.androidcolor);
+                                view.setBackgroundResource(R.drawable.flat_button_blue);
+                                // sets the text color
+                                ((TextView) view).setTextColor(Color.BLACK);
+                                // sets the text size
+                                ((TextView) view).setTextSize(18);
+                            }
+                        } );
+                        return view;
+                    }
+                    catch ( InflateException e ) {}
+                    catch ( ClassNotFoundException e ) {}
+                }
+                return null;
+            }});
     }
 
     /**

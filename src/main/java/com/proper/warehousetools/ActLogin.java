@@ -108,7 +108,7 @@ public class ActLogin extends Activity {
 
         txtInitials = (EditText) this.findViewById(R.id.etxtLoginInitials);
         txtPin = (EditText) this.findViewById(R.id.etxtLoginPin);
-        btnLogin = (Button) this.findViewById(R.id.bnLoginProceed);
+        btnLogin = (Button) this.findViewById(R.id.bnLoginProceedOne);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -152,7 +152,7 @@ public class ActLogin extends Activity {
             logo.startAnimation(animRotateIn_icon);
             txtConnReport.startAnimation(anim);
         }
-        //lytAdminControl.setVisibility(View.GONE);   //For Admin purpose Only - not for production
+        lytAdminControl.setVisibility(View.GONE);   //For Admin purpose Only - not for production
     }
 
     private void updateConnectionStringText() {

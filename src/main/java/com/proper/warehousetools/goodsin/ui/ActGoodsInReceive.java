@@ -165,7 +165,7 @@ public class ActGoodsInReceive extends PlainActivity {
         if (v == btnPhoto) {
             //Take picture if (pictureCount < 4) {
             if (pictureCount < 8) {
-                mPhotoPathUri = PhotoHelper.generateTimeStampPhotoFileUri();
+                mPhotoPathUri = PhotoHelper.generateTimeStampPhotoFileUri(boardScanResult.getDelivery().getGoodsInId());
 
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, mPhotoPathUri);
@@ -436,18 +436,19 @@ public class ActGoodsInReceive extends PlainActivity {
             //AlertDialog.Builder builder = new AlertDialog.Builder(ActGoodsInReceive.this);
             if (response != null) {
                 if (response.getKey() == true) {
-                    if (response.getValue().getKey().isEmpty()) {
-                        //Notify files updated but unable to build directory
-                        String mMsg = "Files uploaded successfully but was unable to build directory initially.\nPlease contact IT if error continues";
-                        AlertDialog.Builder builder = new AlertDialog.Builder(ActGoodsInReceive.this);
-                        builder.setMessage(mMsg)
-                                .setPositiveButton(R.string.but_ok, new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        //do nothing
-                                    }
-                                });
-                        builder.show();
-                    }else if (response.getValue().getValue().isEmpty()) {
+//                    if (response.getValue().getKey().isEmpty()) {
+//                        //Notify files updated but unable to build directory // Since we're storing images in root dir then new dir isn't needed, so this will always return empty string
+//                        String mMsg = "Files uploaded successfully but was unable to build directory initially.\nPlease contact IT if error continues";
+//                        AlertDialog.Builder builder = new AlertDialog.Builder(ActGoodsInReceive.this);
+//                        builder.setMessage(mMsg)
+//                                .setPositiveButton(R.string.but_ok, new DialogInterface.OnClickListener() {
+//                                    public void onClick(DialogInterface dialog, int id) {
+//                                        //do nothing
+//                                    }
+//                                });
+//                        builder.show();
+//                    }else
+                    if (response.getValue().getValue().isEmpty()) {
                         //Notify files uploaded but unable to message service failed
                         AlertDialog.Builder builder = new AlertDialog.Builder(ActGoodsInReceive.this);String mMsg = "Files uploaded successfully but message service failed.\nPlease contact IT if error continues";
                         builder.setMessage(mMsg)
