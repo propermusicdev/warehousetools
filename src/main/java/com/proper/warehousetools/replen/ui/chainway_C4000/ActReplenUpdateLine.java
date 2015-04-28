@@ -43,7 +43,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 /**
- * Created by Knight on 12/01/2015.
+ * Created by Lebel on 12/01/2015.
  */
 public class ActReplenUpdateLine extends BaseReplenPlainFragmentActivity {
     private String TAG = ActReplenUpdateLine.class.getSimpleName();
@@ -57,14 +57,12 @@ public class ActReplenUpdateLine extends BaseReplenPlainFragmentActivity {
     private boolean qtyConfirmedHasChanged = false, srcBinHasChanged = false, dstBinHasChanged = false, onEditMode = false;
     private ReplenMoveListLinesItemResponse moveline;
     private UpdateLineAsync updateLineAsyncTask = null;
-    //private ActReplenManageWork mActivity = null;
     private Message iMessage = null;
     private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     private int passedMovelistId = 0;
     private int loopCount = 0;
     private int loadedCount = 0;
     private ReplenLinesItemResponseSelection splitMoveLineSelection = null;
-    //private List<ReplenMoveListLinesItemResponse> splitMoveLineSelectionList = null;
     private List<ReplenLinesItemResponseSelection> splitMoveLineSelectionList = null;
     private String moveLinesRepsponseString = "";
     private ReplenMoveListLinesResponse currentListLines = null;
@@ -233,6 +231,7 @@ public class ActReplenUpdateLine extends BaseReplenPlainFragmentActivity {
             //Record original values for future comparision
             originalDstBin = moveline.getDstBinCode();
             originalSrcBin = moveline.getSrcBinCode();
+            chkComplete.setChecked(moveline.isCompleted());
         }
         
         disableAll();

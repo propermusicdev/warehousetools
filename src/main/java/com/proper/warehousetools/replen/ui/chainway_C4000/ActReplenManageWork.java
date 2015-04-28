@@ -1,12 +1,14 @@
 package com.proper.warehousetools.replen.ui.chainway_C4000;
 
 //import android.app.Activity;
+//import android.annotation.TargetApi;
 import android.content.Context;
 //import android.content.Intent;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
+//import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.*;
@@ -25,7 +27,7 @@ import com.proper.data.core.IViewPagerFragmentSwitcher;
 //import com.proper.data.customcontrols.NonSwipeableViewPager;
 //import com.proper.data.customcontrols.SlidingTabLayout;
 import com.proper.data.helpers.BarcodeHelper;
-import com.proper.data.helpers.DialogHelper;
+//import com.proper.data.helpers.DialogHelper;
 import com.proper.data.replen.*;
 import com.proper.data.replen.adapters.ReplenAddMoveLineAdapter;
 import com.proper.data.replen.adapters.ReplenMoveLineAdapter;
@@ -461,9 +463,13 @@ public class ActReplenManageWork extends FragmentActivity implements IViewPagerF
         return ret;
     }
 
+    //@TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //this.getSupportActionBar().
+        getActionBar().setDisplayShowHomeEnabled(false);
+        getActionBar().setDisplayShowTitleEnabled(false);
         setContentView(R.layout.lyt_replen_manage_work);
         this.addPropertyChangeListener(new MoveListChangedListener()); // add property change listener
         appContext = (AppContext) getApplication();
@@ -479,6 +485,7 @@ public class ActReplenManageWork extends FragmentActivity implements IViewPagerF
         resolver = new HttpMessageResolver(appContext);
         barcodeHelper = new BarcodeHelper();
         testResolver = new MockClass();
+        //viewPager.setClickable(false);
         if (savedInstanceState == null) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             displayedFragment = new SlidingTabsColorsFragment();
@@ -663,17 +670,23 @@ public class ActReplenManageWork extends FragmentActivity implements IViewPagerF
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        //return super.onOptionsItemSelected(item);
-        switch (item.getItemId()) {
-            case R.id.action_replenMWBack:
-                onBackPressed();
-                break;
-            case R.id.action_replen_MWExit:
-                //TODO - Exit Current Activity
-                Intent i = new Intent();
-                setResult(RESULT_OK, i);
-                finish();
-                break;
+//        //return super.onOptionsItemSelected(item);
+//        switch (item.getItemId()) {
+//            case R.id.action_replenMWBack:
+//                onBackPressed();
+//                break;
+//            case R.id.action_replen_MWExit:
+//                //TODO - Exit Current Activity
+//                Intent i = new Intent();
+//                setResult(RESULT_OK, i);
+//                finish();
+//                break;
+//        }
+        if (item.getTitle().toString().equalsIgnoreCase("Exit")) {
+            /**Exit current activity **/
+            Intent i = new Intent();
+            setResult(RESULT_OK, i);
+            finish();
         }
         return false;
     }

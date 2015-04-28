@@ -152,7 +152,7 @@ public class ActLogin extends Activity {
             logo.startAnimation(animRotateIn_icon);
             txtConnReport.startAnimation(anim);
         }
-        lytAdminControl.setVisibility(View.GONE);   //For Admin purpose Only - not for production
+        //lytAdminControl.setVisibility(View.GONE);   //For Admin purpose Only - not for production
     }
 
     private void updateConnectionStringText() {

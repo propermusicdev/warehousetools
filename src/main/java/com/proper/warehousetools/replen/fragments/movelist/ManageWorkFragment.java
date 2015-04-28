@@ -32,7 +32,6 @@ import java.util.List;
 /**
  * Created by Lebel on 01/12/2014.
  */
-//public class ManageWorkFragment extends BaseReplenPlainFragment {
 public class ManageWorkFragment extends Fragment {
     private String TAG = ManageWorkFragment.class.getSimpleName();
     private static final String menuItemMoveList = "Work this MoveList";
@@ -128,9 +127,6 @@ public class ManageWorkFragment extends Fragment {
 
     private void showReplenDialog(int severity, int dialogType, String message, String title) {
         FragmentManager fm = mActivity.getSupportFragmentManager();
-
-        //DialogHelper dialog = new DialogHelper(severity, dialogType, message, title);
-        //DialogHelper dialog = new DialogHelper();
         ReplenDialogHelper dialog = new ReplenDialogHelper();
         Bundle args = new Bundle();
         args.putInt("DialogType_ARG", dialogType);
@@ -182,7 +178,6 @@ public class ManageWorkFragment extends Fragment {
             final int type = ExpandableListView.getPackedPositionType(info.packedPosition);
             if (type == ExpandableListView.PACKED_POSITION_TYPE_GROUP && TAG.equalsIgnoreCase(ManageWorkFragment.class.getSimpleName())) {
                 groupPos = ExpandableListView.getPackedPositionGroup(info.packedPosition);
-                //mActivity.setSelectedMove(mActivity.getMoveListResponse().getMovelists().get(groupPos));
                 mActivity.setSelectedMove(new ReplenSelectedMoveWrapper(mActivity.getMoveListResponse().getMovelists().get(groupPos)));
                 mActivity.setCurrentSelectedIndex(groupPos);
                 lvWork.setSelected(true);
@@ -240,8 +235,6 @@ public class ManageWorkFragment extends Fragment {
         protected HttpResponseHelper doInBackground(Message... inputMsg) {
             HttpResponseHelper response = null;
             ReplenMoveListResponse qryResponse = null;
-
-            //mActivity.setMoveListReponseString(mActivity.getResolver().resolveMessageQueue(inputMsg[0]));
             response = mActivity.getResolver().resolveHttpMessage(inputMsg[0]);
 
             if (!response.isSuccess()) {
@@ -254,10 +247,8 @@ public class ManageWorkFragment extends Fragment {
                 String iMsg = "The Response object returns null due to improper request.";
                 response.setResponseMessage(iMsg);
             }else {
-                //if (!mActivity.getMoveListReponseString().isEmpty()) {
                 if (!response.getResponse().toString().isEmpty()) {
                     try {
-                        //JSONObject resp = new JSONObject(mActivity.getMoveListReponseString());
                         JSONObject resp = new JSONObject(response.getResponse().toString());
                         int requestedUserId = Integer.parseInt(resp.getString("RequestedUserId"));
                         int movelistsReturned = Integer.parseInt(resp.getString("MovelistsReturned"));
@@ -312,14 +303,6 @@ public class ManageWorkFragment extends Fragment {
                     if (statusCode != HttpResponseCodes.OK) {
                         Vibrator vib = (Vibrator) mActivity.getSystemService(Context.VIBRATOR_SERVICE);
                         vib.vibrate(2000);
-//                        AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-//                        builder.setMessage(statusCode.toString() + ": - " + response.getResponseMessage())
-//                                .setPositiveButton(R.string.but_ok, new DialogInterface.OnClickListener() {
-//                                    public void onClick(DialogInterface dialog, int id) {
-//                                        //do nothing
-//                                    }
-//                                });
-//                        builder.show();
                         showReplenDialog(R.integer.MSG_SEVERITY_FAILURE, R.integer.MSG_TYPE_NOTIFICATION,
                                 statusCode.toString() + ": - " + response.getResponseMessage(), "Network Error");
                         mActivity.getAppContext().playSound(2);
@@ -344,14 +327,6 @@ public class ManageWorkFragment extends Fragment {
                     /**--------------------------- Failed because of Bad scan -------------------------**/
                     Vibrator vib = (Vibrator) mActivity.getSystemService(Context.VIBRATOR_SERVICE);
                     vib.vibrate(2000);
-//                    AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-//                    builder.setMessage("The product query has return no result\nPlease verify then re-scan")
-//                            .setPositiveButton(R.string.but_ok, new DialogInterface.OnClickListener() {
-//                                public void onClick(DialogInterface dialog, int id) {
-//                                    //do nothing
-//                                }
-//                            });
-//                    builder.show();
                     showReplenDialog(R.integer.MSG_SEVERITY_FAILURE, R.integer.MSG_TYPE_NOTIFICATION,
                             response.getResponseMessage(), "Bad Scan");
                     mActivity.getAppContext().playSound(2);

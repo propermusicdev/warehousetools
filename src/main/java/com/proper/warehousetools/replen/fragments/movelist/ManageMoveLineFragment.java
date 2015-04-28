@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.*;
 import android.widget.ExpandableListView;
 import android.widget.ViewFlipper;
-import com.proper.data.diagnostics.LogEntry;
 import com.proper.data.enums.HttpResponseCodes;
 import com.proper.data.helpers.DialogHelper;
 import com.proper.data.helpers.HttpResponseHelper;
@@ -128,11 +127,11 @@ public class ManageMoveLineFragment extends Fragment {
 //        dialog.show(fm, "UpdateMoveLineFragmentDialog");
 //    }
 
-    private void showDialog(int severity, int dialogType, String message, String title) {
+    private void showReplenDialog(int severity, int dialogType, String message, String title) {
         FragmentManager fm = mActivity.getSupportFragmentManager();
 
         //DialogHelper dialog = new DialogHelper(severity, dialogType, message, title);
-        DialogHelper dialog = new DialogHelper();
+        ReplenDialogHelper dialog = new ReplenDialogHelper();
         Bundle args = new Bundle();
         args.putInt("DialogType_ARG", dialogType);
         args.putInt("Severity_ARG", severity);
@@ -155,7 +154,7 @@ public class ManageMoveLineFragment extends Fragment {
         args.putString("Title_ARG", title);
         args.putString("Originated_ARG", ManageMoveLineFragment.class.getSimpleName());
         dialog.setArguments(args);
-        dialog.show(fm, "Dialog");
+        dialog.show(fm, "NavDialog");
     }
 
     private void onListViewGroupClicked(ExpandableListView parent, View view, int groupPosition, long id) {
@@ -419,7 +418,7 @@ public class ManageMoveLineFragment extends Fragment {
 //                                    }
 //                                });
 //                        builder.show();
-                        showDialog(R.integer.MSG_SEVERITY_FAILURE, R.integer.MSG_TYPE_NOTIFICATION,
+                        showReplenDialog(R.integer.MSG_SEVERITY_FAILURE, R.integer.MSG_TYPE_NOTIFICATION,
                                 statusCode.toString() + ": - " + response.getResponseMessage(), "Network Error");
                         mActivity.getAppContext().playSound(2);
                     }
@@ -436,7 +435,7 @@ public class ManageMoveLineFragment extends Fragment {
                     } else {        //just to make sure
                         Vibrator vib = (Vibrator) mActivity.getSystemService(Context.VIBRATOR_SERVICE);
                         vib.vibrate(2000);
-                        showDialog(R.integer.MSG_SEVERITY_WARNING, R.integer.MSG_TYPE_NOTIFICATION,
+                        showReplenDialog(R.integer.MSG_SEVERITY_WARNING, R.integer.MSG_TYPE_NOTIFICATION,
                                 response.getResponseMessage(), "Bad HttpResponse");
                         mActivity.getAppContext().playSound(2);
                     }
@@ -452,7 +451,7 @@ public class ManageMoveLineFragment extends Fragment {
 //                                }
 //                            });
 //                    builder.show();
-                    showDialog(R.integer.MSG_SEVERITY_FAILURE, R.integer.MSG_TYPE_NOTIFICATION,
+                    showReplenDialog(R.integer.MSG_SEVERITY_FAILURE, R.integer.MSG_TYPE_NOTIFICATION,
                             response.getResponseMessage(), "Bad Scan");
                     mActivity.getAppContext().playSound(2);
                 }

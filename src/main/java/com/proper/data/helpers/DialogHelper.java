@@ -59,7 +59,8 @@ public class DialogHelper extends DialogFragment implements View.OnClickListener
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //return super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.dialog_base, null);
+        //View view = inflater.inflate(R.layout.dialog_base, null);
+        View view = inflater.inflate(R.layout.dialog_base, container);
         LinearLayout lytTitle = (LinearLayout) view.findViewById(R.id.lyt_dialogHeader);
         LinearLayout lytBody = (LinearLayout) view.findViewById(R.id.lyt_dialogBody);
         if (getArguments() != null) {

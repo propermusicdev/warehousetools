@@ -23,6 +23,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 //import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import com.proper.data.core.IFragmentSwitcher;
@@ -126,6 +127,7 @@ public class SlidingTabsColorsFragment extends Fragment implements IViewPagerFra
     private NonSwipeableViewPager mViewPager;
 
     public NonSwipeableViewPager getmViewPager() {
+        if (mViewPager!=null) mViewPager.setClickable(false);
         return mViewPager;
     }
 
@@ -199,7 +201,16 @@ public class SlidingTabsColorsFragment extends Fragment implements IViewPagerFra
         // BEGIN_INCLUDE (setup_viewpager)
         // Get the ViewPager and set it's PagerAdapter so that it can display items
         mViewPager = (NonSwipeableViewPager) view.findViewById(R.id.viewpager);
+        mViewPager = (NonSwipeableViewPager) view.findViewById(R.id.viewpager);
         mViewPager.setAdapter(new SampleFragmentPagerAdapter(getChildFragmentManager()));
+        mViewPager.setClickable(false); /**Disable click interaction**/
+        mViewPager.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return pagerTouched(v, event);
+                //return false;
+            }
+        });
         // END_INCLUDE (setup_viewpager)
 
         // BEGIN_INCLUDE (setup_slidingtablayout)
@@ -226,6 +237,16 @@ public class SlidingTabsColorsFragment extends Fragment implements IViewPagerFra
         });
         // END_INCLUDE (tab_colorizer)
         // END_INCLUDE (setup_slidingtablayout)
+    }
+
+    private Boolean pagerTouched(View v, MotionEvent event) {
+        //TODO - Create some
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            v.getParent().requestDisallowInterceptTouchEvent(true);
+            return true;
+        } else {
+            return false;
+        }
     }
     // END_INCLUDE (fragment_onviewcreated)
 
