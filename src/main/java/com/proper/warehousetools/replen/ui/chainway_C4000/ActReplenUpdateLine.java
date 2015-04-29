@@ -29,7 +29,7 @@ import com.proper.messagequeue.Message;
 import com.proper.utils.StringUtils;
 import com.proper.warehousetools.R;
 import com.proper.warehousetools.replen.BaseReplenPlainFragmentActivity;
-import com.proper.warehousetools.replen.fragments.movelist.zzUpdateLineFragment;
+import com.proper.warehousetools.replen.fragments.UpdateLineFragment;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -218,6 +218,7 @@ public class ActReplenUpdateLine extends BaseReplenPlainFragmentActivity {
         if (moveline != null) {
 
             //Populate controls
+            confirmedQty = moveline.getQty();
             txtArtist.setText(moveline.getArtist());
             txtTitle.setText(moveline.getTitle());
             txtInsertTimeStamp.setText(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(moveline.getInsertTimeStamp()));
@@ -234,8 +235,9 @@ public class ActReplenUpdateLine extends BaseReplenPlainFragmentActivity {
             chkComplete.setChecked(moveline.isCompleted());
         }
         
-        disableAll();
-        enableEditButtons();
+        //disableAll();
+        //enableEditButtons();
+        hideEditButtons();
     }
 
     private void chkComplete_Clicked(View v) {
@@ -359,7 +361,8 @@ public class ActReplenUpdateLine extends BaseReplenPlainFragmentActivity {
         switch (view.getId()) {
             case R.id.bnReplenULEditDstBin:
                 //do disable all, enable txtDstBin, select all
-                disableAll();
+                //disableAll();
+                disableAllButThis(btnEditDstBin);
                 if (inputByHand == 0) {
                     turnOnInputByHand();
                     if (!txtDstBin.isEnabled()) {
@@ -372,15 +375,12 @@ public class ActReplenUpdateLine extends BaseReplenPlainFragmentActivity {
                 } else {
                     turnOffInputByHand();
                     paintByHandButtons(btnEditDstBin);
-                    //setQtyToSplitInput(Integer.parseInt(moveQty.getText().toString()));
-//                    if (getQtyToSplitInput() != 0) {
-//                        moveQty.setText(String.format("%s", getQtyToSplitInput()));     // just to trigger text changed
-//                        //paintByHandButtons(btnEditDstBin);
-//                    }
+                    if(!txtDstBin.isEnabled()) txtDstBin.setEnabled(true);
                 }
                 break;
             case R.id.bnReplenULEditQtyConfirmed:
                 //do
+                disableAllButThis(btnEditQty);
                 if (inputByHand == 0) {
                     turnOnInputByHand();
                     if (!txtQtyConfirmed.isEnabled()) {
@@ -393,16 +393,13 @@ public class ActReplenUpdateLine extends BaseReplenPlainFragmentActivity {
                 } else {
                     turnOffInputByHand();
                     paintByHandButtons(btnEditQty);
-                    //setQtyToSplitInput(Integer.parseInt(moveQty.getText().toString()));
-//                    if (getQtyToSplitInput() != 0) {
-//                        moveQty.setText(String.format("%s", getQtyToSplitInput()));     // just to trigger text changed
-//                        //paintByHandButtons(btnEditDstBin);
-//                    }
+                    if(!txtQtyConfirmed.isEnabled()) txtQtyConfirmed.setEnabled(true);
                 }
                 break;
             case R.id.bnReplenULEditSrcBin:
                 //do
-                disableAll();
+                //disableAll();
+                disableAllButThis(btnEditSrcBin);
                 if (inputByHand == 0) {
                     turnOnInputByHand();
                     if (!txtSrcBin.isEnabled()) {
@@ -415,6 +412,7 @@ public class ActReplenUpdateLine extends BaseReplenPlainFragmentActivity {
                 } else {
                     turnOffInputByHand();
                     paintByHandButtons(btnEditSrcBin);
+                    if(!txtSrcBin.isEnabled()) txtSrcBin.setEnabled(true);
                 }
                 break;
         }
@@ -526,6 +524,18 @@ public class ActReplenUpdateLine extends BaseReplenPlainFragmentActivity {
         }
     }
 
+    private void hideEditButtons() {
+        if (btnEditQty.getVisibility() == View.VISIBLE) {
+            btnEditQty.setVisibility(View.GONE);
+        }
+        if (btnEditSrcBin.getVisibility() == View.VISIBLE) {
+            btnEditSrcBin.setVisibility(View.GONE);
+        }
+        if (btnEditDstBin.getVisibility() == View.VISIBLE) {
+            btnEditDstBin.setVisibility(View.GONE);
+        }
+    }
+
     private void showDialog(int severity, int dialogType, String message, String title) {
         FragmentManager fm = getSupportFragmentManager();
 
@@ -537,7 +547,7 @@ public class ActReplenUpdateLine extends BaseReplenPlainFragmentActivity {
         args.putInt("Severity_ARG", severity);
         args.putString("Message_ARG", message);
         args.putString("Title_ARG", title);
-        args.putString("Originated_ARG", zzUpdateLineFragment.class.getSimpleName());
+        args.putString("Originated_ARG", UpdateLineFragment.class.getSimpleName());
         dialog.setArguments(args);
         dialog.show(fm, "Dialog");
     }
@@ -607,28 +617,48 @@ public class ActReplenUpdateLine extends BaseReplenPlainFragmentActivity {
                     if (!val.isEmpty() && StringUtils.isNumeric(val)) {
                         int value = Integer.parseInt(s.toString());
                         if (value > 0) {
-                            if (value <= moveline.getQty()) {
-                                //confirmedQty = value;
+//                            if (value <= moveline.getQty()) {
                                 onEditMode = true;
                                 setConfirmedQty(value);     //set value
-                            } else {
-                                //Alert that input cannot be larger than rowTotal, default value, updateControls, disable editText, manageInput to default
-                                String mMsg = "Move Quantity cannot be larger than the total found in bin";
-                                AlertDialog.Builder builder = new AlertDialog.Builder(ActReplenUpdateLine.this);
-                                builder.setMessage(mMsg)
-                                        .setPositiveButton(R.string.but_ok, new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int id) {
-                                                moveline.restoreDefaultQtyValue(); //default value
-                                                updateQtyControls();
-                                                if (txtQtyConfirmed.isEnabled()) {
-                                                    txtQtyConfirmed.setEnabled(false);
-                                                }
-                                                inputByHand = 0;
-                                                //TODO - change text button text on EditQty
-                                            }
-                                        });
-                                builder.show();
-                            }
+////                                if (txtQtyConfirmed.isEnabled()) {
+////                                    txtQtyConfirmed.setEnabled(false);
+//                                }
+//                            }
+//                            else {
+//                                //Alert that input cannot be larger than rowTotal, default value, updateControls, disable editText, manageInput to default
+//                                String mMsg = "Move Quantity cannot be larger than the total found in bin";
+//                                AlertDialog.Builder builder = new AlertDialog.Builder(ActReplenUpdateLine.this);
+//                                builder.setMessage(mMsg)
+//                                        .setPositiveButton(R.string.but_ok, new DialogInterface.OnClickListener() {
+//                                            public void onClick(DialogInterface dialog, int id) {
+//                                                moveline.restoreDefaultQtyValue(); //default value
+//                                                updateQtyControls();
+////                                                if (txtQtyConfirmed.isEnabled()) {
+////                                                    txtQtyConfirmed.setEnabled(false);
+////                                                }
+//                                                inputByHand = 0;
+//                                                //TODO - change text button text on EditQty
+//                                            }
+//                                        });
+//                                builder.show();
+//                            }
+                        }else {
+                            //Warn that qunatity need to be larger than 1
+                            String mMsg = "Move Quantity cannot be less than 1";
+                            AlertDialog.Builder builder = new AlertDialog.Builder(ActReplenUpdateLine.this);
+                            builder.setMessage(mMsg)
+                                    .setPositiveButton(R.string.but_ok, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            moveline.restoreDefaultQtyValue(); //default value
+                                            updateQtyControls();
+//                                                if (txtQtyConfirmed.isEnabled()) {
+//                                                    txtQtyConfirmed.setEnabled(false);
+//                                                }
+                                            inputByHand = 0;
+                                            //TODO - change text button text on EditQty
+                                        }
+                                    });
+                            builder.show();
                         }
                     }
                     break;
@@ -645,17 +675,22 @@ public class ActReplenUpdateLine extends BaseReplenPlainFragmentActivity {
                                         onEditMode = true;
                                         moveline.setSrcBinCode(value.toUpperCase());
                                         setSrcBin(value.toUpperCase());     //set value
+                                        if (txtQtyConfirmed.isEnabled()) {
+                                            txtQtyConfirmed.setEnabled(false);
+                                        }
                                     }
-
                                 }
                                 if (view == txtDstBin) {
                                     if (!value.equalsIgnoreCase(moveline.getDstBinCode())) {
                                         onEditMode = true;
                                         moveline.setSrcBinCode(value.toUpperCase());
                                         setDstBin(value.toUpperCase());     //set value
+                                        if (txtQtyConfirmed.isEnabled()) {
+                                            txtQtyConfirmed.setEnabled(false);
+                                        }
                                     }
                                 }
-                                disableAll();
+                                //disableAll();
                                 enableEditButtons();
                             } else {
                                 String msg = "Please enter the right BinCode";

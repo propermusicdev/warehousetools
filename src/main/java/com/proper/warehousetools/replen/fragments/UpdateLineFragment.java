@@ -1,4 +1,4 @@
-package com.proper.warehousetools.replen.fragments.movelist;
+package com.proper.warehousetools.replen.fragments;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -40,9 +40,9 @@ import java.text.SimpleDateFormat;
 /**
  * Created by Lebel on 10/12/2014.
  */
-//public class zzUpdateLineFragment extends DialogFragment implements View.OnClickListener, IReplenUpdateLineCommunicator {
-public class zzUpdateLineFragment extends DialogFragment {
-    private String TAG = zzUpdateLineFragment.class.getSimpleName();
+//public class UpdateLineFragment extends DialogFragment implements View.OnClickListener, IReplenUpdateLineCommunicator {
+public class UpdateLineFragment extends DialogFragment {
+    private String TAG = UpdateLineFragment.class.getSimpleName();
     private EditText txtQtyConfirmed, txtSrcBin, txtDstBin;
     private Button btnEditQty, btnEditSrcBin, btnEditDstBin, btnUpdate;
     private com.proper.data.core.ICommunicator ICommunicator;
@@ -422,7 +422,7 @@ public class zzUpdateLineFragment extends DialogFragment {
         args.putInt("Severity_ARG", severity);
         args.putString("Message", message);
         args.putString("Title_ARG", title);
-        args.putString("Originated_ARG", zzUpdateLineFragment.class.getSimpleName());
+        args.putString("Originated_ARG", UpdateLineFragment.class.getSimpleName());
         dialog.setArguments(args);
         dialog.show(fm, "Dialog");
     }
@@ -488,7 +488,7 @@ public class zzUpdateLineFragment extends DialogFragment {
                         } else {
                             //Alert that input cannot be larger than rowTotal, default value, updateControls, disable editText, manageInput to default
                             String mMsg = "Move Quantity cannot be larger than the total found in bin";
-                            AlertDialog.Builder builder = new AlertDialog.Builder(zzUpdateLineFragment.this.getActivity());
+                            AlertDialog.Builder builder = new AlertDialog.Builder(UpdateLineFragment.this.getActivity());
                             builder.setMessage(mMsg)
                                     .setPositiveButton(R.string.but_ok, new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {

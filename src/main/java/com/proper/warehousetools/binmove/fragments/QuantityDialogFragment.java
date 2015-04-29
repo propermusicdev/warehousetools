@@ -22,7 +22,7 @@ import com.proper.data.core.ICommunicator;
 import com.proper.warehousetools.R;
 import com.proper.warehousetools.binmove.ui.ActBinItemSelection;
 import com.proper.warehousetools.binmove.ui.chainway_c4000.ActBinProductMain;
-import com.proper.warehousetools.replen.ui.zzActReplenMiniMove;
+//import com.proper.warehousetools.replen.ui.zzActReplenMiniMove;
 import com.proper.warehousetools.replen.ui.chainway_C4000.ActReplenCreateMiniMove;
 
 /**
@@ -89,9 +89,9 @@ public class QuantityDialogFragment extends DialogFragment implements View.OnCli
         if (parent.equalsIgnoreCase("ActReplenCreateMiniMove")) {
             moveItem = ((ActReplenCreateMiniMove)getActivity()).getMoveItem();  //get data from activity
         }
-        if (parent.equalsIgnoreCase("zzActReplenMiniMove")) {
-            moveItem = ((zzActReplenMiniMove)getActivity()).getMoveItem();  //get data from activity
-        }
+//        if (parent.equalsIgnoreCase("zzActReplenMiniMove")) {
+//            moveItem = ((zzActReplenMiniMove)getActivity()).getMoveItem();  //get data from activity
+//        }
         //moveItem = ((ActBinProductMain)getActivity()).getCurrentBinSelection();     //get data from activity
         View view = inflater.inflate(R.layout.dialog_quantity, null);
         LinearLayout lytMain = (LinearLayout) view.findViewById(R.id.lyt_dialogQuantity);

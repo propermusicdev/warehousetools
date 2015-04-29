@@ -28,6 +28,7 @@ import com.proper.data.core.IViewPagerFragmentSwitcher;
 //import com.proper.data.customcontrols.SlidingTabLayout;
 import com.proper.data.helpers.BarcodeHelper;
 //import com.proper.data.helpers.DialogHelper;
+import com.proper.data.helpers.ReplenResponseHelper;
 import com.proper.data.replen.*;
 import com.proper.data.replen.adapters.ReplenAddMoveLineAdapter;
 import com.proper.data.replen.adapters.ReplenMoveLineAdapter;
@@ -42,7 +43,7 @@ import com.proper.warehousetools.AppContext;
 import com.proper.warehousetools.AppManager;
 import com.proper.warehousetools.MockClass;
 import com.proper.warehousetools.R;
-import com.proper.warehousetools.replen.fragments.movelist.*;
+import com.proper.warehousetools.replen.fragments.*;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -75,6 +76,7 @@ public class ActReplenManageWork extends FragmentActivity implements IViewPagerF
     protected UserAuthenticator authenticator = null;
     protected UserLoginResponse currentUser = null;
     public BarcodeHelper barcodeHelper = null;
+    protected ReplenResponseHelper replenResponseHelper;
     protected LogHelper logger = new LogHelper();
     protected Message thisMessage = null;
     protected MockClass testResolver;
@@ -207,6 +209,14 @@ public class ActReplenManageWork extends FragmentActivity implements IViewPagerF
 
     public void setBarcodeHelper(BarcodeHelper barcodeHelper) {
         this.barcodeHelper = barcodeHelper;
+    }
+
+    public ReplenResponseHelper getReplenResponseHelper() {
+        return replenResponseHelper;
+    }
+
+    public void setReplenResponseHelper(ReplenResponseHelper replenResponseHelper) {
+        this.replenResponseHelper = replenResponseHelper;
     }
 
     public Message getThisMessage() {
@@ -484,6 +494,7 @@ public class ActReplenManageWork extends FragmentActivity implements IViewPagerF
         currentUser = authenticator.getCurrentUser();
         resolver = new HttpMessageResolver(appContext);
         barcodeHelper = new BarcodeHelper();
+        replenResponseHelper = new ReplenResponseHelper();
         testResolver = new MockClass();
         //viewPager.setClickable(false);
         if (savedInstanceState == null) {
@@ -564,32 +575,32 @@ public class ActReplenManageWork extends FragmentActivity implements IViewPagerF
         }
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        //return super.onKeyDown(keyCode, event);
-        if (keyCode == KEY_SCAN) {
-            if (event.getRepeatCount() == 0) {
-                if (getCurrentTab() == MOVE_ADD_TAB) {
-                    //TODO - Complete this function, Need a way to get fragment
-                    SlidingTabsColorsFragment.SampleFragmentPagerAdapter adapter = (SlidingTabsColorsFragment.SampleFragmentPagerAdapter) displayedFragment.getmViewPager().getAdapter();
-                    //SlidingTabsColorsFragment.SampleFragmentPagerAdapter adapter = (SlidingTabsColorsFragment.SampleFragmentPagerAdapter) viewPager.getAdapter();
-                    IScanKeyDown listner = (IScanKeyDown) ((zzAddLineFragment)adapter.getItem(MOVE_ADD_TAB));
-                    listner.onKeyScan(keyCode, event);
-                }
-                if (getCurrentTab() == MOVE_SPLIT_TAB) {
-                    //TODO - Complete this function, Need a way to get fragment
-                    SlidingTabsColorsFragment.SampleFragmentPagerAdapter adapter = (SlidingTabsColorsFragment.SampleFragmentPagerAdapter) displayedFragment.getmViewPager().getAdapter();
-                    //SlidingTabsColorsFragment.SampleFragmentPagerAdapter adapter = (SlidingTabsColorsFragment.SampleFragmentPagerAdapter) viewPager.getAdapter();
-                    IScanKeyDown listner = (IScanKeyDown) ((zzSplitLineFragment)adapter.getItem(MOVE_SPLIT_TAB));
-                    listner.onKeyScan(keyCode, event);
-                }
-            }
-        }
-        if (keyCode == 4) {
-            onBackPressed();
-        }
-        return super.onKeyDown(keyCode, event);
-    }
+//    @Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        //return super.onKeyDown(keyCode, event);
+//        if (keyCode == KEY_SCAN) {
+//            if (event.getRepeatCount() == 0) {
+//                if (getCurrentTab() == MOVE_ADD_TAB) {
+//                    //TODO - Complete this function, Need a way to get fragment
+//                    SlidingTabsColorsFragment.SampleFragmentPagerAdapter adapter = (SlidingTabsColorsFragment.SampleFragmentPagerAdapter) displayedFragment.getmViewPager().getAdapter();
+//                    //SlidingTabsColorsFragment.SampleFragmentPagerAdapter adapter = (SlidingTabsColorsFragment.SampleFragmentPagerAdapter) viewPager.getAdapter();
+//                    IScanKeyDown listner = (IScanKeyDown) ((zzAddLineFragment)adapter.getItem(MOVE_ADD_TAB));
+//                    listner.onKeyScan(keyCode, event);
+//                }
+//                if (getCurrentTab() == MOVE_SPLIT_TAB) {
+//                    //TODO - Complete this function, Need a way to get fragment
+//                    SlidingTabsColorsFragment.SampleFragmentPagerAdapter adapter = (SlidingTabsColorsFragment.SampleFragmentPagerAdapter) displayedFragment.getmViewPager().getAdapter();
+//                    //SlidingTabsColorsFragment.SampleFragmentPagerAdapter adapter = (SlidingTabsColorsFragment.SampleFragmentPagerAdapter) viewPager.getAdapter();
+//                    IScanKeyDown listner = (IScanKeyDown) ((zzSplitLineFragment)adapter.getItem(MOVE_SPLIT_TAB));
+//                    listner.onKeyScan(keyCode, event);
+//                }
+//            }
+//        }
+//        if (keyCode == 4) {
+//            onBackPressed();
+//        }
+//        return super.onKeyDown(keyCode, event);
+//    }
 
     @Override
     protected void onPause() {

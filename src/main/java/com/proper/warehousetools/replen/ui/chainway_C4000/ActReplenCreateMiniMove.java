@@ -45,7 +45,7 @@ public class ActReplenCreateMiniMove extends BaseScanActivity implements ICommun
     private ViewFlipper flipper;
     private Spinner cmbSelectBin;
     private ReplenMiniMove move;
-    private static final int INITIALIZE_VIEW = 321, UPDATE_VIEW = 222;
+    private static final int INITIALIZE_VIEW = 321, UPDATE_VIEW = 222, CODE_SUCCESS_WITHVALUE = 91, CODE_SUCCESS_WITHOUTVALUE = 93;
     private int qtyTotal = 0;
     private ProductBinSelection moveItem;
     private List<ProductBinResponse> inputList;
@@ -276,7 +276,7 @@ public class ActReplenCreateMiniMove extends BaseScanActivity implements ICommun
             case R.id.bnExitActReplenCMM:
                 Intent intent = new Intent();
                 intent.putExtra("RETURN_EXTRA", move);
-                setResult(RESULT_OK, intent);
+                setResult(CODE_SUCCESS_WITHOUTVALUE, intent);
                 finish();
                 break;
             case R.id.bnReplenCMMScan:
@@ -684,7 +684,7 @@ public class ActReplenCreateMiniMove extends BaseScanActivity implements ICommun
                                         Intent i = new Intent();
                                         i.putExtra("RETURN_EXTRA", miniMove);
                                         i.putExtra("MOVE_EXTRA", moveItem);
-                                        setResult(RESULT_OK, i);
+                                        setResult(CODE_SUCCESS_WITHVALUE, i);
                                         ActReplenCreateMiniMove.this.finish();
                                     }
                                 });
@@ -720,45 +720,6 @@ public class ActReplenCreateMiniMove extends BaseScanActivity implements ICommun
                     btnScan.setEnabled(true);
                 }
             }
-//            if (response != null) {
-//
-//                AlertDialog.Builder builder = new AlertDialog.Builder(ActReplenCreateMiniMove.this);
-//                String msg = "Success: BinMove completed!";
-//                builder.setMessage(msg)
-//                        .setPositiveButton(R.string.but_ok, new DialogInterface.OnClickListener() {
-//                            public void onClick(DialogInterface dialog, int id) {
-//                                //Go back and return ReplenMiniMove
-//                                ReplenMiniMove miniMove = new ReplenMiniMove();
-//                                miniMove.setDestination(currentDetination);
-//                                miniMove.setQuantity(moveItem.getQtyToMove());
-//                                Intent i = new Intent();
-//                                i.putExtra("RETURN_EXTRA", miniMove);
-//                                i.putExtra("MOVE_EXTRA", moveItem);
-//                                setResult(RESULT_OK, i);
-//                                ActReplenCreateMiniMove.this.finish();
-//                            }
-//                        });
-//                builder.show();
-//            } else {
-//                //Response is null the disable Yes button:
-//                AlertDialog.Builder builder = new AlertDialog.Builder(ActReplenCreateMiniMove.this);
-//                String msg = "Failed: BinMove NOT Completed because of network error, please contact IT for help";
-//                builder.setMessage(msg)
-//                        .setNegativeButton(R.string.but_ok, new DialogInterface.OnClickListener() {
-//                            public void onClick(DialogInterface dialog, int id) {
-//                                //Go back and return ReplenMiniMove
-//                                ReplenMiniMove miniMove = new ReplenMiniMove();
-//                                miniMove.setDestination(currentDetination);
-//                                miniMove.setQuantity(moveItem.getQtyToMove());
-//                                Intent i = new Intent();
-//                                i.putExtra("RETURN_EXTRA", miniMove);
-//                                i.putExtra("MOVE_EXTRA", moveItem);
-//                                setResult(RESULT_OK, i);
-//                                ActReplenCreateMiniMove.this.finish();
-//                            }
-//                        });
-//                builder.show();
-//            }
         }
     }
 }

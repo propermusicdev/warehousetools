@@ -55,7 +55,7 @@ public class ActReplenSelectProduct extends BaseScanActivity {
 
     /** From ActReplenManager **/
     private SharedPreferences prefs = null;
-    private ListView lvRepelen;
+    //private ListView lvRepelen;
     private List<ProductBinResponse> inputList;
     private List<ReplenMiniMove> moveList = new ArrayList<ReplenMiniMove>();
     private ReplenMiniMoveAdapter adapter;
@@ -151,6 +151,9 @@ public class ActReplenSelectProduct extends BaseScanActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        final int CODE_SUCCESS_WITHVALUE = 91;
+        final int CODE_SUCCESS_WITHOUTVALUE = 93;
+
         if (productAsync != null) {
             productAsync.cancel(true);
             productAsync = null;
@@ -171,6 +174,29 @@ public class ActReplenSelectProduct extends BaseScanActivity {
                 binAsync.execute(data.getStringExtra("BIN_EXTRA"));
             }
             refreshActivity();
+        }
+        if (resultCode == CODE_SUCCESS_WITHVALUE) {
+            if (data != null) {
+                Bundle extra = data.getExtras();
+                ReplenMiniMove miniMove = (ReplenMiniMove) extra.getSerializable("RETURN_EXTRA");
+                ProductBinSelection moveItemResp = (ProductBinSelection) extra.getSerializable("MOVE_EXTRA");
+                if (moveItemResp != null) {
+                    //qtyChanged = inputList.get(0).getQtyInBin() != moveItemResp.getQtyInBin();
+                    qtyChanged = foundList.get(0).getQtyInBin() != moveItemResp.getQtyInBin();
+                    tot = moveItemResp.getQtyInBin();
+                    //txtQty.setText(String.format("%s", tot));       //update total
+                    updateInputListQuantity(moveItemResp);  //update input list
+                }
+                if (miniMove != null) {
+                    moveList.add(miniMove); //updates the listView adapter as well
+                    adapter = new ReplenMiniMoveAdapter(this, moveList);
+                    //lvRepelen.setAdapter(adapter);
+                }
+            }
+            if (tot < 1) {
+                //exitActivity();
+                //do something to restart activity
+            }
         }
     }
 
@@ -210,6 +236,26 @@ public class ActReplenSelectProduct extends BaseScanActivity {
         ActReplenSelectProduct.this.finish();
     }
 
+    private synchronized void createNewMove(List<ProductBinResponse> foundList, List<Bin> foundBins){
+        int qtyParam = 0;
+        //int qty = prefs.getInt("NewQuantity", 0);
+        int qty = tot;
+        if (qty > 0) {
+            qtyParam = qty;
+        }else {
+            qtyParam = foundList.get(0).getQtyInBin();
+        }
+        backParam ++;
+        //if (primaryList.size() == 0)
+        buildPrimaryLocations();
+        Intent i = new Intent(ActReplenSelectProduct.this, ActReplenCreateMiniMove.class);
+        i.putExtra("QUANTITY_EXTRA", qtyParam);
+        i.putExtra("DATA_EXTRA", (java.io.Serializable) foundList);
+        i.putExtra("SOURCE_EXTRA", binResponse.getRequestedBinCode());
+        i.putExtra("PRIMARY_EXTRA", (java.io.Serializable) foundBins);
+        startActivityForResult(i, 13);
+    }
+
     private void saveQuantityData() {
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("From", currentSource);
@@ -219,7 +265,7 @@ public class ActReplenSelectProduct extends BaseScanActivity {
 
     private void buildPrimaryLocations() {
         //TODO - Fix this method when you can find some time
-        if (!adapter.isEmpty()) {
+        if (adapter != null && !adapter.isEmpty()) {
             //List<Bin> bins = adapter.getAllBins();
             //List<Bin> bins = moveList;
             List<Bin> bins = new ArrayList<Bin>();
@@ -341,8 +387,9 @@ public class ActReplenSelectProduct extends BaseScanActivity {
     }
 
     private void updateInputListQuantity(ProductBinSelection moveItem) {
-        if (moveItem != null && !inputList.isEmpty()) {
-            inputList.get(0).setQtyInBin(moveItem.getQtyInBin()); //TODO - updates values manually <<< Find a better way to minimise RISK >>>
+        //replaced inputList with foundList
+        if (moveItem != null && !foundList.isEmpty()) {
+            foundList.get(0).setQtyInBin(moveItem.getQtyInBin()); //TODO - updates values manually <<< Find a better way to minimise RISK >>>
         }
     }
 
@@ -698,12 +745,14 @@ public class ActReplenSelectProduct extends BaseScanActivity {
                                             foundBins.add(bin);
                                         }
                                     }
-                                    Intent i = new Intent(ActReplenSelectProduct.this, ActReplenManager.class);
-                                    //i.putExtra("DATA_EXTRA", responseList)
-                                    i.putExtra("PRODUCT_EXTRA", (java.io.Serializable) foundList);
-                                    i.putExtra("SOURCE_EXTRA", binResponse.getRequestedBinCode());
-                                    i.putExtra("PRIMARY_EXTRA", (java.io.Serializable) foundBins);
-                                    startActivityForResult(i, 10);
+                                    //TODO - create new move
+                                    createNewMove(foundList, foundBins);
+//                                    Intent i = new Intent(ActReplenSelectProduct.this, ActReplenManager.class);
+//                                    //i.putExtra("DATA_EXTRA", responseList)
+//                                    i.putExtra("PRODUCT_EXTRA", (java.io.Serializable) foundList);
+//                                    i.putExtra("SOURCE_EXTRA", binResponse.getRequestedBinCode());
+//                                    i.putExtra("PRIMARY_EXTRA", (java.io.Serializable) foundBins);
+//                                    startActivityForResult(i, 10);
                                 } else {
                                     //do for multiple products (same barcode but different SuppCat)
                                     for (ProductResponse prod : responseList) {
@@ -715,12 +764,13 @@ public class ActReplenSelectProduct extends BaseScanActivity {
                                     }
                                     //Sort by giving us a bin with the lowest quantity
                                     Collections.sort(foundBins, sorter);
-
-                                    Intent i = new Intent(ActReplenSelectProduct.this, ActReplenManager.class);
-                                    i.putExtra("PRODUCT_EXTRA", (java.io.Serializable) foundList);
-                                    i.putExtra("SOURCE_EXTRA", binResponse.getRequestedBinCode());
-                                    i.putExtra("PRIMARY_EXTRA", (java.io.Serializable) foundBins);
-                                    startActivityForResult(i, 10);
+                                    //TODO - Create new move
+                                    createNewMove(foundList, foundBins);
+//                                    Intent i = new Intent(ActReplenSelectProduct.this, ActReplenManager.class);
+//                                    i.putExtra("PRODUCT_EXTRA", (java.io.Serializable) foundList);
+//                                    i.putExtra("SOURCE_EXTRA", binResponse.getRequestedBinCode());
+//                                    i.putExtra("PRIMARY_EXTRA", (java.io.Serializable) foundBins);
+//                                    startActivityForResult(i, 10);
                                 }
                             }
                         } else { //unnecessary but just to make sure...
@@ -774,74 +824,6 @@ public class ActReplenSelectProduct extends BaseScanActivity {
                     btnScan.setEnabled(true);
                 }
             }
-//            if (responseList != null && responseList.size() != 0) {
-//                //TODO - Find the primary location & pass it to the next activity
-//                //If more that one supplier (SuppCat) then check if 1st primary loc is full then suggest the 2nd if better
-//                final BinQuantitySorted sorter = new BinQuantitySorted();
-//                List<Bin> foundBins = new ArrayList<Bin>();
-//                final int prodFound = responseList.size();
-//                if (prodFound > 0) {
-//                    if (prodFound == 1) {
-//                        for (Bin bin : responseList.get(0).getBins()) {
-//                            if (bin.getBinCode().substring(0, 1).equalsIgnoreCase("1")) {
-//                                foundBins.add(bin);
-//                            }
-//                        }
-//                        Intent i = new Intent(ActReplenSelectProduct.this, ActReplenManager.class);
-//                        //i.putExtra("DATA_EXTRA", responseList)
-//                        i.putExtra("PRODUCT_EXTRA", (java.io.Serializable) foundList);
-//                        i.putExtra("SOURCE_EXTRA", binResponse.getRequestedBinCode());
-//                        i.putExtra("PRIMARY_EXTRA", (java.io.Serializable) foundBins);
-//                        startActivityForResult(i, 10);
-//                    }else {
-//                        //do for multiple products (same barcode but different SuppCat)
-//                        for (ProductResponse prod : responseList) {
-//                            for (Bin bin : prod.getBins()) {
-//                                if (bin.getBinCode().substring(0, 1).equalsIgnoreCase("1")) {
-//                                    foundBins.add(bin);
-//                                }
-//                            }
-//                        }
-//                        //Sort by giving us a bin with the lowest quantity
-//                        Collections.sort(foundBins, sorter);
-//
-//                        Intent i = new Intent(ActReplenSelectProduct.this, ActReplenManager.class);
-//                        i.putExtra("PRODUCT_EXTRA", (java.io.Serializable) foundList);
-//                        i.putExtra("SOURCE_EXTRA", binResponse.getRequestedBinCode());
-//                        i.putExtra("PRIMARY_EXTRA", (java.io.Serializable) foundBins);
-//                        startActivityForResult(i, 10);
-//                    }
-//                } else {
-//                    //Yell murder, notify that product scanned has yielded no result, then clear activity
-//                    appContext.playSound(2);
-//                    Vibrator vib = (Vibrator) ActReplenSelectProduct.this.getSystemService(Context.VIBRATOR_SERVICE);
-//                    // Vibrate for 500 milliseconds
-//                    vib.vibrate(2000);
-//                    String mMsg = "The product scanned is not suppose to exist in this bin\nPlease verify then re-scan";
-//                    AlertDialog.Builder builder = new AlertDialog.Builder(ActReplenSelectProduct.this);
-//                    builder.setMessage(mMsg)
-//                            .setPositiveButton(R.string.but_ok, new DialogInterface.OnClickListener() {
-//                                public void onClick(DialogInterface dialog, int id) {
-//                                    //do nothing
-//                                }
-//                            });
-//                    builder.show();
-//                }
-//            }else {
-//                appContext.playSound(2);
-//                Vibrator vib = (Vibrator) ActReplenSelectProduct.this.getSystemService(Context.VIBRATOR_SERVICE);
-//                // Vibrate for 500 milliseconds
-//                vib.vibrate(2000);
-//                String mMsg = "The product query has return no result\nPlease verify then re-scan";
-//                AlertDialog.Builder builder = new AlertDialog.Builder(ActReplenSelectProduct.this);
-//                builder.setMessage(mMsg)
-//                        .setPositiveButton(R.string.but_ok, new DialogInterface.OnClickListener() {
-//                            public void onClick(DialogInterface dialog, int id) {
-//                                //do nothing
-//                            }
-//                        });
-//                builder.show();
-//            }
             refreshActivity();
         }
 

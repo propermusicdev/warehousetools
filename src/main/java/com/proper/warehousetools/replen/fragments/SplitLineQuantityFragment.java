@@ -1,4 +1,4 @@
-package com.proper.warehousetools.replen.fragments.movelist;
+package com.proper.warehousetools.replen.fragments;
 
 import android.app.Activity;
 import android.app.AlertDialog;

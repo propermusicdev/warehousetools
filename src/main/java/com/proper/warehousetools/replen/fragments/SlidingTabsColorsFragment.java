@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.proper.warehousetools.replen.fragments.movelist;
+package com.proper.warehousetools.replen.fragments;
 
 import android.graphics.Color;
 import android.os.Bundle;

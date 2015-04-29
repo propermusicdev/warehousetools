@@ -13,7 +13,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import com.proper.data.core.IReplenSplitLineCommunicator;
-import com.proper.data.diagnostics.LogEntry;
 import com.proper.data.enums.HttpResponseCodes;
 import com.proper.data.helpers.HttpResponseHelper;
 import com.proper.data.replen.ReplenLineFeedBackResponse;
@@ -23,7 +22,7 @@ import com.proper.data.replen.adapters.ReplenAddMoveLineAdapter;
 import com.proper.messagequeue.Message;
 import com.proper.warehousetools.R;
 import com.proper.warehousetools.replen.BaseReplenPlainFragmentActivity;
-import com.proper.warehousetools.replen.fragments.movelist.SplitLineQuantityFragment;
+import com.proper.warehousetools.replen.fragments.SplitLineQuantityFragment;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -245,6 +244,7 @@ public class ActReplenSplitLine extends BaseReplenPlainFragmentActivity implemen
     private void buttonClicked(View v) {
         if (v == btnAdd) {
             //TODO - Commit all pending lines (splitMoveLineSelectionList) and return to ManageMoveLineFragment
+            AddOrSplitThisLine();
             final String msg = "Split Completed !";
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.setTitle("Done");
@@ -262,11 +262,28 @@ public class ActReplenSplitLine extends BaseReplenPlainFragmentActivity implemen
         }
         if (v == btnSplit) {
             //TODO - create a new line by subtracting from the total quantity
-            showQuantityDialog();
+            if (getMoveline().getQty() > 1) {
+                showQuantityDialog();
+            }else{
+                final String msg = "Unable perform split because quantity is 1!";
+                AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                alert.setTitle("Mathmatically Impossible");
+                alert.setMessage(msg);
+                alert.setPositiveButton("OK", new AlertDialog.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Intent intent = new Intent();
+                        intent.putExtra("SplitMoveLineSelectionList_Return", (Serializable) getSplitMoveLineSelectionList());
+                        setResult(ActReplenManageWork.MOVE_SPLIT_SCREEN, intent);
+                        ActReplenSplitLine.this.finish();
+                    }
+                });
+                alert.show();
+            }
         }
     }
 
-    private void splitThisLine() {
+    private void AddOrSplitThisLine() {
         if (moveline != null) {
             buildMessage();
             splitLineAsyncTask = new SplitLineAsync();
@@ -300,11 +317,11 @@ public class ActReplenSplitLine extends BaseReplenPlainFragmentActivity implemen
                         }
                         if (foundCount == 0) {
                             splitMoveLineSelectionList.add(getSplitMoveLineSelection());
-                            splitThisLine(); //TODO - watch this method carefully
+                            AddOrSplitThisLine(); //TODO - watch this method carefully
                         }
                     } else {
                         splitMoveLineSelectionList.add(getSplitMoveLineSelection());
-                        splitThisLine();
+                        AddOrSplitThisLine();
                     }
                 }
                 setCurrentQty(getSplitMoveLineSelection().getQty());

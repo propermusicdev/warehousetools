@@ -20,7 +20,7 @@ import com.android.barcode.SerialPort;
 import com.proper.data.binmove.BinResponse;
 import com.proper.data.diagnostics.LogEntry;
 import com.proper.warehousetools.R;
-import com.proper.warehousetools.replen.ui.chainway_C4000.zzActReplenManage;
+//import com.proper.warehousetools.replen.ui.chainway_C4000.zzActReplenManage;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import java.io.IOException;
@@ -686,9 +686,9 @@ public class ActReplenScan extends BaseScannerActivityLegacy {
             //Finally end turn by locking all input controls
             //lockAllControls();
             if (binResponse != null) {
-                Intent i = new Intent(ActReplenScan.this, zzActReplenManage.class);
-                i.putExtra("RESPONSE_EXTRA",binResponse);
-                startActivityForResult(i, RESULT_OK);
+                //Intent i = new Intent(ActReplenScan.this, zzActReplenManage.class);
+                //i.putExtra("RESPONSE_EXTRA",binResponse);
+                //startActivityForResult(i, RESULT_OK);
             }
             refreshActivity();
         }

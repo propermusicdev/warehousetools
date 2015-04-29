@@ -161,7 +161,7 @@ public class ReplenDialogHelper extends DialogFragment implements View.OnClickLi
 //                IReplenCommunicator.onDialogMessage(R.integer.MSG_OK);
 //            } else {
 //                //ICommunicator.onDialogMessage(R.integer.MSG_OK, originatedClass);
-//                if (originatedClass.equalsIgnoreCase(zzUpdateLineFragment.class.getSimpleName())) {
+//                if (originatedClass.equalsIgnoreCase(UpdateLineFragment.class.getSimpleName())) {
 //                    IReplenCommunicator.onDialogMessage(R.integer.MSG_OK);
 //                }
 //                if (originatedClass.equalsIgnoreCase(ManageMoveLineFragment.class.getSimpleName())) {
@@ -170,7 +170,7 @@ public class ReplenDialogHelper extends DialogFragment implements View.OnClickLi
 //                if (originatedClass.equalsIgnoreCase(ManageWorkFragment.class.getSimpleName())) {
 //                    IReplenCommunicator.onDialogMessage(R.integer.MSG_OK);
 //                }
-//                if (originatedClass.equalsIgnoreCase(zzUpdateLineFragment.class.getSimpleName())) {
+//                if (originatedClass.equalsIgnoreCase(UpdateLineFragment.class.getSimpleName())) {
 //                    IReplenCommunicator.onDialogMessage(R.integer.MSG_OK);
 //                }
 //            }

@@ -112,15 +112,12 @@ public class ActReplenManager extends PlainActivity {
     private void buildPrimaryLocations() {
         //TODO - Fix this method when you can find some time
         if (!adapter.isEmpty()) {
-            //List<Bin> bins = adapter.getAllBins();
-            //List<Bin> bins = moveList;
             List<Bin> bins = new ArrayList<Bin>();
             List<ReplenMiniMove> newMoveList = new ArrayList<ReplenMiniMove>();
             List<ReplenMiniMove> newMoveListPrep = new ArrayList<ReplenMiniMove>();
             List<ReplenMiniMove> moveSearch = new ArrayList<ReplenMiniMove>();
             List<ReplenMiniMove> moveDup = new ArrayList<ReplenMiniMove>();
             ListIterator<ReplenMiniMove> moveIterator = moveList.listIterator();
-           // ListIterator<AbstractMap.SimpleEntry<String, int[]>> refined = new ListIterator<AbstractMap.SimpleEntry<String, int[]>>().set();
             List<AbstractMap.SimpleEntry<String, int[]>> refined = null;
 
             int found = 0;
@@ -146,69 +143,13 @@ public class ActReplenManager extends PlainActivity {
                     while(moveIterator.hasNext()){
                         ReplenMiniMove item = moveIterator.next();
                         if(item.getDestination().equals(move.getDestination())){
-                            //moveIterator.set(new ReplenMiniMove(move.getDestination(), moveIterator.next().getQuantity() + move.getQuantity()));
                             item.setQuantity(item.getQuantity() + move.getQuantity());
                             moveIterator.set(item);
                         }
                     }
                 }
             }
-
-
-//            for (ReplenMiniMove move : moveList) {
-//                refined = new ArrayList<AbstractMap.SimpleEntry<String, int[]>>();
-//                if (refined.isEmpty()) {
-//                    refined.add(new AbstractMap.SimpleEntry<String, int[]>(move.getDestination(), new int[move.getQuantity()]));
-//                }else {
-//                    for (int p = 0; p < refined.size(); p ++) {
-//                        AbstractMap.SimpleEntry<String, int[]> item = refined.get(p);
-//                        if (item.getKey().equalsIgnoreCase(move.getDestination())) {
-//                            //add
-//                        }
-//                    }
-//                }
-//            }
-//            for (ReplenMiniMove move : moveList) {
-//                //check for duplicates, if list contains item just add qty  -- !(Arrays.binarySearch(acceptable, getScanInput().length()) == -1)
-//                if (moveDup.contains(move)) {
-//                    int qty = 0;
-//                    for (int j = 0; j < moveDup.size(); j++) {
-//                        qty = moveDup.get(j).getQuantity() + qty;
-//                    }
-//                    newMoveListPrep.add(new ReplenMiniMove(move.getDestination(), qty));
-//                }
-//
-//
-//
-//                if (newMoveList.isEmpty()) {
-//                    newMoveList.add(move);
-//                    newMoveListPrep.add(move);
-//                } else {
-//                    for (int i = 0; i < newMoveList.size(); i++) {
-//                        ReplenMiniMove imove = newMoveList.get(i);
-//                        //check if is in the duplicate list
-//                        if (moveDup.contains(imove)) {
-//                            //Add the quantity
-//                            int qty = 0;
-//                            for (int j = 0; j < moveDup.size(); j++) {
-//                                qty = moveDup.get(j).getQuantity() + qty;
-//                            }
-//                            newMoveListPrep.add(new ReplenMiniMove(imove.getDestination(), qty));
-//                        } else {
-//                            newMoveListPrep.add(imove);
-//                        }
-////                        if (imove.getDestination().equalsIgnoreCase(move.getDestination())) {
-////                            //newMoveList.add(new ReplenMiniMove(move.getDestination(), move.getQuantity() + imove.getQuantity()));
-////                            newMoveListPrep.add(new ReplenMiniMove(move.getDestination(), move.getQuantity() + imove.getQuantity()));
-////                        }else {
-////                            //newMoveList.add(imove);
-////                            newMoveListPrep.add(imove);
-////                        }
-//                    }
-//                }
-//            }
             moveList = new ArrayList<ReplenMiniMove>();
-            //moveList = newMoveListPrep;
             moveList = IteratorUtils.toList(moveIterator);
 
             for (ReplenMiniMove move : moveList) {
@@ -227,7 +168,6 @@ public class ActReplenManager extends PlainActivity {
                     primaryList.add(bins.get(i));
                 }
             }
-            //primaryList = bins;
         }
 
     }

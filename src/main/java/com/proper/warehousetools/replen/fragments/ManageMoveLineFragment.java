@@ -1,7 +1,9 @@
-package com.proper.warehousetools.replen.fragments.movelist;
+package com.proper.warehousetools.replen.fragments;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -16,6 +18,7 @@ import com.proper.data.helpers.DialogHelper;
 import com.proper.data.helpers.HttpResponseHelper;
 import com.proper.data.helpers.ReplenDialogHelper;
 import com.proper.data.replen.*;
+import com.proper.data.replen.adapters.ReplenAddMoveLineAdapter;
 import com.proper.data.replen.adapters.ReplenMoveLineAdapter;
 import com.proper.messagequeue.Message;
 import com.proper.utils.StringUtils;
@@ -35,7 +38,7 @@ import java.util.List;
 public class ManageMoveLineFragment extends Fragment {
    private String TAG = ManageMoveLineFragment.class.getSimpleName();
     private static final String menuItemMoveLine = "Update MoveLine";
-    private static final String menuItemMoveLineAdd = "Add MoveLine";
+    //private static final String menuItemMoveLineAdd = "Add MoveLine";
     private static final String menuItemMoveLineSplit = "Split MoveLine";
     private int groupPos;
     private boolean DISPLAY_UPDATE_INFO = false, DISPLAY_ADD_INFO = false;
@@ -182,7 +185,7 @@ public class ManageMoveLineFragment extends Fragment {
                     ExpandableListView.getPackedPositionChild(info.packedPosition);
 
             menu.add(menuItemMoveLine);
-            menu.add(menuItemMoveLineAdd);
+            //menu.add(menuItemMoveLineAdd);
             menu.add(menuItemMoveLineSplit);
         }
     }
@@ -208,47 +211,26 @@ public class ManageMoveLineFragment extends Fragment {
                     lvWorkLines.setItemChecked(groupPos, true);
                     if (item.getTitle().toString().equalsIgnoreCase(menuItemMoveLine)) {
                         final String msg = String.format("Are you sure you want to process this line entry (%s) from move list", groupPos + 1);
-//                AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-//                alert.setTitle("This Move Line ?");
-//                alert.setMessage(msg);
-//                alert.setPositiveButton("Yes", new AlertDialog.OnClickListener() {
-//
-//                    @Override
-//                    public void onClick(DialogInterface dialogInterface, int i) {
-//                        //TODO - Proceed with the currently selected move list
-//                    }
-//                });
-//                alert.setNegativeButton("Cancel", null);
-//                alert.show();
-                        //mActivity.setCanNavigate(true);
+
                         DISPLAY_UPDATE_INFO = true;
                         //showUpdateLineDialog();
                         mActivity.setCanDisplayUpdateInfo(true);
                         showNavDialog(R.integer.MSG_SEVERITY_POSITIVE, R.integer.MSG_TYPE_NOTIFICATION, msg, "This Line?");
                     }
-                    if (item.getTitle().toString().equalsIgnoreCase(menuItemMoveLineAdd)) {
-//                final String msg = String.format("Do you want to see more details for this entry", groupPos);
-//                AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-//                alert.setTitle("View Details?");
-//                alert.setMessage(msg);
-//                alert.setPositiveButton("Yes", new AlertDialog.OnClickListener() {
+//                    if (item.getTitle().toString().equalsIgnoreCase(menuItemMoveLineAdd)) {
 //
-//                    @Override
-//                    public void onClick(DialogInterface dialogInterface, int i) {
-//                        //TODO - Show show more details for this entry
-//                        Intent nav = new Intent(getActivity(), zzActReplenManageConfig.class);
-//                        startActivityForResult(nav, getActivity().RESULT_OK);
+//                        mActivity.setCanDisplayAddInfo(true);
+//                        showNavDialog(R.integer.MSG_SEVERITY_POSITIVE, R.integer.MSG_TYPE_NOTIFICATION, "Test Message 123", "Add New Line?");
 //                    }
-//                });
-//                alert.setNegativeButton("Cancel", null);
-//                alert.show();
-                        mActivity.setCanDisplayAddInfo(true);
-                        showNavDialog(R.integer.MSG_SEVERITY_POSITIVE, R.integer.MSG_TYPE_NOTIFICATION, "Test Message 123", "Add New Line?");
-                    }
                     if (item.getTitle().toString().equalsIgnoreCase(menuItemMoveLineSplit)) {
-                        final String msg = "Are you sure you want to split this quantity to smaller move lines";
-                        mActivity.setCanDisplaySplitInfo(true); //give permission to navigate
-                        showNavDialog(R.integer.MSG_SEVERITY_POSITIVE, R.integer.MSG_TYPE_NOTIFICATION, msg, "Split This Line?");
+                        if (mActivity.getSelectedLine().getQty() > 1) {
+                            final String msg = "Unable to Split this line since quantity is 1";
+                            showReplenDialog(R.integer.MSG_SEVERITY_WARNING, R.integer.MSG_TYPE_NOTIFICATION, msg, "Mathmatically Impossible");
+                        } else {
+                            final String msg = "Are you sure you want to split this quantity to smaller move lines";
+                            mActivity.setCanDisplaySplitInfo(true); //give permission to navigate
+                            showNavDialog(R.integer.MSG_SEVERITY_POSITIVE, R.integer.MSG_TYPE_NOTIFICATION, msg, "Split This Line?");
+                        }
                     }
                 }
             }
@@ -376,8 +358,8 @@ public class ManageMoveLineFragment extends Fragment {
                             int qty = StringUtils.toInt(moveListLine.getString("Qty"), 0);
                             int removeLink = StringUtils.toInt(moveListLine.getString("RemoveLink"), 0);
                             int movementId = StringUtils.toInt(moveListLine.getString("MovementId"), 0);
-                            boolean qtyConfirmed = false;
-                            boolean completed = false;
+                            boolean qtyConfirmed = StringUtils.toBool(Integer.parseInt(moveListLine.getString("QtyConfirmed")));//false;
+                            boolean completed = StringUtils.toBool(Integer.parseInt(moveListLine.getString("Completed"))); //false;
                             String sortOrder = moveListLine.getString("SortOrder");
                             ReplenMoveListLinesItemResponse item = new ReplenMoveListLinesItemResponse(movelistLineId, insertTimeStamp2, productId,
                                     catNumber, artist, title, ean, srcBinCode, dstBinCode, qty, removeLink,movementId, qtyConfirmed, completed, sortOrder);
@@ -443,20 +425,137 @@ public class ManageMoveLineFragment extends Fragment {
                     /**--------------------------- Failed because of Bad scan -------------------------**/
                     Vibrator vib = (Vibrator) mActivity.getSystemService(Context.VIBRATOR_SERVICE);
                     vib.vibrate(2000);
-//                    AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-//                    builder.setMessage("The product query has return no result\nPlease verify then re-scan")
-//                            .setPositiveButton(R.string.but_ok, new DialogInterface.OnClickListener() {
-//                                public void onClick(DialogInterface dialog, int id) {
-//                                    //do nothing
-//                                }
-//                            });
-//                    builder.show();
                     showReplenDialog(R.integer.MSG_SEVERITY_FAILURE, R.integer.MSG_TYPE_NOTIFICATION,
                             response.getResponseMessage(), "Bad Scan");
                     mActivity.getAppContext().playSound(2);
                 }
             }
             getWorkLineAsync = null;
+        }
+    }
+
+    private class AddLineAsync extends AsyncTask<Message, Void, HttpResponseHelper> {
+        private ProgressDialog mDialog;
+
+        @Override
+        protected void onPreExecute() {
+            //super.onPreExecute();
+            mDialog = new ProgressDialog(mActivity);
+            CharSequence title = "Please Wait";
+            mDialog.setCancelable(true);
+            mDialog.setCanceledOnTouchOutside(false);
+            mDialog.setMessage("Working hard...Splitting Line...");
+            mDialog.setTitle(title);
+            mDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            mDialog.show();
+        }
+
+        @Override
+        protected HttpResponseHelper doInBackground(Message... params) {
+            HttpResponseHelper response = null;
+            ReplenLineFeedBackResponse myResp = null;
+            //String response = "";
+            response = mActivity.getResolver().resolveHttpMessage(params[0]);
+
+            if (!response.isSuccess()) {
+                String ymsg = "Network Error has occurred that resulted in package loss. Please check Wi-Fi";
+                Log.e("ERROR !!!", ymsg);
+                response.setResponseMessage(ymsg);
+            }
+            if (response.getResponse().toString().contains("Error") || response.getResponse().toString().contains("not recognised")) {
+                String iMsg = "The Response object returns null due to improper request.";
+                response.setResponseMessage(iMsg);
+            }else {
+                try {
+                    myResp = mActivity.getReplenResponseHelper().refineSplitResponse(response.getResponse().toString());
+                    response.setResponse(myResp);
+                } catch(Exception ex) {
+                    ex.printStackTrace();
+                    response.setExceptionClass(ex.getClass());
+                }
+            }
+            return response;
+        }
+
+        @Override
+        protected void onPostExecute(HttpResponseHelper response) {
+            //super.onPostExecute(result);
+            if (mDialog != null && mDialog.isShowing()) {
+                mDialog.dismiss();
+            }
+
+            if (!response.isSuccess()) {
+                /**--------------------------- Network Error -------------------------**/
+                HttpResponseCodes statusCode = HttpResponseCodes.findCode(response.getHttpResponseCode());
+                if (statusCode != null) {
+                    if (statusCode != HttpResponseCodes.OK) {
+                        Vibrator vib = (Vibrator) mActivity.getSystemService(Context.VIBRATOR_SERVICE);
+                        vib.vibrate(2000);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+                        builder.setMessage(statusCode.toString() + ": - " + response.getResponseMessage())
+                                .setPositiveButton(R.string.but_ok, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {//do nothing
+                                    }
+                                });
+                        builder.show();
+                        mActivity.getAppContext().playSound(2);
+                    }
+                }
+            } else {
+                if (response.getResponse() != null) {
+                    if (response.getResponse().getClass().equals(ReplenLineFeedBackResponse.class)) {
+                        /**--------------------------- Success -------------------------**/
+//                        ReplenLineFeedBackResponse resp = (ReplenLineFeedBackResponse) response.getResponse();
+//                        List<ReplenMoveListLinesItemResponse> list = new ArrayList<ReplenMoveListLinesItemResponse>(); //mActivity.setSelectedLine
+////                        list.add(new ReplenMoveListLinesItemResponse(getMoveline(), resp));
+////                        setSplitLineAdapter(new ReplenAddMoveLineAdapter(mActivity, list));
+////                        lvLines.setAdapter(getSplitLineAdapter());
+//                        list.add(new ReplenMoveListLinesItemResponse(mActivity.getSelectedLine(), resp));
+//                        mActivity.setSplitLineAdapter(new ReplenAddMoveLineAdapter(mActivity, list));
+//                        //lvLines.setAdapter(getSplitLineAdapter());
+                        AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+                        builder.setMessage("Success: Line Completed" +
+                                response.getResponseMessage())
+                                .setPositiveButton(R.string.but_ok, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        if (getWorkLineAsync != null) {
+                                            getWorkLineAsync.cancel(true);
+                                            getWorkLineAsync = null;
+                                        }
+                                        buildMessage();
+                                        getWorkLineAsync = new RetrieveWorkLineAsync();
+                                        getWorkLineAsync.execute(xMessage);
+                                    }
+                                });
+                        builder.show();
+                        mActivity.getAppContext().playSound(2);
+                    }else{ //unnecessary but just to make sure...
+                        Vibrator vib = (Vibrator) mActivity.getSystemService(Context.VIBRATOR_SERVICE);
+                        vib.vibrate(2000);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+                        builder.setMessage("Unable to convert result to object required [ReplenLineFeedBackResponse] \n" +
+                                response.getResponseMessage())
+                                .setPositiveButton(R.string.but_ok, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {//do nothing
+                                    }
+                                });
+                        builder.show();
+                        mActivity.getAppContext().playSound(2);
+                    }
+                }else{
+                    /**--------------------------- Failed because of Bad scan -------------------------**/
+                    Vibrator vib = (Vibrator) mActivity.getSystemService(Context.VIBRATOR_SERVICE);
+                    vib.vibrate(2000);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+                    builder.setMessage("The product query has return no result\nPlease verify then re-scan")
+                            .setPositiveButton(R.string.but_ok, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {//do nothing
+                                }
+                            });
+                    builder.show();
+                    mActivity.getAppContext().playSound(2);
+                }
+            }
         }
     }
 }

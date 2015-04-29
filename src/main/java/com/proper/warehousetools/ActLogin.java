@@ -152,6 +152,9 @@ public class ActLogin extends Activity {
             logo.startAnimation(animRotateIn_icon);
             txtConnReport.startAnimation(anim);
         }
+        if (getSelectedConfig() > 0) {
+            effectRadioButton(getSelectedConfig());
+        }
         //lytAdminControl.setVisibility(View.GONE);   //For Admin purpose Only - not for production
     }
 

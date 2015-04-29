@@ -1,4 +1,4 @@
-package com.proper.warehousetools.replen.fragments.movelist;
+package com.proper.warehousetools.replen.fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -12,10 +12,13 @@ import android.util.Log;
 import android.view.*;
 import android.widget.ExpandableListView;
 import android.widget.ViewFlipper;
+import com.proper.data.binmove.BinMoveMessage;
+import com.proper.data.binmove.BinMoveObject;
 import com.proper.data.enums.HttpResponseCodes;
 import com.proper.data.helpers.HttpResponseHelper;
 import com.proper.data.helpers.ReplenDialogHelper;
 import com.proper.data.replen.ReplenMoveListItemResponse;
+import com.proper.data.replen.ReplenMoveListProcessResponse;
 import com.proper.data.replen.ReplenMoveListResponse;
 import com.proper.data.replen.ReplenSelectedMoveWrapper;
 import com.proper.data.replen.adapters.ReplenMoveListAdapter;
@@ -41,8 +44,10 @@ public class ManageWorkFragment extends Fragment {
     private ViewFlipper flipper;
     private ExpandableListView lvWork;
     private RetrieveWorkAsync getWorkAsync;
+    private ProcessMoveListAsync processMoveListAsync;
     private ActReplenManageWork mActivity = (ActReplenManageWork) getActivity();
     private Message vMessage = null;
+    private Message processMessage = null;
 
     public ManageWorkFragment() {
     }
@@ -195,8 +200,22 @@ public class ManageWorkFragment extends Fragment {
                     //TODO - check that all move list are completed make sure that there's no outstanding move list available
                     msg = String.format("Are you sure you want to process this entry number (%s) from move list", groupPos + 1);
                     canComplete = true;
-                    //mActivity.setCanNavigate(true);
-                    showReplenDialog(R.integer.MSG_SEVERITY_POSITIVE, R.integer.MSG_TYPE_NOTIFICATION, msg, "This Line?");
+                    //showReplenDialog(R.integer.MSG_SEVERITY_POSITIVE, R.integer.MSG_TYPE_NOTIFICATION, msg, "This Line?");
+                    String processMsg = String.format("{\"UserId\":\"%s\", \"UserCode\":\"%s\", \"MoveListId\":\"%s\"}",
+                            mActivity.getCurrentUser().getUserId(), mActivity.getCurrentUser().getUserCode(),
+                            mActivity.getSelectedMove().getItem().getMovelistId());
+                    mActivity.setToday(new Timestamp(mActivity.getUtilDate().getTime()));
+                    processMessage = new Message();
+                    processMessage.setSource(mActivity.getDeviceIMEI());
+                    processMessage.setMessageType("ProcessMovelist");
+                    processMessage.setIncomingStatus(1); //default value
+                    processMessage.setIncomingMessage(processMsg);
+                    processMessage.setOutgoingStatus(0);   //default value
+                    processMessage.setOutgoingMessage("");
+                    processMessage.setInsertedTimeStamp(mActivity.getToday());
+                    processMessage.setTTL(100);    //default value
+                    processMoveListAsync = new ProcessMoveListAsync();
+                    processMoveListAsync.execute(processMessage);
                 }
             }
         }
@@ -334,4 +353,139 @@ public class ManageWorkFragment extends Fragment {
             }
         }
     }
+
+    private class ProcessMoveListAsync extends AsyncTask<Message, Void, HttpResponseHelper>{
+        private ProgressDialog rDialog;
+
+        @Override
+        protected void onPreExecute() {
+            rDialog = new ProgressDialog(getActivity());
+            CharSequence message = "Working hard...processing list lines...";
+            CharSequence title = "Please Wait";
+            rDialog.setCancelable(true);
+            rDialog.setCanceledOnTouchOutside(false);
+            rDialog.setMessage(message);
+            rDialog.setTitle(title);
+            rDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            rDialog.show();
+        }
+
+        @Override
+        protected HttpResponseHelper doInBackground(com.proper.messagequeue.Message... msg) {
+            ReplenMoveListProcessResponse qryResponse = new ReplenMoveListProcessResponse();
+            HttpResponseHelper response = null;
+
+            response = mActivity.getResolver().resolveHttpMessage(msg[0]);
+            if (!response.isSuccess()) {
+                String ymsg = "Network Error has occurred that resulted in package loss. Please check Wi-Fi";
+                Log.e("ERROR !!!", ymsg);
+                response.setResponseMessage(ymsg);
+            }
+            if (response.getResponse().toString().contains("not recognised")) {
+                //manually error trap this error
+                String iMsg = "The Response object returns null due to improper request.";
+                response.setResponseMessage(iMsg);
+            }else {
+                //Manually process this response
+                try {
+                    JSONObject resp = new JSONObject(response.getResponse().toString());
+                    int requstedMovelistId = Integer.parseInt(resp.getString("RequstedMovelistId"));
+                    String Result = resp.getString("Result");
+                    JSONArray messages = resp.getJSONArray("Messages");
+                    JSONArray actions = resp.getJSONArray("MessageObjects");
+
+                    List<BinMoveMessage> messageList = new ArrayList<BinMoveMessage>();
+                    List<BinMoveObject> actionList = new ArrayList<BinMoveObject>();
+                    //get messages
+                    for (int i = 0; i < messages.length(); i++) {
+                        JSONObject message = messages.getJSONObject(i);
+                        String name = message.getString("MessageName");
+                        String text = message.getString("MessageText");
+                        Timestamp time = Timestamp.valueOf(message.getString("MessageTimeStamp"));
+
+                        messageList.add(new BinMoveMessage(name, text, time));
+                    }
+                    //get actions
+                    for (int i = 0; i < actions.length(); i++) {
+                        JSONObject action = actions.getJSONObject(i);
+                        String act = action.getString("Action");
+                        int prodId = Integer.parseInt(action.getString("ProductId"));
+                        String cat = action.getString("SupplierCat");
+                        String ean = action.getString("EAN");
+                        int qty = Integer.parseInt(action.getString("Qty"));
+                        actionList.add(new BinMoveObject(act, prodId, cat, ean, qty));
+                    }
+                    qryResponse.setRequstedMovelistId(requstedMovelistId);
+                    qryResponse.setResult(Result);
+                    qryResponse.setMessages(messageList);
+                    qryResponse.setMessageObjects(actionList);
+                    response.setResponse(qryResponse);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    response.setExceptionClass(ex.getClass());
+                }
+            }
+            return response;
+        }
+
+        @Override
+        protected void onPostExecute(HttpResponseHelper response) {
+            if (rDialog != null && rDialog.isShowing()) {
+                rDialog.dismiss();
+            }
+
+            if (!response.isSuccess()) {
+                /**--------------------------- Network Error -------------------------**/
+                HttpResponseCodes statusCode = HttpResponseCodes.findCode(response.getHttpResponseCode());
+                if (statusCode != null) {
+                    if (statusCode != HttpResponseCodes.OK) {
+                        Vibrator vib = (Vibrator) mActivity.getSystemService(Context.VIBRATOR_SERVICE);
+                        vib.vibrate(2000);
+                        showReplenDialog(R.integer.MSG_SEVERITY_FAILURE, R.integer.MSG_TYPE_NOTIFICATION,
+                                statusCode.toString() + ": - " + response.getResponseMessage(), "Network Error");
+                        mActivity.getAppContext().playSound(2);
+                    }
+                }
+            } else {
+                if (response.getResponse() != null) {
+                    if (response.getResponse().getClass().equals(ReplenMoveListProcessResponse.class)) {
+                        /**--------------------------- Success -------------------------**/
+                        ReplenMoveListProcessResponse resp = (ReplenMoveListProcessResponse) response.getResponse();
+                        if (resp.getResult().equalsIgnoreCase("Success")) {
+                            Vibrator vib = (Vibrator) mActivity.getSystemService(Context.VIBRATOR_SERVICE);
+                            vib.vibrate(2000);
+                            showReplenDialog(R.integer.MSG_SEVERITY_POSITIVE, R.integer.MSG_TYPE_NOTIFICATION,
+                                    response.getResponseMessage(), "Success: Move List Processed");
+                            mActivity.getAppContext().playSound(1);
+                        }else{
+                            Vibrator vib = (Vibrator) mActivity.getSystemService(Context.VIBRATOR_SERVICE);
+                            vib.vibrate(2000);
+                            showReplenDialog(R.integer.MSG_SEVERITY_FAILURE, R.integer.MSG_TYPE_NOTIFICATION,
+                                    response.getResponseMessage(), "Failed: " + resp.getMessages()!=null&&!resp.getMessages().isEmpty()?
+                                            resp.getMessages().get(0).getMessageText():"Please contact an IT staff for help");
+                            mActivity.getAppContext().playSound(2);
+                        }
+
+//                        mActivity.setMoveListAdapter(new ReplenMoveListAdapter(getActivity(), resp.getMovelists()));
+//                        lvWork.setAdapter(mActivity.getMoveListAdapter());
+//                        flipper.setDisplayedChild(1);
+                    } else {        //just to make sure
+                        Vibrator vib = (Vibrator) mActivity.getSystemService(Context.VIBRATOR_SERVICE);
+                        vib.vibrate(2000);
+                        showReplenDialog(R.integer.MSG_SEVERITY_WARNING, R.integer.MSG_TYPE_NOTIFICATION,
+                                response.getResponseMessage(), "Bad HttpResponse");
+                        mActivity.getAppContext().playSound(2);
+                    }
+                }else{
+                    /**--------------------------- Failed because of Bad scan -------------------------**/
+                    Vibrator vib = (Vibrator) mActivity.getSystemService(Context.VIBRATOR_SERVICE);
+                    vib.vibrate(2000);
+                    showReplenDialog(R.integer.MSG_SEVERITY_FAILURE, R.integer.MSG_TYPE_NOTIFICATION,
+                            response.getResponseMessage(), "Bad Scan");
+                    mActivity.getAppContext().playSound(2);
+                }
+            }
+        }
+    }
+
 }

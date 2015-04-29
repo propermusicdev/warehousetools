@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.proper.warehousetools"
-          android:versionCode="1057"
-          android:versionName="20150428.163117">
+          android:versionCode="1081"
+          android:versionName="20150429.182120">
     <uses-sdk android:minSdkVersion="9" android:targetSdkVersion="21"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -59,16 +59,13 @@
         <activity android:name=".replen.ui.chainway_C4000.ActReplenSelectBin"/>
         <activity android:name=".replen.ui.speedata_mt02.ActReplenScan" android:launchMode = "singleInstance"/>
         <!--<activity android:name=".replen.ui.chainway_C4000.zzActReplenManage" android:launchMode = "singleInstance"/>-->
-        <activity android:name=".replen.ui.chainway_C4000.zzActReplenManage"/>
         <!--<activity android:name=".replen.ui.chainway_C4000.ActReplenSelectProduct" android:launchMode = "singleInstance"/>-->
         <activity android:name=".replen.ui.chainway_C4000.ActReplenSelectProduct"/>
         <activity android:name=".replen.ui.ActReplenManager"/>
         <!--<activity android:name=".replen.ui.chainway_C4000.zzActReplenManageConfig" android:launchMode = "singleInstance"/>-->
-        <activity android:name=".replen.ui.chainway_C4000.zzActReplenManageConfig"/>
         <activity android:name=".binmove.ui.chainway_c4000.ActManageBinMove" android:launchMode = "singleInstance"/>
         <activity android:name=".replen.ui.chainway_C4000.ActReplenCreateMiniMove"/>
         <!--<activity android:name=".replen.ui.chainway_C4000.ActReplenResume" android:launchMode = "singleInstance"/>-->
-        <activity android:name=".replen.ui.chainway_C4000.ActReplenResume"/>
         <activity android:name=".goodsin.ui.ActGoodsInManager" android:screenOrientation="landscape"/>
         <activity android:name=".goodsin.ui.zzActGoodsInInfoDisplay" android:screenOrientation="landscape"/>
         <activity android:name=".goodsin.ui.zzActGoodsInProvideInfo" android:screenOrientation="landscape"/>
@@ -82,13 +79,10 @@
                   android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar" />
         <!--android:uiOptions="splitActionBarWhenNarrow"-->
         <activity android:name=".replen.ui.chainway_C4000.ActReplenSplitLine"/>
-        <activity android:name=".replen.ui.chainway_C4000.zzActReplenUpdateMoveLine"/>
         <activity android:name=".replen.BaseReplenPlainFragmentActivity"/>
         <activity android:name=".replen.ui.chainway_C4000.ActReplenUpdateLine"/>
         <activity android:name=".replen.ui.chainway_C4000.ActReplenNewLine"/>
-        <activity android:name=".replen.ui.chainway_C4000.zzActReplenAddLine"/>
         <activity android:name=".stocktake.ui.chainway_C4000.ActStockTakeBinCheck" android:label="Check Bin"/>
-        <activity android:name=".replen.ui.zzActReplenMiniMove"/>
         <activity android:name=".stocktake.ui.chainway_C4000.ActStockTakeWorkLines" android:label="Stock Take Lines"
                   android:windowSoftInputMode="stateHidden|adjustPan" android:theme="@style/_lebelTelerik"/>
         <activity android:name=".stocktake.ui.chainway_C4000.ActStockTakeWorkLinesOld"/>
