@@ -115,20 +115,6 @@ public class ActCheckerBin extends BaseScanActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_logout:
-                Intent i = new Intent();
-                setResult(666, i);
-                finish();
-                break;
-            default:
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == 0) {

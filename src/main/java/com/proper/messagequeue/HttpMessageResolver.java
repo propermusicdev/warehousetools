@@ -72,8 +72,8 @@ public class HttpMessageResolver implements IHttpMessageResolver {
     }
 
     public String getDefaultConfig() {
-        //currentConfig = R.integer.CONFIG_LIVESERVER_EXTERNAL; return setConfig(currentConfig); // Live only
-        currentConfig = getStoredSharedConfiguration(); return setConfig(currentConfig); // Debug only
+        currentConfig = R.integer.CONFIG_LIVESERVER_EXTERNAL; return setConfig(currentConfig); // Live only
+        //currentConfig = getStoredSharedConfiguration(); return setConfig(currentConfig); // Debug only
     }
 
     private int getStoredSharedConfiguration() {

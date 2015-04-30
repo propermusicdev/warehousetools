@@ -155,7 +155,7 @@ public class ActLogin extends Activity {
         if (getSelectedConfig() > 0) {
             effectRadioButton(getSelectedConfig());
         }
-        //lytAdminControl.setVisibility(View.GONE);   //For Admin purpose Only - not for production
+        lytAdminControl.setVisibility(View.GONE);   //For Admin purpose Only - not for production
     }
 
     private void updateConnectionStringText() {

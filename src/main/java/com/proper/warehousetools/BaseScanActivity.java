@@ -83,6 +83,14 @@ public class BaseScanActivity extends ActionBarActivity {
         currentUser = authenticator.getCurrentUser();
         testResolver = new MockClass();
 
+        if (screenSize == Configuration.SCREENLAYOUT_SIZE_SMALL) {
+            getSupportActionBar().hide();
+        }else{
+            getSupportActionBar().setLogo(R.drawable.ic_launcher);
+            getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.woodendrape_blue));
+            //getSupportActionBar().setTitle(String.format("ver %s", appContext.getPackageInfo().versionName));
+        }
+
         try {
             mInstance = Barcode1D.getInstance();
             isBarcodeOpened = mInstance.open();
@@ -111,15 +119,15 @@ public class BaseScanActivity extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.menu_logout:
-//                Intent i = new Intent();
-//                setResult(666, i);
-//                finish();
-//                break;
-//            default:
-//                break;
-//        }
+        switch (item.getItemId()) {
+            case R.id.menu_logout:
+                Intent i = new Intent(this, ActLogin.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+                break;
+            default:
+                break;
+        }
         return super.onOptionsItemSelected(item);
     }
 

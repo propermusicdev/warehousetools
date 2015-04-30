@@ -7,9 +7,6 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.MenuItemCompat;
-import android.support.v7.widget.SearchView;
-import android.support.v7.widget.ShareActionProvider;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,10 +19,7 @@ import com.proper.messagequeue.HttpMessageResolver;
 import com.proper.security.UserAuthenticator;
 import com.proper.security.UserLoginResponse;
 import com.proper.utils.DeviceUtils;
-import com.proper.warehousetools.ActMain;
-import com.proper.warehousetools.AppContext;
-import com.proper.warehousetools.R;
-import com.proper.warehousetools.MockClass;
+import com.proper.warehousetools.*;
 
 /**
  * Created by Lebel on 26/08/2014.
@@ -125,11 +119,9 @@ public class BaseFragmentActivity extends FragmentActivity {
                 finish();
                 break;
             case R.id.menu_logout:
-                Intent i = new Intent(this, ActMain.class);
-                i.putExtra("RESULT_EXTRA", 666);
+                Intent i = new Intent(this, ActLogin.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                setResult(666, i);
-                finish();
+                startActivity(i);
                 break;
             default:
                 break;

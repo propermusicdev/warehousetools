@@ -78,7 +78,7 @@ public class ActReplenSelectProduct extends BaseScanActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lyt_replen_selectproduct);
         getSupportActionBar().setLogo(R.drawable.ic_launcher);
-        getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.flat_button_palebrown));
+//        getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.flat_button_palebrown));
         getSupportActionBar().setTitle("Scan Product");
 
         Bundle extra = getIntent().getExtras();
@@ -181,10 +181,8 @@ public class ActReplenSelectProduct extends BaseScanActivity {
                 ReplenMiniMove miniMove = (ReplenMiniMove) extra.getSerializable("RETURN_EXTRA");
                 ProductBinSelection moveItemResp = (ProductBinSelection) extra.getSerializable("MOVE_EXTRA");
                 if (moveItemResp != null) {
-                    //qtyChanged = inputList.get(0).getQtyInBin() != moveItemResp.getQtyInBin();
                     qtyChanged = foundList.get(0).getQtyInBin() != moveItemResp.getQtyInBin();
                     tot = moveItemResp.getQtyInBin();
-                    //txtQty.setText(String.format("%s", tot));       //update total
                     updateInputListQuantity(moveItemResp);  //update input list
                 }
                 if (miniMove != null) {
@@ -274,7 +272,6 @@ public class ActReplenSelectProduct extends BaseScanActivity {
             List<ReplenMiniMove> moveSearch = new ArrayList<ReplenMiniMove>();
             List<ReplenMiniMove> moveDup = new ArrayList<ReplenMiniMove>();
             ListIterator<ReplenMiniMove> moveIterator = moveList.listIterator();
-            // ListIterator<AbstractMap.SimpleEntry<String, int[]>> refined = new ListIterator<AbstractMap.SimpleEntry<String, int[]>>().set();
             List<AbstractMap.SimpleEntry<String, int[]>> refined = null;
 
             int found = 0;
@@ -307,62 +304,7 @@ public class ActReplenSelectProduct extends BaseScanActivity {
                     }
                 }
             }
-
-
-//            for (ReplenMiniMove move : moveList) {
-//                refined = new ArrayList<AbstractMap.SimpleEntry<String, int[]>>();
-//                if (refined.isEmpty()) {
-//                    refined.add(new AbstractMap.SimpleEntry<String, int[]>(move.getDestination(), new int[move.getQuantity()]));
-//                }else {
-//                    for (int p = 0; p < refined.size(); p ++) {
-//                        AbstractMap.SimpleEntry<String, int[]> item = refined.get(p);
-//                        if (item.getKey().equalsIgnoreCase(move.getDestination())) {
-//                            //add
-//                        }
-//                    }
-//                }
-//            }
-//            for (ReplenMiniMove move : moveList) {
-//                //check for duplicates, if list contains item just add qty  -- !(Arrays.binarySearch(acceptable, getScanInput().length()) == -1)
-//                if (moveDup.contains(move)) {
-//                    int qty = 0;
-//                    for (int j = 0; j < moveDup.size(); j++) {
-//                        qty = moveDup.get(j).getQuantity() + qty;
-//                    }
-//                    newMoveListPrep.add(new ReplenMiniMove(move.getDestination(), qty));
-//                }
-//
-//
-//
-//                if (newMoveList.isEmpty()) {
-//                    newMoveList.add(move);
-//                    newMoveListPrep.add(move);
-//                } else {
-//                    for (int i = 0; i < newMoveList.size(); i++) {
-//                        ReplenMiniMove imove = newMoveList.get(i);
-//                        //check if is in the duplicate list
-//                        if (moveDup.contains(imove)) {
-//                            //Add the quantity
-//                            int qty = 0;
-//                            for (int j = 0; j < moveDup.size(); j++) {
-//                                qty = moveDup.get(j).getQuantity() + qty;
-//                            }
-//                            newMoveListPrep.add(new ReplenMiniMove(imove.getDestination(), qty));
-//                        } else {
-//                            newMoveListPrep.add(imove);
-//                        }
-////                        if (imove.getDestination().equalsIgnoreCase(move.getDestination())) {
-////                            //newMoveList.add(new ReplenMiniMove(move.getDestination(), move.getQuantity() + imove.getQuantity()));
-////                            newMoveListPrep.add(new ReplenMiniMove(move.getDestination(), move.getQuantity() + imove.getQuantity()));
-////                        }else {
-////                            //newMoveList.add(imove);
-////                            newMoveListPrep.add(imove);
-////                        }
-//                    }
-//                }
-//            }
             moveList = new ArrayList<ReplenMiniMove>();
-            //moveList = newMoveListPrep;
             moveList = IteratorUtils.toList(moveIterator);
 
             for (ReplenMiniMove move : moveList) {
@@ -670,20 +612,11 @@ public class ActReplenSelectProduct extends BaseScanActivity {
                 if (!response.isSuccess()) {
                     String ymsg = "Network Error has occurred that resulted in package loss. Please check Wi-Fi";
                     Log.e("ERROR !!!", ymsg);
-                    //throw new RuntimeException("Network Error has occurred that resulted in package loss. Please check Wi-Fi");
-//                    Message message = new Message();
-//                    message.what = 1;
-//                    message.obj = new AbstractMap.SimpleEntry<String, HttpResponseHelper>(ymsg, response);
-//                    taskErrorHandler.sendMessage(message);
                     response.setResponseMessage(ymsg);
                 }else {
                     if (response.getResponse().toString().contains("not recognised")) {
                         //manually error trap this error
                         String iMsg = "The Response object returns null due to improper request.";
-//                        Message message1 = new Message();
-//                        message1.what = 1;
-//                        message1.obj = new AbstractMap.SimpleEntry<String, HttpResponseHelper>(iMsg, response);
-//                        taskErrorHandler.sendMessage(message1);
                         response.setResponseMessage(iMsg);
                     }else {
                         ObjectMapper mapper = new ObjectMapper();
@@ -697,10 +630,6 @@ public class ActReplenSelectProduct extends BaseScanActivity {
             } catch (Exception ex) {
                 ex.printStackTrace();
                 response.setExceptionClass(ex.getClass());
-//                Message message = new Message();
-//                message.what = 1;
-//                message.obj = new AbstractMap.SimpleEntry<String, HttpResponseHelper>(ex.getMessage(), response);
-//                taskErrorHandler.sendMessage(message);
             }
             return response;
         }

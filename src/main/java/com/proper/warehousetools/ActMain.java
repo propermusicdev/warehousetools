@@ -74,13 +74,16 @@ public class ActMain extends ActionBarActivity {
 
         if (screenSize == Configuration.SCREENLAYOUT_SIZE_XLARGE) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-            getSupportActionBar().setLogo(R.drawable.ic_launcher);
-            //getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.back));
-            getSupportActionBar().setTitle(String.format("ver %s", appContext.getPackageInfo().versionName));
+        }else {
+            if (screenSize == Configuration.SCREENLAYOUT_SIZE_SMALL) {
+                getSupportActionBar().hide();
+            }else{
+                getSupportActionBar().setLogo(R.drawable.ic_launcher);
+                getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.woodendrape_blue));
+                getSupportActionBar().setTitle(String.format("ver %s", appContext.getPackageInfo().versionName));
+            }
         }
-        if (screenSize == Configuration.SCREENLAYOUT_SIZE_SMALL) {
-            getSupportActionBar().hide();
-        }
+
         setContentView(R.layout.lyt_main);
         lvModule = (ListView) findViewById(R.id.lvModule);
         Bundle bundle = getIntent().getExtras();

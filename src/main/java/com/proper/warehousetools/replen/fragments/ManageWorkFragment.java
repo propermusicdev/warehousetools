@@ -175,7 +175,7 @@ public class ManageWorkFragment extends Fragment {
     @Override
     public boolean onContextItemSelected(MenuItem item) {
 
-        /** REF: http://stackoverflow.com/questions/14734586/oncontextitemselected-called-twice-for-fragment*/
+        /** REF: http://stackoverflow.com/questions/14734586/oncontextitemselected-called-twice-for-fragment **/
 
         if (getUserVisibleHint()) {
             ExpandableListView.ExpandableListContextMenuInfo info =

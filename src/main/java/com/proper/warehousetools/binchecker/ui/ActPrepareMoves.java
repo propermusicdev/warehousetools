@@ -40,16 +40,6 @@ import java.util.*;
  * Created by Lebel on 30/03/2015.
  */
 public class ActPrepareMoves extends BaseScanActivity implements IBinCheckerQtyCommunicator {
-//    private ListView lvMoves;
-//    private BinCheckerQueryTask binQryTask;
-//    private PartialBinMoveResponse qryResponse = null;
-//    private ProductLookupAsync qryProduct = null;
-//    private IndividualMoveAdapter moveAdapter = null;
-//    private String currentSrcBin = "", currentDstBin = "", currentProduct = "";
-//    private int lastScanningMode, selectedMode, initalized;
-//    private boolean alreadyFired = false, moveInProgress = false; //false
-//    private static final int MODE_DESTINATION = -17, MODE_SOURCE = -29, MODE_PRODUCT = -31;
-
     private RadioGroup radioGroup;
     private RadioButton radSingleMode, radBulkMode;
     private Button btnAbort, btnScan, btnUpdate; //btnEnterBarcode
@@ -152,35 +142,6 @@ public class ActPrepareMoves extends BaseScanActivity implements IBinCheckerQtyC
         this.selectedMode = selectedMode;
     }
 
-
-//    public void setLastScanningMode(int lastScanningMode) {
-//        this.lastScanningMode = lastScanningMode;
-//    }
-//
-//    public int getSelectedMode() {
-//        return selectedMode;
-//    }
-//
-//    public void setSelectedMode(int selectedMode) {
-//        this.selectedMode = selectedMode;
-//    }
-//
-//    public boolean isMoveInProgress() {
-//        return moveInProgress;
-//    }
-//
-//    public void setMoveInProgress(boolean moveInProgress) {
-//        this.moveInProgress = moveInProgress;
-//        if (moveInProgress) {
-//            /** do work **/
-//            initalized ++;
-//            onExecuteMove();
-//        }else {
-//            /** aftermath **/
-//            postExecuteMove();
-//        }
-//    }
-
     public IndividualMoveLine getCurrentMove() {
         return currentMove;
     }
@@ -199,32 +160,6 @@ public class ActPrepareMoves extends BaseScanActivity implements IBinCheckerQtyC
         if (currentBinData == null) {
             throw new NullPointerException("currentBinData cannot be null");
         }
-//        if (currentBinData..getBinAlreadyChecked() > 0) {
-//            AlertDialog.Builder builder = new AlertDialog.Builder(ActPrepareMoves.this);
-//            String msg = "This Bin has already been checked\nDo you want to Stay?";
-//            builder.setTitle("Already Checked !!!");
-//            builder.setMessage(msg)
-//                    .setNegativeButton("No, Exit", new DialogInterface.OnClickListener() {
-//                        public void onClick(DialogInterface dialog, int id) {
-//                            exitActivity();
-//                        }
-//                    })
-//                    .setPositiveButton("Yes, Stay", new DialogInterface.OnClickListener() {
-//                        public void onClick(DialogInterface dialog, int id) {
-//                            //do nothing
-//                        }
-//                    }).show();
-//        }
-//        currentLines = new LinkedList<CheckerProduct>();
-//        for (StockTakeLine line : currentBinData.getStockTakeLines()) {
-//            if (line.getQty() < 0) {
-//                StockTakeLine newLine = line;
-//                newLine.setQty(0);  /**  Adjust negative number to zero  **/
-//                currentLines.add(new StockTakeLineProduct(newLine));
-//            } else {
-//                currentLines.add(new StockTakeLineProduct(line));
-//            }
-//        }
         currentLines = new LinkedList<CheckerProduct>();
         for (ProductBinResponse prod: currentBinData.getProducts()) {
             if (prod.getQtyInBin() < 0) {
@@ -271,12 +206,6 @@ public class ActPrepareMoves extends BaseScanActivity implements IBinCheckerQtyC
         txtBarcode.addTextChangedListener(new TextChanged());
         TextView lblBin = (TextView) this.findViewById(R.id.txtvBCPMBinTitle);
         lblBin.setText(currentBinData.getRequestedBinCode());
-//        lvProducts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                listItemClicked(parent, view, position, id);
-//            }
-//        });
         lvProducts.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView parent, View view, int groupPosition, long id) {
@@ -447,17 +376,6 @@ public class ActPrepareMoves extends BaseScanActivity implements IBinCheckerQtyC
                 exitActivity();
             }
         }
-//        if (v == btnEnterBarcode) {
-//            if (inputByHand == 0) {
-//                turnOnInputByHand();
-//                if (!txtBarcode.isEnabled()) txtBarcode.setEnabled(true);
-//                txtBarcode.setText("");
-//                showSoftKeyboard();
-//            } else {
-//                turnOffInputByHand();
-//                //mReception.removeTextChangedListener();
-//            }
-//        }
         if (v == btnScan) {
             boolean bContinuous = false; //true;
             int iBetween = 0;
@@ -581,40 +499,6 @@ public class ActPrepareMoves extends BaseScanActivity implements IBinCheckerQtyC
         }
     }
 
-//    private void showSoftKeyboard() {
-//        InputMethodManager imm =(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-//        //inputMethodManager.toggleSoftInputFromWindow(linearLayout.getApplicationWindowToken(), InputMethodManager.SHOW_FORCED, 0);
-//        if (imm != null){
-//            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
-//        }
-//    }
-//
-//    private void turnOnInputByHand(){
-//        inputByHand = 1;    //Turn On Input by Hand
-//        btnScan.setEnabled(false);
-//        paintByHandButtons();
-//    }
-//
-//    private void turnOffInputByHand(){
-//        inputByHand = 0;    //Turn On Input by Hand
-//        btnScan.setEnabled(true);  //
-//        setScanInput(txtBarcode.getText().toString());
-//        if (!getScanInput().isEmpty()) {
-//            txtBarcode.setText(getScanInput()); // just to trigger text changed
-//        }
-//        paintByHandButtons();
-//    }
-//
-//    private void paintByHandButtons() {
-//        final String byHand = "ByHand";
-//        final String finish = "Finish";
-//        if (inputByHand == 0) {
-//            btnEnterBarcode.setText(byHand);
-//        } else {
-//            btnEnterBarcode.setText(finish);
-//        }
-//    }
-
     private void refreshDataScreen() {
         productAdapter = null;
         productAdapter = new CheckerProductAdapter(currentLines, ActPrepareMoves.this);
@@ -692,8 +576,6 @@ public class ActPrepareMoves extends BaseScanActivity implements IBinCheckerQtyC
                 if (line.getProductId() == qryProduct.getProductId() && line.getEAN().equalsIgnoreCase(qryProduct.getEAN())) {
                     found ++;
                     //TODO - confirm Quantity and Update details
-                    //showQuantityDialog(i, EDITMODE_OFF);
-                    //currentLines.get(i).setQtyScanned(currentLines.get(i).getQtyScanned() + 1); //tally scanned item
                     if (selectedMode == MODE_SINGLE) {
                         currentLines.get(i).setQtyScanned(currentLines.get(i).getQtyScanned() + 1); //tally scanned item
                     }
@@ -714,9 +596,6 @@ public class ActPrepareMoves extends BaseScanActivity implements IBinCheckerQtyC
                 }
             }
             if (found == 0) {
-//                StockTakeLineProduct newProd = new StockTakeLineProduct(0, currentBinData.getBinCode(), currentBinData.getStockTakeId(),
-//                        qryProduct.getProductId(), qryProduct.getSupplierCat(), qryProduct.getEAN(), qryProduct.getBarcode(),
-//                        qryProduct.getArtist(), qryProduct.getTitle(), 0, 0, 0, currentUser.getUserId(), thisUser, 0);
                 Bin foundBin = null;
                 for (Bin bin : qryProduct.getBins()) {
                     if (bin.getBinCode().equalsIgnoreCase(currentBinData.getRequestedBinCode())) {
@@ -724,7 +603,6 @@ public class ActPrepareMoves extends BaseScanActivity implements IBinCheckerQtyC
                     }
                 }
                 CheckerProduct newProd = new CheckerProduct(qryProduct, foundBin.getQty());
-                //newProd.setQtyScanned(1); //tally scanned item
                 if (selectedMode == MODE_SINGLE) {
                     newProd.setQtyScanned(1); //tally scanned item
                     newProd.setFormat(qryProduct.getFormat());
@@ -737,8 +615,6 @@ public class ActPrepareMoves extends BaseScanActivity implements IBinCheckerQtyC
                         showQuantityDialog(currentLines.size() - 1, EDITMODE_OFF);
                     }
                 }
-                //newProd.setFormat(qryProduct.getFormat());
-                //currentLines.add(newProd);
                 prod = newProd;
             }
         }
@@ -902,20 +778,6 @@ public class ActPrepareMoves extends BaseScanActivity implements IBinCheckerQtyC
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_logout:
-                Intent i = new Intent();
-                setResult(666, i);
-                finish();
-                break;
-            default:
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
         if (keyCode == KEY_SCAN) {
@@ -1076,7 +938,6 @@ public class ActPrepareMoves extends BaseScanActivity implements IBinCheckerQtyC
                     response.setExceptionClass(ex.getClass());
                 }
             }
-            //return new AbstractMap.SimpleEntry<String, StockTakeProductResponse>(response, productResponse);
             return response;
         }
 
@@ -1264,7 +1125,6 @@ public class ActPrepareMoves extends BaseScanActivity implements IBinCheckerQtyC
 
         @Override
         protected void onPostExecute(HttpResponseHelper response) {
-            //super.onPostExecute(binResponse);
             if (wsDialog != null && wsDialog.isShowing()) wsDialog.dismiss();
             alreadyFired = false;
             if (!response.isSuccess()) {
@@ -1329,7 +1189,6 @@ public class ActPrepareMoves extends BaseScanActivity implements IBinCheckerQtyC
                             appContext.playSound(2);
                             btnScan.setEnabled(true);
                         }
-                        //resp.getMessages().get(2).getMessageText().equalsIgnoreCase("Success");
                     } else { // Unnecessary but just to make sure...
                         Vibrator vib = (Vibrator) ActPrepareMoves.this.getSystemService(Context.VIBRATOR_SERVICE);
                         vib.vibrate(2000);

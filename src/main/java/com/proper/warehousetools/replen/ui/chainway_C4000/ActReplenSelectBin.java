@@ -49,7 +49,7 @@ public class ActReplenSelectBin extends BaseScanActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lyt_replen_selectbin);
         getSupportActionBar().setLogo(R.drawable.ic_launcher);
-        getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.flat_button_palebrown));
+//        getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.flat_button_palebrown));
         getSupportActionBar().setTitle("Scan Bin");
 
         txtInto = (TextView) this.findViewById(R.id.txtvReplenScanIntro);
@@ -87,35 +87,6 @@ public class ActReplenSelectBin extends BaseScanActivity {
                 }
             }
         };
-
-//        taskErrorHandler = new Handler() {
-//            @Override
-//            public void handleMessage(Message msg) {
-//                super.handleMessage(msg);
-//                if(msg.what == 1){
-//                    AbstractMap.SimpleEntry<String, HttpResponseHelper> message = (AbstractMap.SimpleEntry<String, HttpResponseHelper>) msg.obj;
-//                    if (message.getValue() != null) {
-//                        HttpResponseCodes statusCode = HttpResponseCodes.findCode(message.getValue().getHttpResponseCode());
-//                        if (statusCode != null) {
-//                            if (statusCode != HttpResponseCodes.OK) {
-//                                Vibrator vib = (Vibrator) ActReplenSelectBin.this.getSystemService(Context.VIBRATOR_SERVICE);
-//                                vib.vibrate(2000);
-//                                AlertDialog.Builder builder = new AlertDialog.Builder(ActReplenSelectBin.this);
-//                                builder.setMessage(statusCode.toString() + " - " + message.getKey())
-//                                        .setPositiveButton(R.string.but_ok, new DialogInterface.OnClickListener() {
-//                                            public void onClick(DialogInterface dialog, int id) {
-//                                                //do nothing
-//                                            }
-//                                        });
-//                                builder.show();
-//                                appContext.playSound(2);
-//                                btnScan.setEnabled(true);
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        };
     }
 
     @Override
@@ -444,27 +415,17 @@ public class ActReplenSelectBin extends BaseScanActivity {
         protected HttpResponseHelper doInBackground(com.proper.messagequeue.Message... msg) {
             HttpResponseHelper response = null;
             try {
-                //String response = resolver.resolveMessageQuery(thisMessage);
                 response = resolver.resolveHttpMessage(thisMessage);
                 response.setResponse(responseHelper.refineResponse(response.getResponse().toString()));
                 if (!response.isSuccess()) {
                     String ymsg = "Network Error has occurred that resulted in package loss. Please check Wi-Fi";
                     Log.e("ERROR !!!", ymsg);
                     response.setResponseMessage(ymsg);
-//                    //throw new RuntimeException("Network Error has occurred that resulted in package loss. Please check Wi-Fi");
-//                    Message message = new Message();
-//                    message.what = 1;
-//                    message.obj = new AbstractMap.SimpleEntry<String, HttpResponseHelper>(ymsg, response);
-//                    taskErrorHandler.sendMessage(message);
                 }
                 if (response.getResponse().toString().contains("not recognised")) {
                     //manually error trap this error
                     String iMsg = "The Response object returns null due to improper request.";
                     response.setResponseMessage(iMsg);
-//                    Message message1 = new Message();
-//                    message1.what = 1;
-//                    message1.obj = new AbstractMap.SimpleEntry<String, HttpResponseHelper>(iMsg, response);
-//                    taskErrorHandler.sendMessage(message1);
                 }else {
                     BinResponse ret = new BinResponse();
                     ObjectMapper mapper = new ObjectMapper();
@@ -474,13 +435,6 @@ public class ActReplenSelectBin extends BaseScanActivity {
             } catch (Exception ex) {
                 ex.printStackTrace();
                 response.setExceptionClass(ex.getClass());
-//                Message message = new Message();
-//                message.what = 1;
-//                message.obj = new AbstractMap.SimpleEntry<String, HttpResponseHelper>(ex.getMessage(), response);
-//                taskErrorHandler.sendMessage(message);
-//                today = new java.sql.Timestamp(utilDate.getTime());
-//                LogEntry log = new LogEntry(1L, ApplicationID, "ActReplenSelectBin - doInBackground", deviceIMEI, ex.getClass().getSimpleName(), ex.getMessage(), today);
-//                logger.log(log);
             }
             return response;
         }

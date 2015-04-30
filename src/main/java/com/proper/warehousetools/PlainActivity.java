@@ -54,6 +54,14 @@ public class PlainActivity extends ActionBarActivity {
         deviceIMEI = deviceUtils.getIMEI();
         currentUser = authenticator.getCurrentUser();
         testResolver = new MockClass();
+
+        if (screenSize == Configuration.SCREENLAYOUT_SIZE_SMALL) {
+            getSupportActionBar().hide();
+        }else{
+            getSupportActionBar().setLogo(R.drawable.ic_launcher);
+            getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.woodendrape_blue));
+            //getSupportActionBar().setTitle(String.format("ver %s", appContext.getPackageInfo().versionName));
+        }
     }
 
     @Override
@@ -75,10 +83,8 @@ public class PlainActivity extends ActionBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_logout:
-                Intent i = new Intent(this, ActMain.class);
-                i.putExtra("RESULT_EXTRA", 666);
-                //i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                //setResult(666, i);
+                Intent i = new Intent(this, ActLogin.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
                 break;
             default:

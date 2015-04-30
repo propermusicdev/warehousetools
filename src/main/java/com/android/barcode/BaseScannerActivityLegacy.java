@@ -4,10 +4,10 @@ package com.android.barcode;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.ShareActionProvider;
 import android.util.Log;
@@ -21,7 +21,7 @@ import com.proper.messagequeue.HttpMessageResolver;
 import com.proper.security.UserAuthenticator;
 import com.proper.security.UserLoginResponse;
 import com.proper.utils.DeviceUtils;
-import com.proper.warehousetools.ActMain;
+import com.proper.warehousetools.ActLogin;
 import com.proper.warehousetools.AppContext;
 import com.proper.warehousetools.R;
 
@@ -34,6 +34,7 @@ import java.util.TimerTask;
  */
 public class BaseScannerActivityLegacy extends ActionBarActivity {
     protected AppContext appContext;
+    protected int screenSize;
     public static final int KEY_SCAN = 111;
     public static final int KEY_F1 = 112;
     public static final int KEY_F2 = 113;
@@ -77,6 +78,8 @@ public class BaseScannerActivityLegacy extends ActionBarActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         appContext = (AppContext) getApplication();
+        screenSize = getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK;
         responseHelper = new ResponseHelper();
         currentUser = new UserLoginResponse();
         resolver = new HttpMessageResolver(appContext);
@@ -87,6 +90,14 @@ public class BaseScannerActivityLegacy extends ActionBarActivity {
         deviceIMEI = utils.getIMEI();
         currentUser = currentUser != null ? currentUser : authenticator.getCurrentUser();
         //setContentView(R.layout.lyt_baselegacy);
+
+        if (screenSize == Configuration.SCREENLAYOUT_SIZE_SMALL) {
+            getSupportActionBar().hide();
+        }else{
+            getSupportActionBar().setLogo(R.drawable.ic_launcher);
+            getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.woodendrape_blue));
+            //getSupportActionBar().setTitle(String.format("ver %s", appContext.getPackageInfo().versionName));
+        }
 
         try {
             DevCtrl = new DeviceControl("/proc/driver/scan");
@@ -194,11 +205,9 @@ public class BaseScannerActivityLegacy extends ActionBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_logout:
-                Intent i = new Intent(this, ActMain.class);
-                i.putExtra("RESULT_EXTRA", 666);
+                Intent i = new Intent(this, ActLogin.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                setResult(666, i);
-                finish();
+                startActivity(i);
                 break;
             default:
                 break;

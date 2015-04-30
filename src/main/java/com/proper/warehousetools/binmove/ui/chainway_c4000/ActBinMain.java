@@ -77,8 +77,8 @@ public class ActBinMain extends BaseScanActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lyt_binmove_binmain);
-        getSupportActionBar().setLogo(R.drawable.ic_launcher);
-        getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.flat_button_palebrown));
+//        getSupportActionBar().setLogo(R.drawable.ic_launcher);
+//        getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.flat_button_palebrown));
         getSupportActionBar().setTitle("Move Bin            ");
 
         Intent bundle = getIntent();

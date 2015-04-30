@@ -23,10 +23,7 @@ import com.proper.messagequeue.HttpMessageResolver;
 import com.proper.security.UserAuthenticator;
 import com.proper.security.UserLoginResponse;
 import com.proper.utils.DeviceUtils;
-import com.proper.warehousetools.ActMain;
-import com.proper.warehousetools.AppContext;
-import com.proper.warehousetools.R;
-import com.proper.warehousetools.MockClass;
+import com.proper.warehousetools.*;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -98,6 +95,14 @@ public class BaseScannerActivity extends ActionBarActivity {
         currentUser = authenticator.getCurrentUser();
         testResolver = new MockClass();
 
+        if (screenSize == Configuration.SCREENLAYOUT_SIZE_SMALL) {
+            getSupportActionBar().hide();
+        }else{
+            getSupportActionBar().setLogo(R.drawable.ic_launcher);
+            getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.woodendrape_blue));
+            //getSupportActionBar().setTitle(String.format("ver %s", appContext.getPackageInfo().versionName));
+        }
+
         try {
             mInstance = Barcode1D.getInstance();
             isBarcodeOpened = mInstance.open();
@@ -135,11 +140,9 @@ public class BaseScannerActivity extends ActionBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_logout:
-                Intent i = new Intent(this, ActMain.class);
-                i.putExtra("RESULT_EXTRA", 666);
+                Intent i = new Intent(this, ActLogin.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                setResult(666, i);
-                finish();
+                startActivity(i);
                 break;
             default:
                 break;

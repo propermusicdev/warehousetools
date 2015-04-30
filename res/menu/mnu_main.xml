@@ -28,9 +28,9 @@
             android:title="Logout"
             android:icon="@drawable/appbar_reply_people"
             warehouseTools:showAsAction="always|withText"/>
-    <item
-            android:id="@+id/menu_settings"
-            android:title="Settings"
-            android:icon="@drawable/appbaradd"
-            warehouseTools:showAsAction="ifRoom|withText"/>
+    <!--<item-->
+            <!--android:id="@+id/menu_settings"-->
+            <!--android:title="Settings"-->
+            <!--android:icon="@drawable/appbaradd"-->
+            <!--warehouseTools:showAsAction="ifRoom|withText"/>-->
 </menu>
