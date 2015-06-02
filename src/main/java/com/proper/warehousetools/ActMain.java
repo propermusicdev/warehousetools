@@ -217,6 +217,7 @@ public class ActMain extends ActionBarActivity {
                                 startActivityForResult(i, RESULT_FIRST_USER);
                                 break;
                             case Configuration.SCREENLAYOUT_SIZE_LARGE:
+                                /** TODO - GoodsIn part 2 - here we're continuing the goods in app in normal scanners **/
                                 toastMsg = "Large screen";
                                 String mMsgx = "Device Incompatible\nPlease try the tablet instead";
                                 AlertDialog.Builder builderx = new AlertDialog.Builder(ActMain.this);

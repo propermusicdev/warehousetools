@@ -9,11 +9,13 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Vibrator;
 import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
@@ -27,6 +29,7 @@ import com.proper.data.replen.ReplenMoveListLinesItemResponse;
 import com.proper.data.replen.ReplenMoveListLinesResponse;
 import com.proper.messagequeue.Message;
 import com.proper.utils.StringUtils;
+import com.proper.warehousetools.BaseScanActivity;
 import com.proper.warehousetools.R;
 import com.proper.warehousetools.replen.BaseReplenPlainFragmentActivity;
 import com.proper.warehousetools.replen.fragments.UpdateLineFragment;
@@ -45,7 +48,7 @@ import java.util.regex.Pattern;
 /**
  * Created by Lebel on 12/01/2015.
  */
-public class ActReplenUpdateLine extends BaseReplenPlainFragmentActivity {
+public class ActReplenUpdateLine extends BaseScanActivity {
     private String TAG = ActReplenUpdateLine.class.getSimpleName();
     private TextView txtArtist, txtTitle, txtInsertTimeStamp, txtCatalog, txtEAN, txtQty, txtComplete;
     private EditText txtQtyConfirmed, txtSrcBin, txtDstBin;
@@ -66,6 +69,15 @@ public class ActReplenUpdateLine extends BaseReplenPlainFragmentActivity {
     private List<ReplenLinesItemResponseSelection> splitMoveLineSelectionList = null;
     private String moveLinesRepsponseString = "";
     private ReplenMoveListLinesResponse currentListLines = null;
+    private boolean alreadyFired = false, onScanning = false;
+
+    public String getScanInput() {
+        return scanInput;
+    }
+
+    public void setScanInput(String scanInput) {
+        this.scanInput = scanInput;
+    }
 
     public int getConfirmedQty() {
         return confirmedQty;
@@ -165,7 +177,7 @@ public class ActReplenUpdateLine extends BaseReplenPlainFragmentActivity {
         txtQtyConfirmed.addTextChangedListener(new TextChanged(txtQtyConfirmed));
         txtSrcBin = (EditText) this.findViewById(R.id.txtvReplenULSrcBin);
         txtSrcBin.addTextChangedListener(new TextChanged(txtSrcBin));
-        txtDstBin = (EditText) this.findViewById(R.id.txtvReplenULDstBin);
+        txtDstBin = (EditText) this.findViewById(R.id.etxtvReplenULDstBin);
         txtDstBin.addTextChangedListener(new TextChanged(txtDstBin));
         txtComplete = (TextView) this.findViewById(R.id.txtvReplenULComplete);
         chkComplete = (CheckBox) this.findViewById(R.id.chkReplenULComplete);
@@ -229,15 +241,81 @@ public class ActReplenUpdateLine extends BaseReplenPlainFragmentActivity {
             txtSrcBin.setText(moveline.getSrcBinCode());
             txtDstBin.setText(moveline.getDstBinCode());
 
-            //Record original values for future comparision
+            //Record original values for future comparison
             originalDstBin = moveline.getDstBinCode();
             originalSrcBin = moveline.getSrcBinCode();
             chkComplete.setChecked(moveline.isCompleted());
         }
-        
-        //disableAll();
-        //enableEditButtons();
+
+        handler = new Handler() {
+            @Override
+            public void handleMessage(android.os.Message msg) {
+                super.handleMessage(msg);
+                if(msg.what == 1){
+                    setScanInput(msg.obj.toString());   //>>>>>>>>>>>>>>>   set scanned object  <<<<<<<<<<<<<<<<
+                    if (!getScanInput().isEmpty()) {
+                        alreadyFired = true;
+                        txtDstBin.setText(getScanInput());
+                        appContext.playSound(1);
+                    }
+                    else{
+                        txtDstBin.setText("");
+                        appContext.playSound(2);
+                        alreadyFired = false;
+                    }
+                    /** btnScan.setEnabled(true); **/
+                } else{
+                    alreadyFired = false;
+                }
+            }
+        };
         hideEditButtons();
+    }
+
+    @Override
+    protected void onPause() {
+        threadStop = true;
+        Log.d(TAG, "onPause");
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        Log.d(TAG, "onResume");
+        super.onResume();
+    }
+
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy");
+        if (isBarcodeOpened) {
+            mInstance.close();
+        }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KEY_SCAN) {
+            if (event.getRepeatCount() == 0) {
+                if (!alreadyFired) {
+                    alreadyFired = true;
+                    onScanning = true;
+                    boolean bContinuous = false;
+                    int iBetween = 0;
+                    txtDstBin.requestFocus();
+                    if (threadStop) {
+                        Log.i("Reading", "My Barcode " + readerStatus);
+                        readThread = new Thread(new GetBarcode(bContinuous, iBetween));
+                        readThread.setName("Single Barcode ReadThread");
+                        readThread.start();
+                    }else {
+                        threadStop = true;
+                    }
+                }
+            }
+        }
+
+        return super.onKeyDown(keyCode, event);
     }
 
     private void chkComplete_Clicked(View v) {
@@ -538,9 +616,6 @@ public class ActReplenUpdateLine extends BaseReplenPlainFragmentActivity {
 
     private void showDialog(int severity, int dialogType, String message, String title) {
         FragmentManager fm = getSupportFragmentManager();
-
-        //DialogHelper dialog = new DialogHelper(severity, dialogType, message, title);
-        //DialogHelper dialog = new DialogHelper();
         ReplenDialogHelper dialog = new ReplenDialogHelper();
         Bundle args = new Bundle();
         args.putInt("DialogType_ARG", dialogType);
@@ -552,44 +627,56 @@ public class ActReplenUpdateLine extends BaseReplenPlainFragmentActivity {
         dialog.show(fm, "Dialog");
     }
 
-//    @Override
-//    public void onDialogMessage_IReplenUpdateLineCommunicator(int buttonClicked) {
-//        switch (buttonClicked) {
-//            case R.integer.MSG_CANCEL:
-//                break;
-//            case R.integer.MSG_YES:
-//                break;
-//            case R.integer.MSG_OK:
-//                List<ReplenMoveListLinesItemResponse> list = new ArrayList<ReplenMoveListLinesItemResponse>();
-//                if (getSplitMoveLineSelection() != null && getSplitMoveLineSelection().getProductId() > 0) {
-//                    //movelineList = new ArrayList<ReplenLinesItemResponseSelection>();
-//                    int foundCount = 0;
-//                    if (splitMoveLineSelectionList != null && !splitMoveLineSelectionList.isEmpty()) {
-//                        for (ReplenLinesItemResponseSelection sel : splitMoveLineSelectionList) {
-//                            if (sel.getProductId() ==  getSplitMoveLineSelection().getProductId()) {
-//                                foundCount ++;
-//                            }
-//                        }
-//                        if (foundCount == 0) {
-//                            splitMoveLineSelectionList.add(getSplitMoveLineSelection());
-//                            splitThisLine(); //TODO - check this
-//                        }
-//                    } else {
-//                        splitMoveLineSelectionList.add(getSplitMoveLineSelection());
-//                        splitThisLine();
-//                    }
-//                }
-////                for (ReplenLinesItemResponseSelection sel : splitMoveLineSelectionList) {
-////                    list.add(sel.toReplenMoveListLinesItemResponse());
-////                }
-////                //adapter = new ReplenAddMoveLineAdapter(zzSplitLineFragment.this.getActivity(), list);
-////                splitLineAdapter = new ReplenAddMoveLineAdapter(this, list);
-//                setCurrentQty(getSplitMoveLineSelection().getQty());
-//                break;
-//            case R.integer.MSG_NO:
-//                break;
-//        }
-//    }
+    private class GetBarcode implements Runnable {
+
+        private boolean isContinuous = false;
+        String barCode = "";
+        private long sleepTime = 1000;
+        android.os.Message msg = null;
+
+        public GetBarcode(boolean isContinuous) {
+            this.isContinuous = isContinuous;
+        }
+
+        public GetBarcode(boolean isContinuous, int sleep) {
+            this.isContinuous = isContinuous;
+            this.sleepTime = sleep;
+        }
+
+        @Override
+        public void run() {
+
+            do {
+                isBarcodeOpened = mInstance.open();
+                barCode = mInstance.scan();
+
+                Log.i("MY", "barCode " + barCode.trim());
+
+                msg = new android.os.Message();
+
+                if (barCode == null || barCode.isEmpty()) {
+                    msg.what = 0;
+                    msg.obj = "";
+                } else {
+                    msg.what = 1;
+                    msg.obj = barCode;
+                }
+
+                handler.sendMessage(msg);
+
+                if (isContinuous) {
+                    try {
+                        Thread.sleep(sleepTime);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            } while (isContinuous && !threadStop);
+
+        }
+
+    }
 
     private class TextChanged implements TextWatcher {
         private View view = null;
@@ -611,97 +698,74 @@ public class ActReplenUpdateLine extends BaseReplenPlainFragmentActivity {
         @Override
         public void afterTextChanged(Editable s) {
             String val = s.toString().trim();
-            switch (view.getId()) {
-                case R.id.txtvReplenULQtyConfirmed:
-                    //do it for quantity
-                    if (!val.isEmpty() && StringUtils.isNumeric(val)) {
-                        int value = Integer.parseInt(s.toString());
-                        if (value > 0) {
+            if (!onScanning) {
+                switch (view.getId()) {
+                    case R.id.txtvReplenULQtyConfirmed:
+                        //do it for quantity
+                        if (!val.isEmpty() && StringUtils.isNumeric(val)) {
+                            int value = Integer.parseInt(s.toString());
+                            if (value > 0) {
 //                            if (value <= moveline.getQty()) {
                                 onEditMode = true;
                                 setConfirmedQty(value);     //set value
-////                                if (txtQtyConfirmed.isEnabled()) {
-////                                    txtQtyConfirmed.setEnabled(false);
-//                                }
-//                            }
-//                            else {
-//                                //Alert that input cannot be larger than rowTotal, default value, updateControls, disable editText, manageInput to default
-//                                String mMsg = "Move Quantity cannot be larger than the total found in bin";
-//                                AlertDialog.Builder builder = new AlertDialog.Builder(ActReplenUpdateLine.this);
-//                                builder.setMessage(mMsg)
-//                                        .setPositiveButton(R.string.but_ok, new DialogInterface.OnClickListener() {
-//                                            public void onClick(DialogInterface dialog, int id) {
-//                                                moveline.restoreDefaultQtyValue(); //default value
-//                                                updateQtyControls();
-////                                                if (txtQtyConfirmed.isEnabled()) {
-////                                                    txtQtyConfirmed.setEnabled(false);
-////                                                }
-//                                                inputByHand = 0;
-//                                                //TODO - change text button text on EditQty
-//                                            }
-//                                        });
-//                                builder.show();
-//                            }
-                        }else {
-                            //Warn that qunatity need to be larger than 1
-                            String mMsg = "Move Quantity cannot be less than 1";
-                            AlertDialog.Builder builder = new AlertDialog.Builder(ActReplenUpdateLine.this);
-                            builder.setMessage(mMsg)
-                                    .setPositiveButton(R.string.but_ok, new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int id) {
-                                            moveline.restoreDefaultQtyValue(); //default value
-                                            updateQtyControls();
-//                                                if (txtQtyConfirmed.isEnabled()) {
-//                                                    txtQtyConfirmed.setEnabled(false);
-//                                                }
-                                            inputByHand = 0;
-                                            //TODO - change text button text on EditQty
-                                        }
-                                    });
-                            builder.show();
-                        }
-                    }
-                    break;
-                default:
-                    //do others (scr, dst etc..)
-                    if (!s.toString().isEmpty()) {
-                        Pattern p = Pattern.compile("[^a-zA-Z0-9]");
-                        String value = s.toString().trim();
-                        boolean hasSpecialChar = p.matcher(s).find();
-                        if (value.length() == 5) {
-                            if (hasSpecialChar == false) {
-                                if (view == txtSrcBin) {
-                                    if (!value.equalsIgnoreCase(moveline.getSrcBinCode())) {
-                                        onEditMode = true;
-                                        moveline.setSrcBinCode(value.toUpperCase());
-                                        setSrcBin(value.toUpperCase());     //set value
-                                        if (txtQtyConfirmed.isEnabled()) {
-                                            txtQtyConfirmed.setEnabled(false);
-                                        }
-                                    }
-                                }
-                                if (view == txtDstBin) {
-                                    if (!value.equalsIgnoreCase(moveline.getDstBinCode())) {
-                                        onEditMode = true;
-                                        moveline.setSrcBinCode(value.toUpperCase());
-                                        setDstBin(value.toUpperCase());     //set value
-                                        if (txtQtyConfirmed.isEnabled()) {
-                                            txtQtyConfirmed.setEnabled(false);
-                                        }
-                                    }
-                                }
-                                //disableAll();
-                                enableEditButtons();
                             } else {
-                                String msg = "Please enter the right BinCode";
-                                showDialog(R.integer.MSG_SEVERITY_FAILURE, R.integer.MSG_TYPE_NOTIFICATION, msg, "Invalid BinCode");
+                                //Warn that qunatity need to be larger than 1
+                                String mMsg = "Move Quantity cannot be less than 1";
+                                AlertDialog.Builder builder = new AlertDialog.Builder(ActReplenUpdateLine.this);
+                                builder.setMessage(mMsg)
+                                        .setPositiveButton(R.string.but_ok, new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                moveline.restoreDefaultQtyValue(); //default value
+                                                updateQtyControls();
+                                                inputByHand = 0;
+                                                //TODO - change text button text on EditQty
+                                            }
+                                        });
+                                builder.show();
                             }
                         }
-                    }
-                    break;
+                        break;
+                    default:
+                        //do others (scr, dst etc..)
+                        if (!s.toString().isEmpty()) {
+                            Pattern p = Pattern.compile("[^a-zA-Z0-9]");
+                            String value = s.toString().trim();
+                            boolean hasSpecialChar = p.matcher(s).find();
+                            if (value.length() == 5) {
+                                if (hasSpecialChar == false) {
+                                    if (view == txtSrcBin) {
+                                        if (!value.equalsIgnoreCase(moveline.getSrcBinCode())) {
+                                            onEditMode = true;
+                                            moveline.setSrcBinCode(value.toUpperCase());
+                                            setSrcBin(value.toUpperCase());     //set value
+                                            if (txtQtyConfirmed.isEnabled()) {
+                                                txtQtyConfirmed.setEnabled(false);
+                                            }
+                                        }
+                                    }
+                                    if (view == txtDstBin) {
+                                        if (!value.equalsIgnoreCase(moveline.getDstBinCode())) {
+                                            onEditMode = true;
+                                            moveline.setSrcBinCode(value.toUpperCase());
+                                            setDstBin(value.toUpperCase());     //set value
+                                            if (txtQtyConfirmed.isEnabled()) {
+                                                txtQtyConfirmed.setEnabled(false);
+                                            }
+                                        }
+                                    }
+                                    //disableAll();
+                                    enableEditButtons();
+                                } else {
+                                    String msg = "Please enter the right BinCode";
+                                    showDialog(R.integer.MSG_SEVERITY_FAILURE, R.integer.MSG_TYPE_NOTIFICATION, msg, "Invalid BinCode");
+                                }
+                            }
+                        }
+                        break;
+                }
+            } else{
+                /** Do something with textDst **/
             }
-//            disableAll();
-//            enableEditButtons();
         }
     }
 
@@ -886,31 +950,6 @@ public class ActReplenUpdateLine extends BaseReplenPlainFragmentActivity {
             //enableEditButtons();
         }
     }
-
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        if (!getUserVisibleHint())
-//        {
-//            return;
-//        } else {
-//            if (loopCount > 0) {
-//                loadData();
-//                if (updateLineAsyncTask != null) {
-//                    buildMessage();
-//                    //updateLineAsyncTask.execute(iMessage);
-//                } else {
-//                    buildMessage();
-//                    updateLineAsyncTask = new UpdateLineAsync();
-//                    //updateLineAsyncTask.execute(iMessage);
-//                }
-//            } else {
-//                if (loadedCount > 0) {
-//                    loadData();
-//                }
-//            }
-//        }
-//    }
 
     private class UpdateLineAsync extends AsyncTask<Message, Void, HttpResponseHelper> {
         private ProgressDialog mDialog;

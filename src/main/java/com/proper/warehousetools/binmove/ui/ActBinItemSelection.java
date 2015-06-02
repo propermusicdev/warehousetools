@@ -162,7 +162,8 @@ public class ActBinItemSelection extends BaseScanActivity implements ICommunicat
             });
 
             //Change title to show sourceBin & Destination bin - Req. by Scott: << Task: #737 >>
-            this.setTitle(String.format("Move - From: %s To: %s", sourceBin, destinationBin));   //Req.#737
+            //this.setTitle(String.format("Move - From: %s To: %s", sourceBin, destinationBin));   //Req.#737
+            this.setTitle(String.format("From: %s To: %s", sourceBin, destinationBin));   //Req.#737
             adapter = new BinResponseSelectionAdapter(ActBinItemSelection.this, moveList);
             lvProducts.setAdapter(adapter);
             lvProducts.setChoiceMode(ListView.CHOICE_MODE_SINGLE);

@@ -227,12 +227,11 @@ public class ActLogin extends Activity {
             loginTask.cancel(true);
             loginTask = null;
         }
-        if (loginAttempt == 0) {
+        if (loginAttempt == 0 || currentUserToken == null) {
             currentUserToken = "";
         }
-        if (currentUserToken == null) currentUserToken = "";
+        //if (currentUserToken == null) currentUserToken = "";
         if (currentUserToken.isEmpty() && !initials.isEmpty() && !pin.isEmpty()) {
-            //if (!initials.isEmpty() && !pin.isEmpty()) {
             hideSoftKeyboard(ActLogin.this);  //Hide the default software Keyboard
             loginTask = new UserLoginTask();
             loginTask.execute(initials, pin);
@@ -491,6 +490,7 @@ public class ActLogin extends Activity {
             loginAttempt = 0;
             loginTask = null;
             if (lDialog != null && lDialog.isShowing()) lDialog.dismiss();
+            logOut();
             //refreshActivity();
             //show the activity with user not authenticated - default
         }

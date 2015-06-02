@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.proper.warehousetools"
-          android:versionCode="1093"
-          android:versionName="20150430.124812">
+          android:versionCode="1126"
+          android:versionName="20150602.110840">
     <uses-sdk android:minSdkVersion="9" android:targetSdkVersion="21"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -80,7 +80,7 @@
         <!--android:uiOptions="splitActionBarWhenNarrow"-->
         <activity android:name=".replen.ui.chainway_C4000.ActReplenSplitLine"/>
         <activity android:name=".replen.BaseReplenPlainFragmentActivity"/>
-        <activity android:name=".replen.ui.chainway_C4000.ActReplenUpdateLine"/>
+        <activity android:name=".replen.ui.chainway_C4000.ActReplenUpdateLine" android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".replen.ui.chainway_C4000.ActReplenNewLine"/>
         <activity android:name=".stocktake.ui.chainway_C4000.ActStockTakeBinCheck" android:label="Check Bin"/>
         <activity android:name=".stocktake.ui.chainway_C4000.ActStockTakeWorkLines" android:label="Stock Take Lines"

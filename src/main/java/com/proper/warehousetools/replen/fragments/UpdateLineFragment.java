@@ -130,7 +130,7 @@ public class UpdateLineFragment extends DialogFragment {
         txtQtyConfirmed.addTextChangedListener(new TextChanged(txtQtyConfirmed));
         txtSrcBin = (EditText) view.findViewById(R.id.txtvReplenULSrcBin);
         txtSrcBin.addTextChangedListener(new TextChanged(txtSrcBin));
-        txtDstBin = (EditText) view.findViewById(R.id.txtvReplenULDstBin);
+        txtDstBin = (EditText) view.findViewById(R.id.etxtvReplenULDstBin);
         txtDstBin.addTextChangedListener(new TextChanged(txtDstBin));
         btnEditQty = (Button) view.findViewById(R.id.bnReplenULEditQtyConfirmed);
         btnEditQty.setOnClickListener(new View.OnClickListener() {

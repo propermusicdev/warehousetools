@@ -15,6 +15,7 @@ import org.robolectric.annotation.Config;
 import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -29,6 +30,11 @@ public class ActLoginTest {
     @Before
     public void setUp() {
         activity = Robolectric.buildActivity(ActLogin.class).create().start().resume().visible().get();
+    }
+
+    @Test
+    public void checkActivityNotNull() throws Exception {
+        assertNotNull(activity);
     }
 
     @Test

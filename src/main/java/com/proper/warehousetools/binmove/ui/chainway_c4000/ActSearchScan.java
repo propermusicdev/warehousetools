@@ -113,11 +113,9 @@ public class ActSearchScan extends BaseFragmentActivity {
                             /** Bin code **/
                             NAV_INSTRUCTION = R.integer.ACTION_BINQUERY;
                             if (!getScanInput().isEmpty()) {
-                                //txtEAN.setText("");     //to counter a weird bug in editText control
                                 txtEAN.setText(getScanInput());
                                 appContext.playSound(1);
                             } else {
-                                //txtEAN.setText(getScanInput());
                                 txtEAN.setText("");
                                 appContext.playSound(2);
                             }
@@ -125,11 +123,9 @@ public class ActSearchScan extends BaseFragmentActivity {
                             /** Barcode **/
                             NAV_INSTRUCTION = R.integer.ACTION_BARCODEQUERY;
                             if (!getScanInput().isEmpty()) {
-                                //txtEAN.setText("");     //to counter a weird bug in editText control
                                 txtEAN.setText(getScanInput());
                                 appContext.playSound(1);
                             } else {
-                                //txtEAN.setText(getScanInput());
                                 txtEAN.setText("");
                                 appContext.playSound(2);
                             }
@@ -160,7 +156,7 @@ public class ActSearchScan extends BaseFragmentActivity {
     private void updateControlsAfterScan() {
         switch (NAV_INSTRUCTION) {
             case R.integer.ACTION_BINQUERY:
-                //  load QueryView with BinQuery properties
+                /**  load QueryView with BinQuery properties**/
                 if (binResponse != null && !binResponse.getProducts().isEmpty()) {
                     binAdapter = new ProductBinAdapterOptimized(ActSearchScan.this, binResponse.getProducts(), deviceIMEI);
                     if (lytHeader.getVisibility() != View.GONE) lytHeader.setVisibility(View.GONE);
@@ -178,12 +174,12 @@ public class ActSearchScan extends BaseFragmentActivity {
                     lvResult.setAdapter(binAdapter);
                     flipper.setDisplayedChild(1);
                 } else{
-                    //Empty data template
+                    /**Empty data template**/
                     flipper.setDisplayedChild(0);
                 }
                 break;
             case R.integer.ACTION_BARCODEQUERY:
-                //  load QueryView with BarcodeQuery properties
+                /** load QueryView with BarcodeQuery properties**/
                 if (barcodeResponse != null && !barcodeResponse.getProducts().isEmpty()) {
 
                     barcodeAdapter = new BarcodeResponseAdapter(this, barcodeResponse);
@@ -219,56 +215,8 @@ public class ActSearchScan extends BaseFragmentActivity {
                         }
                     });
                     flipper.setDisplayedChild(1);
-                    //lvxResult.expandGroup(0);    // Expand the first item
-//                    int count = barcodeResponse.getProducts().size();
-//                    if (barcodeResponse.getProducts().get(0).getBins().isEmpty()) {
-//                        lvxResult.expandGroup(0);
-//                    } else {
-//                        if (barcodeResponse.getProducts().size() > 1) lvxResult.expandGroup(1);
-//                    }
-//                    switch (count) {
-//                        case 1:
-//                            lvxResult.expandGroup(0);
-//                            break;
-//                        case 2:
-//                            if (!barcodeResponse.getProducts().get(0).getBins().isEmpty()) {
-//                                lvxResult.expandGroup(0);
-//                            } else {
-//                                lvxResult.expandGroup(1);
-//                            }
-//                            break;
-//                        case 3:
-//                            if (!barcodeResponse.getProducts().get(0).getBins().isEmpty()) {
-//                                lvxResult.expandGroup(0);
-//                            } else {
-//                                if (!barcodeResponse.getProducts().get(1).getBins().isEmpty()) {
-//                                    lvxResult.expandGroup(1);
-//                                } else {
-//                                    lvxResult.expandGroup(2);
-//                                }
-//                            }
-//                            break;
-//                        default:
-//                            if (!barcodeResponse.getProducts().get(0).getBins().isEmpty()) {
-//                                lvxResult.expandGroup(0);
-//                            } else {
-//                                if (!barcodeResponse.getProducts().get(1).getBins().isEmpty()) {
-//                                    lvxResult.expandGroup(1);
-//                                } else {
-//                                    if (!barcodeResponse.getProducts().get(2).getBins().isEmpty()) {
-//                                        lvxResult.expandGroup(2);
-//                                    } else {
-//                                        lvxResult.expandGroup(3);
-//                                    }
-//                                }
-//                            }
-//                            break;
-//                    }
-                    //////////////////////////////////////////////////////////////////////
                     int doneCount = 0;
                     for (int i = 0; i < barcodeResponse.getProducts().size(); i++) {
-                        //for (ProductResponse resp : barcodeResponse.getProducts()) {
-                        //if (resp.getBins().size() > 0) {
                         if (!barcodeResponse.getProducts().get(i).getBins().isEmpty() &&
                                 barcodeResponse.getProducts().get(i).getBins().size() > 0) {
                             doneCount ++;
@@ -277,10 +225,8 @@ public class ActSearchScan extends BaseFragmentActivity {
                             }
                         }
                     }
-                    //////////////////////////////////////////////////////////////////////
-
                 } else{
-                    //Empty data template
+                    /**Empty data template**/
                     flipper.setDisplayedChild(0);
                 }
                 break;
@@ -307,7 +253,7 @@ public class ActSearchScan extends BaseFragmentActivity {
                     setScanInput(txtEAN.getText().toString());
                     if (!getScanInput().isEmpty()) {
                         fullTurnCount ++;
-                        txtEAN.setText(getScanInput());     // just to trigger text changed
+                        txtEAN.setText(getScanInput());     /** just to trigger text changed**/
                     }
                 }
                 break;
@@ -322,7 +268,7 @@ public class ActSearchScan extends BaseFragmentActivity {
                     setScanInput(txtEAN.getText().toString());
                     if (!getScanInput().isEmpty()) {
                         fullTurnCount ++;
-                        txtEAN.setText(getScanInput());     // just to trigger text changed
+                        txtEAN.setText(getScanInput());     /** just to trigger text changed**/
                     }
                 }
                 break;
@@ -330,7 +276,7 @@ public class ActSearchScan extends BaseFragmentActivity {
     }
 
     private void turnOnInputByHand(){
-        this.inputByHand = 1;    //Turn On Input by Hand
+        this.inputByHand = 1;    /**Turn On Input by Hand**/
         //this.btnGo.setEnabled(false);
     }
 

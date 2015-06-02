@@ -481,8 +481,6 @@ public class ActBinMain extends BaseScanActivity {
                                     //Source & destination are the same echo error
                                     String mMsg = "Destination BinCode must not be the same as Source BinCode \nPlease scan again";
                                     appContext.playSound(2);
-                                    //soundPool.play(errorSoundId, 1, 1, 0, 0, 1);
-                                    //soundPool.play(errorSoundId, Float.valueOf("0.1"), Float.valueOf("0.1"), 0, 0, 1);
                                     AlertDialog.Builder builder = new AlertDialog.Builder(ActBinMain.this);
                                     builder.setMessage(mMsg)
                                             .setCancelable(false)
@@ -517,17 +515,16 @@ public class ActBinMain extends BaseScanActivity {
                                     thisMessage.setOutgoingMessage("");
                                     thisMessage.setInsertedTimeStamp(today);
                                     thisMessage.setTTL(100);    //default value
-                                    binQryTask = new queryTask();
-                                    binQryTask.execute(thisMessage);  //executes both -> Send Queue Directly AND Send queue to Service
+                                    //binQryTask = new queryTask();
+                                    //binQryTask.execute(thisMessage);  //executes both -> Send Queue Directly AND Send queue to Service
+                                    sourceBinQueryTask = new performBinQueryAsync();
+                                    sourceBinQueryTask.execute(thisMessage);
 
                                     NAV_TURN = R.integer.TURN_DESTINATION; //new
                                     formatControls();
                                 } else {
-                                    //soundPool.play(errorSoundId, 1, 1, 0, 0, 1);
-                                    //soundPool.play(errorSoundId, Float.valueOf("0.1"), Float.valueOf("0.1"), 0, 0, 1);
                                     appContext.playSound(2);
                                     Vibrator vib = (Vibrator) ActBinMain.this.getSystemService(Context.VIBRATOR_SERVICE);
-                                    // Vibrate for 500 milliseconds
                                     vib.vibrate(2000);
                                     String mMsg = "User not Authenticated \nPlease login";
                                     AlertDialog.Builder builder = new AlertDialog.Builder(ActBinMain.this);
@@ -548,8 +545,6 @@ public class ActBinMain extends BaseScanActivity {
                         switch (NAV_TURN) {
                             case R.integer.TURN_SOURCE:
                                 appContext.playSound(2);
-                                //soundPool.play(errorSoundId, 1, 1, 0, 0, 1);
-                                //soundPool.play(errorSoundId, Float.valueOf("0.1"), Float.valueOf("0.1"), 0, 0, 1);
                                 AlertDialog.Builder builder = new AlertDialog.Builder(ActBinMain.this);
                                 builder.setMessage(mMsg)
                                         .setPositiveButton(R.string.but_ok, new DialogInterface.OnClickListener() {
@@ -563,8 +558,6 @@ public class ActBinMain extends BaseScanActivity {
                                 break;
                             case R.integer.TURN_DESTINATION:
                                 appContext.playSound(2);
-                                //soundPool.play(errorSoundId, 1, 1, 0, 0, 1);
-                                //soundPool.play(errorSoundId, Float.valueOf("0.1"), Float.valueOf("0.1"), 0, 0, 1);
                                 AlertDialog.Builder builder1 = new AlertDialog.Builder(ActBinMain.this);
                                 builder1.setMessage(mMsg)
                                         .setPositiveButton(R.string.but_ok, new DialogInterface.OnClickListener() {
@@ -586,8 +579,6 @@ public class ActBinMain extends BaseScanActivity {
                                 } else {
                                     mMsg = "The End of the road my friend!";
                                     appContext.playSound(1);
-                                    //soundPool.play(errorSoundId, 1, 1, 0, 0, 1);
-                                    //soundPool.play(errorSoundId, Float.valueOf("0.1"), Float.valueOf("0.1"), 0, 0, 1);
                                     AlertDialog.Builder builder2 = new AlertDialog.Builder(ActBinMain.this);
                                     builder2.setMessage(mMsg)
                                             .setPositiveButton(R.string.but_ok, new DialogInterface.OnClickListener() {
@@ -670,11 +661,8 @@ public class ActBinMain extends BaseScanActivity {
                             binQryTask = new queryTask();
                             binQryTask.execute(thisMessage);  //executes both -> Send Queue Directly AND Send queue to Service
                         } else {
-                            //soundPool.play(errorSoundId, 1, 1, 0, 0, 1);
-                            //soundPool.play(errorSoundId, Float.valueOf("0.1"), Float.valueOf("0.1"), 0, 0, 1);
                             appContext.playSound(2);
                             Vibrator vib = (Vibrator) ActBinMain.this.getSystemService(Context.VIBRATOR_SERVICE);
-                            // Vibrate for 500 milliseconds
                             vib.vibrate(2000);
                             String mMsg = "User not Authenticated \nPlease login";
                             AlertDialog.Builder builder = new AlertDialog.Builder(ActBinMain.this);
@@ -823,29 +811,12 @@ public class ActBinMain extends BaseScanActivity {
                     //manually error trap this error
                     String iMsg = "The Response object returns null due to improper request.";
                     response.setResponseMessage(iMsg);
-                }else {
+                } else {
                     qryResponse = new BinResponse();
                     ObjectMapper mapper = new ObjectMapper();
                     qryResponse = mapper.readValue(response.getResponse().toString(), BinResponse.class);
                     response.setResponse(qryResponse);
                 }
-//                //HttpMessageResolver resolver = new HttpMessageResolver();
-//                String response = resolver.resolveMessageQuery(msg[0]);
-//                //String response = "{\"RequestedBinCode\" : \"1HCH5\",\"MatchedProducts\" : \"17\",\"Products\" : [{\"ProductId\" : \"25168976\",\"SupplierCat\" : \"SNAP273CD\",\"Artist\" : \"FUNKADELIC\",\"Title\" : \"UNCLE JAM WANTS YOU\",\"Barcode\" : \"803415127320\",\"Format\" : \"CD\",\"EAN\" : \"0803415127320\",\"SuppCode\" : \"PROP\",\"StockAmount\" : \"82\",\"DeletionType\" : \"0\",\"Full_Artist_Value1\" : \"Funkadelic\",\"Full_Title_Value1\" : \"Uncle Jam Wants You\",\"QtyInBin\" : \"10\"},{\"ProductId\" : \"153609737\",\"SupplierCat\" : \"093624948247PMI\",\"Artist\" : \"GREEN DAY\",\"Title\" : \"UNO!\",\"Barcode\" : \"093624948247\",\"Format\" : \"CD\",\"EAN\" : \"0093624948247\",\"SuppCode\" : \"PROP\",\"StockAmount\" : \"2\",\"DeletionType\" : \"0\",\"QtyInBin\" : \"2\"},{\"ProductId\" : \"143271891\",\"SupplierCat\" : \"3325480644160PMI\",\"Artist\" : \"FRERES PITIGOI & TARA OASULU\",\"Title\" : \"MUSIQUE DE MARIAGE ET FETES RO\",\"Barcode\" : \"3325480644160\",\"Format\" : \"CD\",\"EAN\" : \"3325480644160\",\"SuppCode\" : \"PROP\",\"StockAmount\" : \"2\",\"DeletionType\" : \"0\",\"QtyInBin\" : \"2\"},{\"ProductId\" : \"138150831\",\"SupplierCat\" : \"651249076723PMI\",\"Artist\" : \"DIGWEED,JOHN\",\"Title\" : \"VOL. 2-RENAISSANCE PRESENTS TR\",\"Barcode\" : \"651249076723\",\"Format\" : \"CD\",\"EAN\" : \"0651249076723\",\"SuppCode\" : \"PROP\",\"StockAmount\" : \"1\",\"DeletionType\" : \"0\",\"QtyInBin\" : \"1\"},{\"ProductId\" : \"138150918\",\"SupplierCat\" : \"824363000121PMI\",\"Artist\" : \"CRANK YANKERS\",\"Title\" : \"VOL. 1-BEST CRANK CALLS\",\"Barcode\" : \"824363000121\",\"Format\" : \"CD\",\"EAN\" : \"0824363000121\",\"SuppCode\" : \"PROP\",\"StockAmount\" : \"1\",\"DeletionType\" : \"0\",\"QtyInBin\" : \"1\"},{\"ProductId\" : \"4993383\",\"SupplierCat\" : \"ANG646662PMI\",\"Artist\" : \"FOLLIES / O.B.C.\",\"Title\" : \"FOLLIES / O.B.C.\",\"Barcode\" : \"077776466620\",\"Format\" : \"CD\",\"EAN\" : \"0077776466620\",\"SuppCode\" : \"PROP\",\"StockAmount\" : \"2\",\"DeletionType\" : \"0\",\"Full_Artist_Value1\" : \"Broadway Cast\",\"Full_Title_Value1\" : \"Follies / O.B.C.\",\"QtyInBin\" : \"1\"},{\"ProductId\" : \"5469159\",\"SupplierCat\" : \"BAPO39026B2PMI\",\"Artist\" : \"MCNALLY,SHANNON\",\"Title\" : \"NORTH AMERICAN GHOST MUSIC\",\"Barcode\" : \"094633902626\",\"Format\" : \"CD\",\"EAN\" : \"0094633902626\",\"SuppCode\" : \"PROP\",\"StockAmount\" : \"1\",\"DeletionType\" : \"0\",\"QtyInBin\" : \"1\"},{\"ProductId\" : \"158859083\",\"SupplierCat\" : \"CDB56379480762PMI\",\"Artist\" : \"VALLDENEU,MAX\",\"Title\" : \"IT'S ABOUT LOVE (CDRP)\",\"Barcode\" : \"885767060326\",\"Format\" : \"CD\",\"EAN\" : \"0885767060326\",\"SuppCode\" : \"PROP\",\"StockAmount\" : \"1\",\"DeletionType\" : \"0\",\"QtyInBin\" : \"1\"},{\"ProductId\" : \"129403511\",\"SupplierCat\" : \"FAPO803412PMI\",\"Artist\" : \"BURNSIDE,R.L.\",\"Title\" : \"MISSISSIPPI HILL COUNTRY BLUES\",\"Barcode\" : \"045778034123\",\"Format\" : \"CD\",\"EAN\" : \"0045778034123\",\"SuppCode\" : \"PROP\",\"StockAmount\" : \"1\",\"DeletionType\" : \"0\",\"Full_Artist_Value1\" : \"R.L. Burnside\",\"Full_Title_Value1\" : \"Mississippi Country Blues\",\"QtyInBin\" : \"1\"},{\"ProductId\" : \"133803673\",\"SupplierCat\" : \"KSCOPE216\",\"Artist\" : \"ULVER\",\"Title\" : \"CHILDHOOD'S END\",\"Barcode\" : \"802644821627\",\"Format\" : \"CD\",\"EAN\" : \"0802644821627\",\"SuppCode\" : \"PROP\",\"StockAmount\" : \"46\",\"DeletionType\" : \"0\",\"Full_Artist_Value1\" : \"Ulver\",\"Full_Title_Value1\" : \"Childhood's End\",\"QtyInBin\" : \"1\"},{\"ProductId\" : \"173678827\",\"SupplierCat\" : \"RCA1961202PMI\",\"Artist\" : \"WALKER,HEZEKIAH\",\"Title\" : \"AZUSA THE NEXT GENERATION\",\"Barcode\" : \"886919612028\",\"Format\" : \"CD\",\"EAN\" : \"0886919612028\",\"SuppCode\" : \"PROP\",\"StockAmount\" : \"1\",\"DeletionType\" : \"0\",\"Full_Artist_Value1\" : \"Hezekiah Walker\",\"Full_Title_Value1\" : \"Azusa The Next Generation\",\"QtyInBin\" : \"1\"},{\"ProductId\" : \"4974588\",\"SupplierCat\" : \"RCA763792PMI\",\"Artist\" : \"ATKINS,CHET / PAUL,LES\",\"Title\" : \"CHESTER & LESTER (BONUS TRACKS\",\"Barcode\" : \"828767637921\",\"Format\" : \"CD\",\"EAN\" : \"0828767637921\",\"SuppCode\" : \"PROP\",\"StockAmount\" : \"2\",\"DeletionType\" : \"0\",\"QtyInBin\" : \"1\"},{\"ProductId\" : \"2497707\",\"SupplierCat\" : \"ROUCD9009\",\"Artist\" : \"BRAVE COMBO\",\"Title\" : \"DELETED - POLKATHARSIS\",\"Barcode\" : \"011661900929\",\"Format\" : \"CD\",\"EAN\" : \"0011661900929\",\"SuppCode\" : \"PROP\",\"StockAmount\" : \"1\",\"DeletionType\" : \"4\",\"Full_Artist_Value1\" : \"Brave Combo\",\"Full_Title_Value1\" : \"Polkatharsis\",\"QtyInBin\" : \"1\"},{\"ProductId\" : \"86158133\",\"SupplierCat\" : \"WMCD1294\",\"Artist\" : \"MENON,JAY\",\"Title\" : \"24/01THROUGH MY EYES\",\"Barcode\" : \"5016700129427\",\"Format\" : \"CD\",\"EAN\" : \"5016700129427\",\"SuppCode\" : \"PROP\",\"StockAmount\" : \"26\",\"DeletionType\" : \"0\",\"Full_Artist_Value1\" : \"Jay Menon\",\"Full_Title_Value1\" : \"Through My Eyes\",\"QtyInBin\" : \"1\"},{\"ProductId\" : \"67978413\",\"SupplierCat\" : \"FATCD62PMI\",\"Artist\" : \"BROSSEAU,TOM\",\"Title\" : \"CAVALIER\",\"Barcode\" : \"000030251304\",\"Format\" : \"CD\",\"EAN\" : \"0000030251304\",\"SuppCode\" : \"PROP\",\"StockAmount\" : \"1\",\"DeletionType\" : \"0\",\"QtyInBin\" : \"1\"},{\"ProductId\" : \"27369877\",\"SupplierCat\" : \"FV12\",\"Artist\" : \"MARTIN,JUAN\",\"Title\" : \"SOLO\",\"Barcode\" : \"5023100081224\",\"Format\" : \"CD\",\"EAN\" : \"5023100081224\",\"SuppCode\" : \"PROP\",\"StockAmount\" : \"9\",\"DeletionType\" : \"0\",\"Full_Artist_Value1\" : \"Juan Martin\",\"Full_Title_Value1\" : \"Solo\",\"QtyInBin\" : \"9\"},{\"ProductId\" : \"2498218\",\"SupplierCat\" : \"SHCD3813\",\"Artist\" : \"RANCH ROMANCE\",\"Title\" : \"FLIP CITY\",\"Barcode\" : \"015891381329\",\"Format\" : \"CD\",\"EAN\" : \"0015891381329\",\"SuppCode\" : \"PROP\",\"StockAmount\" : \"3\",\"DeletionType\" : \"0\",\"Full_Artist_Value1\" : \"Ranch Romance\",\"Full_Title_Value1\" : \"Flip City\",\"QtyInBin\" : \"1\"}]}";
-//                response = responseHelper.refineResponse(response);
-//                if (response != null && !response.equalsIgnoreCase("")) {
-//                    if (response.contains("not recognised")) {
-//                        //manually error trap this error
-//                        String iMsg = "The Response object return null due to msg queue not recognising your improper request.";
-//                        today = new java.sql.Timestamp(utilDate.getTime());
-//                        LogEntry log = new LogEntry(1L, ApplicationID, "ActBinMain - queryTask - Line:1192", deviceIMEI, RuntimeException.class.getSimpleName(), iMsg, today);
-//                        logger.log(log);
-//                        throw new RuntimeException("The barcode you have scanned have not been recognised. Please check and scan again");
-//                    }else {
-//                        ObjectMapper mapper = new ObjectMapper();
-//                        qryResponse = mapper.readValue(response, BinResponse.class);
-//                    }
-//                }
             } catch (Exception ex) {
                 ex.printStackTrace();
                 response.setResponseMessage(ex.getMessage());
@@ -882,45 +853,77 @@ public class ActBinMain extends BaseScanActivity {
             } else {
                 if (response.getResponse() != null) {
                     if (response.getResponse().getClass().equals(BinResponse.class)) {
-                        /**--------------------------- Success -------------------------**/
-                    BinResponse resp = (BinResponse) response.getResponse();
-                        if (currentSourceBin != null && !currentSourceBin.equalsIgnoreCase("") &&
-                                currentDestinationBin != null && !currentDestinationBin.equalsIgnoreCase("")) {
-
-                            switch (NAV_INSTRUCTION) {
-                                case R.integer.ACTION_PARTIALMOVE:
-                                    Intent i = new Intent(ActBinMain.this, ActBinItemSelection.class);
-                                    i.putExtra("SOURCE_EXTRA", currentSourceBin);
-                                    i.putExtra("DESTINATION_EXTRA", currentDestinationBin);
-                                    i.putExtra("DEVICEIMEI_EXTRA", deviceIMEI);
-                                    i.putExtra("LOGIN_EXTRA", currentUser);
-                                    i.putExtra("RESPONSE_EXTRA", resp);
-                                    startActivityForResult(i, RESULT_OK);
-                                    reloadActivity();
-                                    break;
-                                case R.integer.ACTION_BINMOVE:
-                                    Intent i2 = new Intent(ActBinMain.this, ActBinDetails.class);
-                                    i2.putExtra("SOURCE_EXTRA", currentSourceBin);
-                                    i2.putExtra("DESTINATION_EXTRA", currentDestinationBin);
-                                    i2.putExtra("DEVICEIMEI_EXTRA", deviceIMEI);
-                                    i2.putExtra("LOGIN_EXTRA", currentUser);
-                                    i2.putExtra("RESPONSE_EXTRA", resp);
-                                    startActivityForResult(i2, RESULT_OK);
-                                    reloadActivity();
-                                    break;
+                        BinResponse resp = (BinResponse) response.getResponse();
+                        if (!resp.getProducts().isEmpty() && resp.getMatchedProducts() > 0) {
+                            /**--------------------------- Success -------------------------**/
+                            if (currentSourceBin != null && !currentSourceBin.equalsIgnoreCase("") &&
+                                    currentDestinationBin != null && !currentDestinationBin.equalsIgnoreCase("")) {
+                                switch (NAV_INSTRUCTION) {
+                                    case R.integer.ACTION_PARTIALMOVE:
+                                        Intent i = new Intent(ActBinMain.this, ActBinItemSelection.class);
+                                        i.putExtra("SOURCE_EXTRA", currentSourceBin);
+                                        i.putExtra("DESTINATION_EXTRA", currentDestinationBin);
+                                        i.putExtra("DEVICEIMEI_EXTRA", deviceIMEI);
+                                        i.putExtra("LOGIN_EXTRA", currentUser);
+                                        i.putExtra("RESPONSE_EXTRA", resp);
+                                        startActivityForResult(i, RESULT_OK);
+                                        reloadActivity();
+                                        break;
+                                    case R.integer.ACTION_BINMOVE:
+                                        Intent i2 = new Intent(ActBinMain.this, ActBinDetails.class);
+                                        i2.putExtra("SOURCE_EXTRA", currentSourceBin);
+                                        i2.putExtra("DESTINATION_EXTRA", currentDestinationBin);
+                                        i2.putExtra("DEVICEIMEI_EXTRA", deviceIMEI);
+                                        i2.putExtra("LOGIN_EXTRA", currentUser);
+                                        i2.putExtra("RESPONSE_EXTRA", resp);
+                                        startActivityForResult(i2, RESULT_OK);
+                                        reloadActivity();
+                                        break;
+                                }
+                            }else{
+                                /**------------------------ TODO  Generate a error here ------------------------**/
+                                Vibrator vib = (Vibrator) ActBinMain.this.getSystemService(Context.VIBRATOR_SERVICE);
+                                vib.vibrate(2000);
+                                AlertDialog.Builder builder = new AlertDialog.Builder(ActBinMain.this);
+                                builder.setMessage("Failed: You haven't scanned a destination")
+                                        .setPositiveButton(R.string.but_ok, new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) { Intent i = new Intent();
+                                                setResult(RESULT_OK, i);
+                                                ActBinMain.this.finish();
+                                            }
+                                        });
+                                builder.show();
+                                appContext.playSound(2);
                             }
-                        }else {// Unnecessary but just to make sure...
+                        }else {
+                            /**--------------------------- Error -------------------------**/
                             Vibrator vib = (Vibrator) ActBinMain.this.getSystemService(Context.VIBRATOR_SERVICE);
                             vib.vibrate(2000);
                             AlertDialog.Builder builder = new AlertDialog.Builder(ActBinMain.this);
-                            builder.setMessage("Failed: " + response.getResponseMessage())
+                            builder.setMessage("Failed: This source bin appears empty in the system")
                                     .setPositiveButton(R.string.but_ok, new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int id) { Intent i = new Intent();
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            Intent i = new Intent();
                                             setResult(RESULT_OK, i);
                                             ActBinMain.this.finish();
                                         }
                                     });
+                            builder.show();
+                            appContext.playSound(2);
                         }
+                    }else {
+                        Vibrator vib = (Vibrator) ActBinMain.this.getSystemService(Context.VIBRATOR_SERVICE);
+                        vib.vibrate(2000);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(ActBinMain.this);
+                        builder.setMessage("Failed: " + response.getResponseMessage())
+                                .setPositiveButton(R.string.but_ok, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) { Intent i = new Intent();
+                                        setResult(RESULT_OK, i);
+                                        ActBinMain.this.finish();
+                                    }
+                                });
+                        builder.show();
+                        appContext.playSound(2);
                     }
                 }else{
                     /**--------------------------- Failed because of Bad scan -------------------------**/
@@ -938,45 +941,6 @@ public class ActBinMain extends BaseScanActivity {
                     appContext.playSound(2);
                 }
             }
-//            if (response != null) {
-//                if (currentSourceBin != null && !currentSourceBin.equalsIgnoreCase("") &&
-//                        currentDestinationBin != null && !currentDestinationBin.equalsIgnoreCase("")) {
-//
-//                    switch (NAV_INSTRUCTION) {
-//                        case R.integer.ACTION_PARTIALMOVE:
-//                            Intent i = new Intent(ActBinMain.this, ActBinItemSelection.class);
-//                            i.putExtra("SOURCE_EXTRA", currentSourceBin);
-//                            i.putExtra("DESTINATION_EXTRA", currentDestinationBin);
-//                            i.putExtra("DEVICEIMEI_EXTRA", deviceIMEI);
-//                            i.putExtra("LOGIN_EXTRA", currentUser);
-//                            i.putExtra("RESPONSE_EXTRA", response);
-//                            startActivityForResult(i, RESULT_OK);
-//                            reloadActivity();
-//                            break;
-//                        case R.integer.ACTION_BINMOVE:
-//                            Intent i2 = new Intent(ActBinMain.this, ActBinDetails.class);
-//                            i2.putExtra("SOURCE_EXTRA", currentSourceBin);
-//                            i2.putExtra("DESTINATION_EXTRA", currentDestinationBin);
-//                            i2.putExtra("DEVICEIMEI_EXTRA", deviceIMEI);
-//                            i2.putExtra("LOGIN_EXTRA", currentUser);
-//                            i2.putExtra("RESPONSE_EXTRA", response);
-//                            startActivityForResult(i2, RESULT_OK);
-//                            reloadActivity();
-//                            break;
-//                    }
-//                }
-//            } else {
-//                //Response is null the disable Yes button:
-//                AlertDialog.Builder builder = new AlertDialog.Builder(ActBinMain.this);
-//                String msg = "Failed: BinMove NOT Completed because of network error, please contact IT for help";
-//                builder.setMessage(msg)
-//                        .setNegativeButton(R.string.but_ok, new DialogInterface.OnClickListener() {
-//                            public void onClick(DialogInterface dialog, int id) {
-//                                // Attempt to reload Activity
-//                                if (btnContinue.isEnabled()) btnContinue.setEnabled(false);
-//                            }
-//                        });
-//            }
         }
     }
 
@@ -985,7 +949,6 @@ public class ActBinMain extends BaseScanActivity {
 
         @Override
         protected void onPreExecute() {
-            //super.onPreExecute();
             xDialog = new ProgressDialog(ActBinMain.this);
             CharSequence message = "Working hard...sending queue [directly] [to webservice]...";
             CharSequence title = "Please Wait";
@@ -1023,21 +986,6 @@ public class ActBinMain extends BaseScanActivity {
                     msgResponse = mapper.readValue(response.getResponse().toString(), BinResponse.class);
                     response.setResponse(msgResponse);
                 }
-//                String response = resolver.resolveMessageQuery(inputMessage[0]);
-//                //response = responseHelper.refineOutgoingMessage(response);
-//                response = responseHelper.refineResponse(response);
-//                if (response.contains("not recognised")) {
-//                    //manually error trap this error
-//                    String iMsg = "The Response object return null due to msg queue not recognising your improper request.";
-//                    today = new java.sql.Timestamp(utilDate.getTime());
-//                    LogEntry log = new LogEntry(1L, ApplicationID, "ActBinMain - WebServiceTask - Line:1291", deviceIMEI, RuntimeException.class.getSimpleName(), iMsg, today);
-//                    logger.log(log);
-//                    throw new RuntimeException("The bin you have scanned have not been recognised. Please check and scan again");
-//                }else {
-//                    ObjectMapper mapper = new ObjectMapper();
-//                    msgResponse = new BinResponse();
-//                    msgResponse = mapper.readValue(response, BinResponse.class);
-//                }
             } catch (Exception ex) {
                 ex.printStackTrace();
                 response.setResponseMessage(ex.getMessage());
@@ -1125,41 +1073,6 @@ public class ActBinMain extends BaseScanActivity {
                     appContext.playSound(2);
                 }
             }
-//            if (response != null) {
-//                if (response.getMatchedProducts() < 1) {
-//                    //Response is null the disable Yes button:
-//                    AlertDialog.Builder builder = new AlertDialog.Builder(ActBinMain.this);
-//                    builder.setCancelable(false);
-//                    String msg = "Failed: Bin Search did NOT return any result. Please check if bin is empty or ask for help";
-//                    builder.setMessage(msg)
-//                            .setNegativeButton(R.string.but_ok, new DialogInterface.OnClickListener() {
-//                                public void onClick(DialogInterface dialog, int id) {
-//                                    // Attempt to reload Activity
-//                                    //if (btnContinue.isEnabled()) btnContinue.setEnabled(false);
-//                                    Intent i = new Intent();
-//                                    setResult(RESULT_OK, i);
-//                                    ActBinMain.this.finish();
-//                                }
-//                            });
-//                } else {
-//                    currentSourceContents = response;   //Set new source item
-//                }
-//            } else {
-//                //Response is null the disable Yes button:
-//                AlertDialog.Builder builder = new AlertDialog.Builder(ActBinMain.this);
-//                String msg = "Failed: Bin Search did NOT Completed because of network error, please contact IT for help";
-//                builder.setCancelable(false);
-//                builder.setMessage(msg)
-//                        .setNegativeButton(R.string.but_ok, new DialogInterface.OnClickListener() {
-//                            public void onClick(DialogInterface dialog, int id) {
-//                                // Attempt to reload Activity
-//                                //if (btnContinue.isEnabled()) btnContinue.setEnabled(false);
-//                                Intent i = new Intent();
-//                                setResult(RESULT_OK, i);
-//                                ActBinMain.this.finish();
-//                            }
-//                        });
-//            }
         }
     }
 

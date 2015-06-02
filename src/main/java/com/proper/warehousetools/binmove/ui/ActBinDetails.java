@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -21,7 +22,9 @@ import com.proper.data.binmove.BinMoveObject;
 import com.proper.data.binmove.BinMoveResponse;
 import com.proper.data.core.ICommunicator;
 import com.proper.data.diagnostics.LogEntry;
+import com.proper.data.enums.HttpResponseCodes;
 import com.proper.data.helpers.DialogHelper;
+import com.proper.data.helpers.HttpResponseHelper;
 import com.proper.messagequeue.Message;
 import com.proper.security.TransactionHistory;
 import com.proper.warehousetools.BaseScanActivity;
@@ -220,93 +223,42 @@ public class ActBinDetails extends BaseScanActivity implements ICommunicator {
         dialog.show(fm, "Dialog");
     }
 
-    private class wsSendQueue extends AsyncTask<Message, Void, BinMoveResponse> {
+    private class wsSendQueue extends AsyncTask<Message, Void, HttpResponseHelper> {
         protected ProgressDialog wsDialog;
 
         @Override
-        protected void onPostExecute(final BinMoveResponse response) {
-            if (wsDialog != null && wsDialog.isShowing()) {
-                wsDialog.dismiss();
-            }
-            if (response != null) {
-                String msg = "";
-                AlertDialog.Builder builder = new AlertDialog.Builder(ActBinDetails.this);
-                if (response.getResult().equalsIgnoreCase("Success")) {
-                    //****************  Report all warnings ********************
-                    int warnings = 0;
-                    if (response.getMessages() != null) {
-                        for (BinMoveMessage m : response.getMessages()) {
-                            if (m.getMessageName().equalsIgnoreCase("warning")) {
-                                warnings ++;
-                            }
-                        }
-                    }
-                    msg = String.format("Success: BinMove Completed with %s warnings", warnings);
-
-                    builder.setMessage(msg)
-                            .setPositiveButton(R.string.but_ok, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-//                *****************     Requested to be removed by Scott       ***********************
-//                                    backPressedParameter = paramTaskCompleted;
-//                                    Intent i = new Intent(ActBinDetails.this, ActInfo.class);
-//                                    i.putExtra("RESPONSE_EXTRA", response);
-//                                    i.putExtra("ACTION_EXTRA", R.integer.ACTION_BINMOVE);
-//                                    startActivityForResult(i, 0);
-                                    Intent resultIntent = new Intent();
-                                    ActBinDetails.this.setResult(RESULT_OK, resultIntent);
-                                    ActBinDetails.this.finish();
-                                }
-                            }).show();
-                } else {
-                    msg = "Failed: BinMove NOT Completed because it broke many rules";
-
-                    builder.setMessage(msg)
-                            .setNegativeButton(R.string.but_ok, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-//                *****************     Requested to be removed by Scott       ***********************
-//                                    backPressedParameter = paramTaskCompleted;
-//                                    Intent i = new Intent(ActBinDetails.this, ActInfo.class);
-//                                    i.putExtra("RESPONSE_EXTRA", response);
-//                                    i.putExtra("ACTION_EXTRA", R.integer.ACTION_BINMOVE);
-//                                    startActivityForResult(i, 0);
-                                    Intent resultIntent = new Intent();
-                                    ActBinDetails.this.setResult(RESULT_CANCELED, resultIntent);
-                                    ActBinDetails.this.finish();
-                                }
-                            }).show();
-                }
-
-                builder.show();
-                if (ActBinDetails.this.btnContinue.isEnabled()) {
-                    ActBinDetails.this.btnContinue.setEnabled(false);
-                    btnContinue.setPaintFlags(btnContinue.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                }
-            } else {
-                //Response is null the disable Yes button:
-                AlertDialog.Builder builder = new AlertDialog.Builder(ActBinDetails.this);
-                String msg = "Failed: BinMove NOT Completed because of network error, please contact IT for help";
-                builder.setMessage(msg)
-                        .setNegativeButton(R.string.but_ok, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                // Simulate onBackPressed and pass parameter for next task
-                                backPressedParameter = paramTaskCompleted;
-                                if (btnContinue.isEnabled()) btnContinue.setEnabled(false);
-                            }
-                        }).show();
-            }
+        protected void onPreExecute() {
+            wsDialog = new ProgressDialog(ActBinDetails.this);
+            CharSequence message = "Working hard...sending queue [directly] [to webservice]...";
+            CharSequence title = "Please Wait";
+            wsDialog.setCancelable(true);
+            wsDialog.setCanceledOnTouchOutside(false);
+            wsDialog.setMessage(message);
+            wsDialog.setTitle(title);
+            wsDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            wsDialog.show();
         }
 
         @Override
-        protected BinMoveResponse doInBackground(Message... msg) {
+        protected HttpResponseHelper doInBackground(Message... msg) {
 
-            String response = resolver.resolveMessageQuery(msg[0]);
+            //String response = resolver.resolveMessageQuery(msg[0]); not needed bcoz doesn't look at network issues
             //response = responseHelper.refineOutgoingMessage(response);    Not need to add columns like: PackshotURL etc...
+            HttpResponseHelper response = null;
+            response = resolver.resolveHttpMessage(msg[0]);
 
-            if (response != null && !response.equalsIgnoreCase("")) {
-                //ObjectMapper mapper = new ObjectMapper();
-                try {
-                    //binMoveResponse = mapper.readValue(response.getBytes(), BinMoveResponse.class);
-                    JSONObject resp = new JSONObject(response);
+            try {
+                if (!response.isSuccess()) {
+                    String ymsg = "Network Error has occurred that resulted in package loss. Please check Wi-Fi";
+                    Log.e("ERROR !!!", ymsg);
+                    response.setResponseMessage(ymsg);
+                }
+                if (response.getResponse().toString().contains("not recognised")) { //response.getResponse().toString().contains("Error") ||
+                    //manually error trap this error
+                    String iMsg = "The Response object returns null due to improper request.";
+                    response.setResponseMessage(iMsg);
+                } else {
+                    JSONObject resp = new JSONObject(response.getResponse().toString());
                     JSONArray messages = resp.getJSONArray("Messages");
                     JSONArray actions = resp.getJSONArray("MessageObjects");
                     String RequestedSrcBin = resp.getString("RequestedSrcBin");
@@ -338,27 +290,162 @@ public class ActBinDetails extends BaseScanActivity implements ICommunicator {
                     binMoveResponse.setResult(Result);
                     binMoveResponse.setMessages(messageList);
                     binMoveResponse.setMessageObjects(actionList);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    today = new Timestamp(utilDate.getTime());
-                    LogEntry log = new LogEntry(1L, ApplicationID, "ActBinDetail [sendQueueTask] - doInBackground", deviceIMEI, e.getClass().getSimpleName(), e.getMessage(), today);
-                    logger.log(log);
+                    response.setResponse(binMoveResponse);
                 }
+            } catch (Exception ex){
+                ex.printStackTrace();
+                response.setResponseMessage(ex.getMessage());
+                response.setExceptionClass(ex.getClass());
             }
-            return binMoveResponse;
+            return response;
         }
 
         @Override
-        protected void onPreExecute() {
-            wsDialog = new ProgressDialog(ActBinDetails.this);
-            CharSequence message = "Working hard...sending queue [directly] [to webservice]...";
-            CharSequence title = "Please Wait";
-            wsDialog.setCancelable(true);
-            wsDialog.setCanceledOnTouchOutside(false);
-            wsDialog.setMessage(message);
-            wsDialog.setTitle(title);
-            wsDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            wsDialog.show();
+        protected void onPostExecute(final HttpResponseHelper response) {
+            if (wsDialog != null && wsDialog.isShowing()) {
+                wsDialog.dismiss();
+            }
+
+            if (!response.isSuccess()) {
+                /**--------------------------- Network Error -------------------------**/
+                HttpResponseCodes statusCode = HttpResponseCodes.findCode(response.getHttpResponseCode());
+                if (statusCode != null) {
+                    if (statusCode != HttpResponseCodes.OK) {
+                        Vibrator vib = (Vibrator) ActBinDetails.this.getSystemService(Context.VIBRATOR_SERVICE);
+                        vib.vibrate(2000);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(ActBinDetails.this);
+                        builder.setMessage(statusCode.toString() + ": - " + response.getResponseMessage())
+                                .setPositiveButton(R.string.but_ok, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        // Attempt to reload Activity
+                                        if (btnContinue.isEnabled()) btnContinue.setEnabled(false);
+                                    }
+                                });
+                        builder.show();
+                        appContext.playSound(2);
+                    }
+                }
+            } else {
+                if (response.getResponse() != null) {
+                    if (response.getResponse().getClass().equals(BinMoveResponse.class)) {
+                        /**--------------------------- Success -------------------------**/
+                        BinMoveResponse resp = (BinMoveResponse) response.getResponse();
+                        int warnings = 0;
+                        String msg = "";
+                        ArrayList<BinMoveMessage> errMsg = new ArrayList<BinMoveMessage>();
+                        if (resp.getMessages() != null) {
+                            for (BinMoveMessage m : resp.getMessages()) {
+                                if (m.getMessageName().equalsIgnoreCase("warning")) {
+                                    warnings++;
+                                }
+                            }
+                        }
+                        if (resp.getResult().equalsIgnoreCase("Success")) {
+                            if (warnings > 0) {
+                                msg = String.format("Success: BinMove Completed with %s warnings", warnings);
+                            }else{
+                                msg = "Success: BinMove Completed";
+                            }
+                        }
+                        if (resp.getResult().equalsIgnoreCase("Failure")) {
+                            for (BinMoveMessage message : resp.getMessages()) {
+                                if (message.getMessageName().equalsIgnoreCase("Error")) {
+                                    errMsg.add(message);
+                                }
+                            }
+                            if (warnings > 0) {
+                                msg = String.format("Failed: %s because %s with %s warnings", warnings);
+                            }else{
+                                msg = String.format("Failed: %s because %s", errMsg.get(0).getMessageText(),
+                                        errMsg.get(1).getMessageText());
+                            }
+                        }
+                        /************************   Report  ****************************/
+                        AlertDialog.Builder builder = new AlertDialog.Builder(ActBinDetails.this);
+                        builder.setMessage(msg)
+                                .setPositiveButton(R.string.but_ok, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        Intent resultIntent = new Intent();
+                                        ActBinDetails.this.setResult(RESULT_OK, resultIntent);
+                                        ActBinDetails.this.finish();
+                                    }
+                                }).show();
+
+                        if (ActBinDetails.this.btnContinue.isEnabled()) {
+                            ActBinDetails.this.btnContinue.setEnabled(false);
+                            btnContinue.setPaintFlags(btnContinue.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                        }
+                    }
+                }else {
+                    /**-------------------- Failed because of Bad query construction ----------------------**/
+                    Vibrator vib = (Vibrator) ActBinDetails.this.getSystemService(Context.VIBRATOR_SERVICE);
+                    vib.vibrate(2000);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ActBinDetails.this);
+                    builder.setMessage("This BinMove has been blocked\nPlease contact an IT staff")
+                            .setPositiveButton(R.string.but_ok, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // Attempt to reload Activity
+                                    if (btnContinue.isEnabled()) btnContinue.setEnabled(false);
+                                }
+                            });
+                    builder.show();
+                    appContext.playSound(2);
+                }
+            }
+//            if (response != null) {
+//                String msg = "";
+//                AlertDialog.Builder builder = new AlertDialog.Builder(ActBinDetails.this);
+//                if (response.getResult().equalsIgnoreCase("Success")) {
+//                    //****************  Report all warnings ********************
+//                    int warnings = 0;
+//                    if (response.getMessages() != null) {
+//                        for (BinMoveMessage m : response.getMessages()) {
+//                            if (m.getMessageName().equalsIgnoreCase("warning")) {
+//                                warnings ++;
+//                            }
+//                        }
+//                    }
+//                    msg = String.format("Success: BinMove Completed with %s warnings", warnings);
+//
+//                    builder.setMessage(msg)
+//                            .setPositiveButton(R.string.but_ok, new DialogInterface.OnClickListener() {
+//                                public void onClick(DialogInterface dialog, int id) {
+//                                    Intent resultIntent = new Intent();
+//                                    ActBinDetails.this.setResult(RESULT_OK, resultIntent);
+//                                    ActBinDetails.this.finish();
+//                                }
+//                            }).show();
+//                } else {
+//                    msg = "Failed: BinMove NOT Completed because it broke many rules";
+//
+//                    builder.setMessage(msg)
+//                            .setNegativeButton(R.string.but_ok, new DialogInterface.OnClickListener() {
+//                                public void onClick(DialogInterface dialog, int id) {
+//                                    Intent resultIntent = new Intent();
+//                                    ActBinDetails.this.setResult(RESULT_CANCELED, resultIntent);
+//                                    ActBinDetails.this.finish();
+//                                }
+//                            }).show();
+//                }
+//
+//                builder.show();
+//                if (ActBinDetails.this.btnContinue.isEnabled()) {
+//                    ActBinDetails.this.btnContinue.setEnabled(false);
+//                    btnContinue.setPaintFlags(btnContinue.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+//                }
+//            } else {
+//                //Response is null the disable Yes button:
+//                AlertDialog.Builder builder = new AlertDialog.Builder(ActBinDetails.this);
+//                String msg = "Failed: BinMove NOT Completed because of network error, please contact IT for help";
+//                builder.setMessage(msg)
+//                        .setNegativeButton(R.string.but_ok, new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int id) {
+//                                // Simulate onBackPressed and pass parameter for next task
+//                                backPressedParameter = paramTaskCompleted;
+//                                if (btnContinue.isEnabled()) btnContinue.setEnabled(false);
+//                            }
+//                        }).show();
+//            }
         }
 
         @Override
